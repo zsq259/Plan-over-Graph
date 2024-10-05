@@ -11,7 +11,7 @@ class Planner:
         self.model = model
     
     def extract_json(self, text: str) -> dict:
-        json_regex = r'```json\n\s*\[\n\s*[\s\S]*?\]\n\s*```?'
+        json_regex = r'```json\n\s*\[\s*[\s\S]*?\s*\]\s*(?:```|\Z)'
         matches = re.findall(json_regex, text)
         if matches:
             json_data = matches[0].replace('```json', '').replace('```', '').strip()
@@ -77,18 +77,33 @@ class ParallelPlanner(Planner):
         return sorted_tasks
     
 if __name__ == "__main__":
-    planner = ParallelPlanner('model')
-    response = planner.extract_json(instruction.format(example=example, task='Create a new project'))
-    subtasks = []
-    for task in response:
-        subtask = SubTaskNode(task)
-        # print(subtask.name, subtask.dependencies, subtask.infos, subtask.answer)
-        subtasks.append(subtask)
-    import random
-    random.shuffle(subtasks)
-    for task in subtasks:
-        print(task.name, task.dependencies, task.infos, task.answer)
-    sorted_tasks = planner.topological_sort(subtasks)
-    # print(sorted_tasks)
-    for task in sorted_tasks:
-        print(task.name, task.dependencies, task.infos, task.answer)
+    content = """
+```json
+[
+    {
+        "name": "retrieve_yangtze_length",
+        "question": "How long is the Yangtze River?",
+        "description": "Retrieve the length of the Yangtze River using the 'river_lengths' API, which accepts the name of the river as an input and returns its length in kilometers.",
+        "dependencies": []
+    },
+    {
+        "name": "retrieve_yellow_length",
+        "question": "How long is the Yellow River?",
+        "description": "Retrieve the length of the Yellow River using the 'river_lengths' API, which accepts the name of the river as an input and returns its length in kilometers.",
+        "dependencies": []
+    },
+    {
+        "name": "compare_river_lengths",
+        "question": "Which is longer, the Yangtze River or the Yellow River?",
+        "description": "Compare the lengths of the Yangtze River and the Yellow River obtained from the previous two subtasks. The longer river will be determined to be the answer to the question.",
+        "dependencies": [
+            "retrieve_yangtze_length",
+            "retrieve_yellow_length"
+        ]
+    }
+]
+```
+    """
+    planner = ParallelPlanner(None)
+    tasks = planner.extract_json(content)
+    print(tasks)
