@@ -11,7 +11,7 @@ class Planner:
         self.model = model
     
     def extract_json(self, text: str) -> dict:
-        json_regex = r'```json\n\s*\[\s*[\s\S]*?\s*\]\s*(?:```|\Z)'
+        json_regex = r'```json\s*\[\s*[\s\S]*?\s*\]\s*(?:```|\Z)'
         matches = re.findall(json_regex, text)
         if matches:
             json_data = matches[0].replace('```json', '').replace('```', '').strip()
@@ -83,19 +83,19 @@ if __name__ == "__main__":
     {
         "name": "retrieve_yangtze_length",
         "question": "How long is the Yangtze River?",
-        "description": "Retrieve the length of the Yangtze River using the 'river_lengths' API, which accepts the name of the river as an input and returns its length in kilometers.",
+        "description": "Retrieve the length of the Yangtze River. This requires using the 'length of river' API and specifying the name 'Yangtze River'.",
         "dependencies": []
     },
     {
         "name": "retrieve_yellow_length",
         "question": "How long is the Yellow River?",
-        "description": "Retrieve the length of the Yellow River using the 'river_lengths' API, which accepts the name of the river as an input and returns its length in kilometers.",
+        "description": "Retrieve the length of the Yellow River. This requires using the 'length of river' API and specifying the name 'Yellow River'.",
         "dependencies": []
     },
     {
         "name": "compare_river_lengths",
         "question": "Which is longer, the Yangtze River or the Yellow River?",
-        "description": "Compare the lengths of the Yangtze River and the Yellow River obtained from the previous two subtasks. The longer river will be determined to be the answer to the question.",
+        "description": "Compare the lengths of the Yangtze River and the Yellow River to determine which one is longer. This requires using the 'compare values' API and specifying the lengths obtained from the previous two subtasks as inputs.",
         "dependencies": [
             "retrieve_yangtze_length",
             "retrieve_yellow_length"
