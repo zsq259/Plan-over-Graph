@@ -4,13 +4,13 @@ I will give you a task and ask you to decompose this task into a series of subta
 You can only return the reasoning process and the JSON that stores the subtasks information. 
 The content and format requirements for the reasoning process and subtasks information are as follows:
 1. Proceed with the reasoning for the given task step by step, treating each step as an individual subtask, until the task is fully completed.
-2. In JSON, each subtask is identified by a key that represents the name of the subtask. Every subtask is broken down into three attributes: 'description', 'dependencies', and 'type'. These attributes are determined through a reasoning process about the subtask.
-3. Each subtask's name is abstracted from the reasoning process specific to that task and can serve as a generic label for a range of similar tasks. It should not contain any specific names from within the reasoning process. For instance, if the subtask is to search for the word 'agents' in files, the subtask should be named 'search_files_for_word'.
-4. The three attributes for each subtask are described as follows:
+2. In JSON, each subtask is identified by a key that represents the name of the subtask. Every subtask is broken down into four attributes: 'name', 'question', 'description' and 'dependencies'. These attributes are determined through a reasoning process about the subtask.
+3. The four attributes for each subtask are described as follows:
         name: The name of the subtask, which is an abstract label for the subtask.
-        question: The question of the current subtask corresponds to a certain step in task reasoning. 
+        question: The question of the current subtask. 
+        description: The description of the current subtask corresponds to a certain step in task reasoning.
         dependencies: This term refers to the list of names of subtasks that the current subtask depends upon, as determined by the reasoning process. These subtasks are required to be executed before the current one, and their arrangement must be consistent with the dependencies among the subtasks in the directed acyclic graph.
-5. An example to help you better understand the information that needs to be generated: 
+4. An example to help you better understand the information that needs to be generated: 
 {example}
 
 And you should also follow the following criteria:
@@ -37,16 +37,19 @@ Reasoning:
     {
         "name": "retrieve_yangtze_length",
         "question": "How long is the Yangtze River?",
+        "description": "Retrieve the length of the Yangtze River.",
         "dependencies": []
     },
     {
         "name": "retrieve_yellow_length",
         "question": "How long is the Yellow River?",
+        "description": "Retrieve the length of the Yellow River.",
         "dependencies": []
     },
     {
         "name": "compare_river_lengths",
         "question": "Which is longer, the Yangtze River or the Yellow River?",
+        "description": "Compare the lengths of the Yangtze River and the Yellow River to determine which one is longer.",
         "dependencies": [
             "retrieve_yangtze_length",
             "retrieve_yellow_length"

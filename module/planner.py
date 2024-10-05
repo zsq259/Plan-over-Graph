@@ -21,7 +21,7 @@ class Planner:
             except json.JSONDecodeError as e:
                 raise ValueError(f"Error parsing JSON data: {e}")
         else:
-            raise ValueError("No JSON data found in the string.")
+            raise ValueError(f"No JSON data found in the string: \033[38;5;214m{text}\033[0m")
     
     def decompose_task(self, task: str) -> list[SubTaskNode]:
         raise NotImplementedError

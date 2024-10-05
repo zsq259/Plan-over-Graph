@@ -27,6 +27,12 @@ class GPTWrapper(Model):
             return "An error occurred while processing the request."
         except Exception as e:
             return "An unexpected error occurred."
+        with open("2.txt", "a") as f:
+            f.write("\n-------------------------------------\n")
+            f.write(prompt)
+            f.write("\n")
+            f.write(response.choices[0].text)
+            f.write("\n-------------------------------------\n")
         # print("-------------------------------------")
         # print("\033[93m" + prompt + "\033[0m")
         # print("response:\n")

@@ -2,3 +2,4 @@
 .env
 __pycache__
 src/test*.py
+src/test*.json

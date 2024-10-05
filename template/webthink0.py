@@ -7,8 +7,10 @@ Here are some examples.
 
 {examples}
 
+For the current question, you may have some initial informations:
+{informations}
+
 Question: {question}
-Observation 1: {informations}
 Thought 1: 
 """
 
