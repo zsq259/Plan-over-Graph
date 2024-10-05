@@ -8,7 +8,7 @@ The content and format requirements for the reasoning process and subtasks infor
 3. Each subtask's name is abstracted from the reasoning process specific to that task and can serve as a generic label for a range of similar tasks. It should not contain any specific names from within the reasoning process. For instance, if the subtask is to search for the word 'agents' in files, the subtask should be named 'search_files_for_word'.
 4. The three attributes for each subtask are described as follows:
         name: The name of the subtask, which is an abstract label for the subtask.
-        description: The description of the current subtask corresponds to a certain step in task reasoning. 
+        question: The question of the current subtask corresponds to a certain step in task reasoning. 
         dependencies: This term refers to the list of names of subtasks that the current subtask depends upon, as determined by the reasoning process. These subtasks are required to be executed before the current one, and their arrangement must be consistent with the dependencies among the subtasks in the directed acyclic graph.
 5. An example to help you better understand the information that needs to be generated: 
 {example}
@@ -22,31 +22,31 @@ And you should also follow the following criteria:
 6. Please be aware that only the APIs listed in the API List are available. Do not refer to or attempt to use APIs that are not included in this list.
 7. The JSON response must be enclosed between ```json and ```.
 
-Now, let's start with the task: {task}.
+Now, let's start with the task: {task}
 """
 
 example = """
 Task: Which is longer, the Yangtze River or the Yellow River?
 Reasoning: 
     To determine which river is longer, the Yangtze River or the Yellow River, I will first retrieve the length of each river. This will involve two separate subtasks: one for fetching the length of the Yangtze River and another for fetching the length of the Yellow River. Once I have the lengths of both rivers, I can compare them to identify which one is longer.
-    The first subtask is to retrieve the length of the Yangtze River from a relevant API or data source.
-    The second subtask is to retrieve the length of the Yellow River from the same or another relevant API or data source.
+    The first subtask is to retrieve the length of the Yangtze River.
+    The second subtask is to retrieve the length of the Yellow River.
     The third subtask will involve comparing the lengths obtained from the previous two subtasks to determine which river is longer.
 ```json
 [
     {
         "name": "retrieve_yangtze_length",
-        "description": "Retrieve the length of the Yangtze River from a relevant data source or API.",
+        "question": "How long is the Yangtze River?",
         "dependencies": []
     },
     {
         "name": "retrieve_yellow_length",
-        "description": "Retrieve the length of the Yellow River from a relevant data source or API.",
+        "question": "How long is the Yellow River?",
         "dependencies": []
     },
     {
         "name": "compare_river_lengths",
-        "description": "Compare the lengths obtained from the 'retrieve_yangtze_length' and 'retrieve_yellow_length' subtasks to determine which river is longer.",
+        "question": "Which is longer, the Yangtze River or the Yellow River?",
         "dependencies": [
             "retrieve_yangtze_length",
             "retrieve_yellow_length"

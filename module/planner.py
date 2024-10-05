@@ -11,7 +11,7 @@ class Planner:
         self.model = model
     
     def extract_json(self, text: str) -> dict:
-        json_regex = r'```json\n\s*\[\n\s*[\s\S\n]*\]\n\s*```'
+        json_regex = r'```json\n\s*\[\n\s*[\s\S]*?\]\n\s*```?'
         matches = re.findall(json_regex, text)
         if matches:
             json_data = matches[0].replace('```json', '').replace('```', '').strip()
@@ -19,9 +19,9 @@ class Planner:
                 parsed_json = json.loads(json_data)
                 return parsed_json
             except json.JSONDecodeError as e:
-                return f"Error parsing JSON data: {e}"
+                raise ValueError(f"Error parsing JSON data: {e}")
         else:
-            return "No JSON data found in the string."
+            raise ValueError("No JSON data found in the string.")
     
     def decompose_task(self, task: str) -> list[SubTaskNode]:
         raise NotImplementedError
@@ -37,8 +37,13 @@ class ParallelPlanner(Planner):
     def decompose_task(self, task: str) -> list[SubTaskNode]:
         subtasks = []
         prompt = instruction.format(example=example, task=task)
-        response = self.model.predict(prompt)
-        tasks = self.extract_json(response)
+        try:
+            response = self.model.predict(prompt)
+            tasks = self.extract_json(response)
+        except ValueError as e:
+            raise ValueError(f"Error decomposing task: {e}")
+        
+        print(f"\033[94mDecomposed task: {tasks}\033[0m")
         for task in tasks:
             subtask = SubTaskNode(task)
             subtasks.append(subtask)

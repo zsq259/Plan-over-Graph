@@ -1,3 +1,4 @@
 *.txt
 .env
 __pycache__
+src/test*.py

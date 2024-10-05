@@ -124,6 +124,7 @@ class WikiEnv(gym.Env):
   def step(self, action):
     reward = 0
     done = False
+    action = action.lower()
     action = action.strip()
     if self.answer is not None:  # already finished
       done = True
@@ -167,24 +168,6 @@ class WikiEnv(gym.Env):
     self.steps += 1
 
     return self.obs, reward, done, self._get_info()
-  
-  def combine(self, results: list):
-    # print(results)``
-    combined_obs = ""
-    combined_rewards = 0
-    combined_done = False
-    combined_info = {}
-
-    for action, (obs, reward, done, info) in results:
-        # print(action)
-        combined_obs += obs + " "
-        combined_rewards += reward
-        combined_done = combined_done or done
-        combined_info.update(info)
-
-    combined_obs = combined_obs.strip()
-
-    return combined_obs, combined_rewards, combined_done, combined_info  
   
   def get_time_info(self):
     speed = self.search_time / self.num_searches if self.num_searches else 0
