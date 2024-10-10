@@ -14,7 +14,7 @@ class GPTWrapper(Model):
     def predict(self, prompt, stop=None, max_tokens = 1024):
         try:
             response = self.client.completions.create(
-                model="gpt-3.5-turbo-instruct",
+                model=self.name,
                 prompt=prompt,
                 temperature=0,
                 max_tokens=max_tokens,
