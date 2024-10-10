@@ -1,6 +1,7 @@
 import multiprocessing
 import time
 from module.subtask import SubTaskNode
+from src.logger_config import logger, COLOR_CODES, RESET
 
 class scheduler:
     def __init__(self, runner):
@@ -44,7 +45,8 @@ class ParallelScheduler(scheduler):
                     task_name = processes.pop(process)
                     
                     completed_task, result = queue.get()
-                    print(f"Task {completed_task} completed with result: {result}")
+                    # print(f"Task \033[92m{completed_task}\033[0m completed with result: \033[92m{result}\033[0m")
+                    logger.info(f"Task {COLOR_CODES['GREEN']}{completed_task}{RESET} completed with result: {COLOR_CODES['GREEN']}{result}{RESET}")
                     final_result = result
                     
                     with self.task_completed[task_name].get_lock():
@@ -64,7 +66,8 @@ class ParallelScheduler(scheduler):
         return final_result
 
 if __name__ == "__main__":
-    print("Running scheduler")
+    # print("Running scheduler")
+    logger.info("Running scheduler")
     from module.runner import SimpleSimRunner
     runner = SimpleSimRunner(None, None)
     scheduler = ParallelScheduler(runner)
@@ -76,4 +79,5 @@ if __name__ == "__main__":
         SubTaskNode({"name": "task5", "question": "dtask5", "dependencies": []})
     ]
     scheduler.run(tasks)
-    print("All tasks completed")
+    # print("All tasks completed")
+    logger.info("All tasks completed")

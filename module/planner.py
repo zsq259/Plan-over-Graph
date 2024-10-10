@@ -3,6 +3,7 @@ from collections import deque
 from module.subtask import SubTaskNode
 from template.decompose_plan import instruction, example 
 from model.model import Model
+from src.logger_config import logger, COLOR_CODES, RESET
 
 class Planner:
     def __init__(self, model: Model):
@@ -43,7 +44,8 @@ class ParallelPlanner(Planner):
         except ValueError as e:
             raise ValueError(f"Error decomposing task: {e}")
         
-        print(f"\033[94mDecomposed task: {tasks}\033[0m")
+        # print(f"\033[94mDecomposed task: {tasks}\033[0m")
+        logger.info(f"Decomposed task: {COLOR_CODES['CYAN']}{tasks}{RESET}")
         for task in tasks:
             subtask = SubTaskNode(task)
             subtasks.append(subtask)
@@ -106,4 +108,5 @@ if __name__ == "__main__":
     """
     planner = ParallelPlanner(None)
     tasks = planner.extract_json(content)
-    print(tasks)
+    # print(tasks)
+    logger.info(tasks)

@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI, OpenAIError
 from model.model import Model
+from src.logger_config import logger, COLOR_CODES, RESET
 
 class GPTWrapper(Model):
     def __init__(self, name=None, base_url=None, api_key=None):
@@ -24,20 +25,17 @@ class GPTWrapper(Model):
                 stop=stop
             )
         except OpenAIError as e:
-            return "An error occurred while processing the request."
+            # print(e)
+            logger.error(f"Error: {COLOR_CODES['RED']}{e}{RESET}")
+            exit(1)
         except Exception as e:
-            return "An unexpected error occurred."
+            # print(e)
+            logger.error(f"Error: {COLOR_CODES['RED']}{e}{RESET}")
+            exit(1)
         with open("2.txt", "a") as f:
             f.write("\n-------------------------------------\n")
             f.write(prompt)
             f.write("\n")
             f.write(response.choices[0].text)
             f.write("\n-------------------------------------\n")
-        # print("-------------------------------------")
-        # print("\033[93m" + prompt + "\033[0m")
-        # print("response:\n")
-        # print(response)
-        # print("text:\n")
-        # print("\033[92m" + response.choices[0].text + "\033[0m")
-        # print("-------------------------------------")
         return response.choices[0].text

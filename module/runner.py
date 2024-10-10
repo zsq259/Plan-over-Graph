@@ -1,5 +1,6 @@
 import json, re
 from module.subtask import SubTaskNode
+from src.logger_config import logger, COLOR_CODES, RESET
 
 class Runner:
     def __init__(self, model, executor):
@@ -18,9 +19,11 @@ class SimpleSimRunner(Runner):
     def run(self, subtask: SubTaskNode) -> str:
         import random, time
         t_ = random.randint(1, 10)
-        print(f'Starting {subtask.name} for {t_} seconds')
+        # print(f'Starting {subtask.name} for {t_} seconds')
+        logger.info(f'Starting {subtask.name} for {t_} seconds')
         time.sleep(t_)
-        print(f'Finished {subtask.name}')
+        # print(f'Finished {subtask.name}')
+        logger.info(f'Finished {subtask.name}')
         return subtask.name
     
 class HotPotQARunner(Runner):
@@ -55,17 +58,21 @@ class HotPotQARunner(Runner):
         step_str = f"Thought {i}: {thought}\nAction {i}: {actions}\nObservation {i}: {obs}\n----------\n"
         prompt += step_str
         if print_info:
-            print(step_str)
+            # print(step_str)
+            logger.info(step_str)
         return prompt, r, done, info
 
     def run(self, subtask: SubTaskNode, print_info=True) -> str:
         from template.webthink0 import instruction, webthink_example
         informations = ""
+        if len(subtask.infos) > 0:
+            informations = "\nFor the current question, before you start search, you have some initial informations:\n"
         for info in subtask.infos:
             informations += f"{info[0]}: {info[1]}\n"
         prompt = instruction.format(examples=webthink_example, question=subtask.question, informations=informations)
         if print_info:
-            print("----------\nQuestion:", subtask.question)
+            # print("----------\nQuestion:", subtask.question)
+            logger.info(f"Question: {subtask.question}")
         for i in range(1, 11):
             prompt, r, done, info = self.step(prompt, i, print_info)
             if done:
@@ -80,8 +87,10 @@ Actions 1: ["Search[data source/API for Giuseppe Verdi]"]
     """
     runner = HotPotQARunner(None, None)
     thought, actions = runner.get_thought_actions(content)
-    print(thought)
-    print(actions)
-    print(runner.find_actions(actions))     
-    
+    # print(thought)
+    # print(actions)
+    # print(runner.find_actions(actions))     
+    logger.info(thought)
+    logger.info(actions)
+    logger.info(runner.find_actions(actions))
         

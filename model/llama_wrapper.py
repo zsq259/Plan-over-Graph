@@ -4,12 +4,12 @@ import torch
 from transformers import pipeline
 from huggingface_hub import login
 from model.model import Model
+from src.logger_config import logger, COLOR_CODES, RESET
 
 
 # load_dotenv()
 # huggingface_token = os.getenv("HUGGINGFACE_TOKEN")
 # login(token=huggingface_token)
-
 
 class LlamaWrapper(Model):
     def __init__(self, model_id = "meta-llama/Llama-3.2-1B-Instruct"):
@@ -35,7 +35,10 @@ class LlamaWrapper(Model):
             )
             response_text = outputs[0]["generated_text"][-1]['content']
         except Exception as e:
-            response_text = "An error occurred while processing the request."
+            # print(e)
+            logger.error(f"Error: {COLOR_CODES['RED']}{e}{RESET}")
+            
+            exit(1)
 
         # with open("2.txt", "a") as f:
         #     f.write("\n-------------------------------------\n")
@@ -43,15 +46,15 @@ class LlamaWrapper(Model):
         #     f.write("\n")
         #     f.write(response_text)
         #     f.write("\n-------------------------------------\n")
-        print(prompt)
-        print(response_text)
+        # print(prompt)
+        # print(response_text)
         return response_text
 
 def main():
     llama_wrapper = LlamaWrapper()
     prompt = "My name is Julien and I like to"
     response = llama_wrapper.predict(prompt)
-    print(response)
+    # print(response)
 
 if __name__ == "__main__":
     main()

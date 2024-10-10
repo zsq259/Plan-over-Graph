@@ -2,11 +2,12 @@ import sys
 import multiprocessing
 from model.gpt_wrapper import GPTWrapper
 from model.llama_wrapper import LlamaWrapper
-from env.wiki_env import WikiEnv
+from module.env.wiki_env import WikiEnv
 from module.excutor import HotPotQAExcutor
 from module.runner import HotPotQARunner
 from module.scheduler import ParallelScheduler
 from module.planner import ParallelPlanner
+from src.logger_config import logger, COLOR_CODES, RESET
 
 def main():
     try:
@@ -23,12 +24,14 @@ def main():
         result = scheduler.run(planner.plan(question))
         # print(result)
     except KeyboardInterrupt:
-        print("program interrupted by user")
+        # print("program interrupted by user")
+        logger.info(f"{COLOR_CODES['YELLOW']}Program interrupted by user{RESET}")
         for process in multiprocessing.active_children():
             process.terminate()
         sys.exit(0)
     except Exception as e:
-        print(e)
+        # print(e)
+        logger.error(f"{COLOR_CODES['RED']}Error: {e}{RESET}")
         
 
 if __name__ == "__main__":
