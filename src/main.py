@@ -1,4 +1,4 @@
-import sys
+import sys, json
 import argparse
 import multiprocessing
 from model.gpt_wrapper import GPTWrapper
@@ -15,15 +15,15 @@ def main():
     parser.add_argument("--task", type=str, required=True, help="The task to run.")
     parser.add_argument("--model", type=str, required=True, help="The model to use.")
     parser.add_argument("--scheduler", type=str, required=True, help="The scheduler to use.")
+    parser.add_argument("--question", type=str, help="The single question to ask.", default=None)
+    parser.add_argument("--test_file", type=str, help="The test file to use.", default=None)
+    parser.add_argument("--output_file", type=str, help="The output file to write to.", default=None)
 
     args = parser.parse_args()
     task = args.task
     model = args.model
     scheduler_type = args.scheduler
 
-    # print(f"Running task: {task}")
-    # print(f"Using model: {model}")
-    # print(f"Using scheduler: {scheduler_type}")
     logger.info(f"Running task: {task}")
     logger.info(f"Using model: {model}")
     logger.info(f"Using scheduler: {scheduler_type}")
@@ -37,27 +37,34 @@ def main():
 
     try:
         if task == "hotpotqa":
-            question = "Which is longer, the Yangtze River or the Yellow River?"
             env = WikiEnv()
             executor = HotPotQAExcutor(env)
             runner = HotPotQARunner(model, executor)
             if scheduler_type == "parallel":
                 scheduler = ParallelScheduler(runner)
             else:
-                raise ValueError(f"Unsupported scheduler type: {scheduler_type}")            
-            result = scheduler.run(planner.plan(question))
+                raise ValueError(f"Unsupported scheduler type: {scheduler_type}")
+            if args.question:
+                result = scheduler.run(planner.plan(args.question))
+            elif args.test_file:
+                with open(args.file, "r") as f:
+                    data = json.load(f)
+                results = [scheduler.run(planner.plan(question)) for question in data]
+                if args.output_file:
+                    with open(args.output_file, "w") as f:
+                        json.dump(results, f)
+            else:
+                raise ValueError("Either --question or --test_file must be provided.")
             # print(result)
         else:
             raise ValueError(f"Unsupported task: {task}")
 
     except KeyboardInterrupt:
-        # print("Program interrupted by user")
         logger.info(f"{COLOR_CODES['YELLOW']}Program interrupted by user{RESET}")
         for process in multiprocessing.active_children():
             process.terminate()
         sys.exit(0)
     except Exception as e:
-        # print(e)
         logger.error(f"{COLOR_CODES['RED']}Error: {e}{RESET}")
 
 if __name__ == "__main__":
