@@ -1,6 +1,7 @@
 import sys
 import multiprocessing
 from model.gpt_wrapper import GPTWrapper
+from model.llama_wrapper import LlamaWrapper
 from env.wiki_env import WikiEnv
 from module.excutor import HotPotQAExcutor
 from module.runner import HotPotQARunner
@@ -12,7 +13,7 @@ def main():
         # question = "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?"
         question = "Which is longer, the Yangtze River or the Yellow River?"
 
-        model = GPTWrapper()
+        model = LlamaWrapper()
         env = WikiEnv()
         executor = HotPotQAExcutor(env)
         runner = HotPotQARunner(model, executor)
