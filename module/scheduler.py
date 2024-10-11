@@ -1,7 +1,11 @@
 import multiprocessing
-import time
+import time, copy
 from module.subtask import SubTaskNode
 from src.logger_config import logger, COLOR_CODES, RESET
+
+def execute_task(runner, task, queue):
+    result = runner.run(task)
+    queue.put((task.question, result))
 
 class scheduler:
     def __init__(self, runner):
@@ -16,9 +20,8 @@ class ParallelScheduler(scheduler):
         super().__init__(runner)
         self.name = 'ParallelScheduler'
         
-    def execute_task(self, task, queue):
-        result = self.runner.run(task)
-        queue.put((task.question, result))
+    def copy_runner(self):
+        return copy.deepcopy(self.runner)
     
     def run(self, tasks: list[SubTaskNode]) -> str:
         self.tasks = {task.name: task for task in tasks}
@@ -35,7 +38,10 @@ class ParallelScheduler(scheduler):
 
             processes = {}
             for task in executable_tasks:
-                process = multiprocessing.Process(target=self.execute_task, args=(task, queue))
+                new_runner = self.copy_runner()
+                # logger.debug(self.runner.model)
+                # logger.debug(new_runner.model)
+                process = multiprocessing.Process(target=execute_task, args=(new_runner, task, queue))
                 process.start()
                 processes[process] = task.name
 
@@ -45,7 +51,6 @@ class ParallelScheduler(scheduler):
                     task_name = processes.pop(process)
                     
                     completed_task, result = queue.get()
-                    # print(f"Task \033[92m{completed_task}\033[0m completed with result: \033[92m{result}\033[0m")
                     logger.info(f"Task {COLOR_CODES['GREEN']}{completed_task}{RESET} completed with result: {COLOR_CODES['GREEN']}{result}{RESET}")
                     final_result = result
                     
@@ -58,7 +63,8 @@ class ParallelScheduler(scheduler):
                             task.infos.append((completed_task, result))
                             self.dependency_count[dependent_task_name] -= 1
                             if self.dependency_count[dependent_task_name] == 0:
-                                new_process = multiprocessing.Process(target=self.execute_task, args=(task, queue))
+                                new_runner = self.copy_runner()
+                                new_process = multiprocessing.Process(target=execute_task, args=(new_runner, task, queue))
                                 new_process.start()
                                 processes[new_process] = dependent_task_name
                     del self.tasks[task_name]
@@ -66,10 +72,17 @@ class ParallelScheduler(scheduler):
         return final_result
 
 if __name__ == "__main__":
-    # print("Running scheduler")
     logger.info("Running scheduler")
     from module.runner import SimpleSimRunner
-    runner = SimpleSimRunner(None, None)
+    from model.gpt_wrapper import GPTWrapper
+    from model.llama_wrapper import LlamaWrapper
+    from module.excutor import HotPotQAExcutor
+    from module.env.wiki_env import WikiEnv
+    # model = GPTWrapper(name="gpt-3.5-turbo-instruct")
+    model = LlamaWrapper()
+    excutor = HotPotQAExcutor(WikiEnv())
+    runner = SimpleSimRunner(model, excutor)
+    multiprocessing.set_start_method('spawn')
     scheduler = ParallelScheduler(runner)
     tasks = [
         SubTaskNode({"name": "task1", "question": "dtask1", "dependencies": []}),
@@ -79,5 +92,4 @@ if __name__ == "__main__":
         SubTaskNode({"name": "task5", "question": "dtask5", "dependencies": []})
     ]
     scheduler.run(tasks)
-    # print("All tasks completed")
     logger.info("All tasks completed")

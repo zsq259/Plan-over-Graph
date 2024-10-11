@@ -14,23 +14,24 @@ from src.logger_config import logger, COLOR_CODES, RESET
 class LlamaWrapper(Model):
     def __init__(self, model_id = "meta-llama/Llama-3.2-1B-Instruct"):
         super().__init__(name="LlamaWrapper")
-        self.pipe = pipeline(
+        self.model_id = model_id
+
+    def predict(self, prompt, max_new_tokens=1024, stop=None):
+        pipe = pipeline(
             "text-generation",
-            model=model_id,
+            model=self.model_id,
             torch_dtype=torch.bfloat16,
             device_map="auto",
         )
-
-    def predict(self, prompt, max_new_tokens=1024, stop=None):
         messages = [
             # {"role": "system", "content": "You are a Nekomusume chatbot who always responds in Nekomusume speak!"},
             {"role": "user", "content": prompt},
         ]
         try:
-            outputs = self.pipe(
+            outputs = pipe(
                 messages,
                 max_new_tokens=max_new_tokens,
-                pad_token_id=self.pipe.tokenizer.eos_token_id,
+                pad_token_id=pipe.tokenizer.eos_token_id,
                 stop=stop,
             )
             response_text = outputs[0]["generated_text"][-1]['content']

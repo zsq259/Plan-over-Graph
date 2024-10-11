@@ -33,6 +33,8 @@ def main():
     else:
         model = "gpt-3.5-turbo-instruct"
         model = GPTWrapper(name=model)
+    
+    multiprocessing.set_start_method('spawn')
     planner = ParallelPlanner(model)
 
     try:
