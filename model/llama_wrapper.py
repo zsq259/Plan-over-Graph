@@ -32,7 +32,6 @@ class LlamaWrapper(Model):
                 messages,
                 max_new_tokens=max_new_tokens,
                 pad_token_id=pipe.tokenizer.eos_token_id,
-                stop=stop,
             )
             response_text = outputs[0]["generated_text"][-1]['content']
         except Exception as e:

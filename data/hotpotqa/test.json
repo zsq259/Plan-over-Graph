@@ -2,501 +2,501 @@
     {
         "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
         "answer": "yes",
-        "type": "comparison"
+        "id": 1
     },
     {
         "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
         "answer": "no",
-        "type": "comparison"
+        "id": 2
     },
     {
         "question": "Are Local H and For Against both from the United States?",
         "answer": "yes",
-        "type": "comparison"
+        "id": 3
     },
     {
         "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
         "answer": "no",
-        "type": "comparison"
+        "id": 4
     },
     {
         "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
         "answer": "yes",
-        "type": "comparison"
+        "id": 5
     },
     {
         "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
         "answer": "Robert Erskine Childers DSC",
-        "type": "comparison"
+        "id": 6
     },
     {
         "question": "Which performance act has a higher instrument to person ratio, Badly Drawn Boy or Wolf Alice? ",
         "answer": "Badly Drawn Boy",
-        "type": "comparison"
+        "id": 7
     },
     {
         "question": "Are both Dictyosperma, and Huernia described as a genus?",
         "answer": "yes",
-        "type": "comparison"
+        "id": 8
     },
     {
         "question": "Hayden is a singer-songwriter from Canada, but where does Buck-Tick hail from?",
         "answer": "Fujioka, Gunma",
-        "type": "comparison"
+        "id": 9
     },
     {
         "question": "Are Freakonomics and In the Realm of the Hackers both American documentaries?",
         "answer": "no",
-        "type": "comparison"
+        "id": 10
     },
     {
         "question": "Which band, Letters to Cleo or Screaming Trees, had more members?",
         "answer": "Letters to Cleo",
-        "type": "comparison"
+        "id": 11
     },
     {
         "question": "Are both Elko Regional Airport and Gerald R. Ford International Airport located in Michigan?",
         "answer": "no",
-        "type": "comparison"
+        "id": 12
     },
     {
         "question": "Which dog's ancestors include Gordon and Irish Setters: the Manchester Terrier or the Scotch Collie?",
         "answer": "Scotch Collie",
-        "type": "comparison"
+        "id": 13
     },
     {
         "question": "Are Ferocactus and Silene both types of plant?",
         "answer": "yes",
-        "type": "comparison"
+        "id": 14
     },
     {
         "question": "Are both Cypress and Ajuga genera?",
         "answer": "no",
-        "type": "comparison"
+        "id": 15
     },
     {
         "question": "Who was born earlier, Emma Bull or Virginia Woolf?",
         "answer": "Adeline Virginia Woolf",
-        "type": "comparison"
+        "id": 16
     },
     {
         "question": "Where are Teide National Park and Garajonay National Park located?",
         "answer": "Canary Islands, Spain",
-        "type": "comparison"
+        "id": 17
     },
     {
         "question": "What occupation do Chris Menges and Aram Avakian share?",
         "answer": "director",
-        "type": "comparison"
+        "id": 18
     },
     {
         "question": "Do the drinks Gibson and Zurracapote both contain gin?",
         "answer": "no",
-        "type": "comparison"
+        "id": 19
     },
     {
         "question": "Which filmmaker was known for animation, Lev Yilmaz or Pamela B. Green?",
         "answer": "Levni Yilmaz",
-        "type": "comparison"
+        "id": 20
     },
     {
         "question": "Are Yingkou and Fuding the same level of city?",
         "answer": "no",
-        "type": "comparison"
+        "id": 21
     },
     {
         "question": "Who died first, George Archainbaud or Ralph Murphy?",
         "answer": "George Archainbaud",
-        "type": "comparison"
+        "id": 22
     },
     {
         "question": "Were the bands Skin Yard and Ostava from the U.S.?",
         "answer": "no",
-        "type": "comparison"
+        "id": 23
     },
     {
         "question": "Are Daryl Hall and Gerry Marsden both musicians?",
         "answer": "yes",
-        "type": "comparison"
+        "id": 24
     },
     {
         "question": "Which film was Oscar nominated, LaLee's Kin: The Legacy of Cotton or Gimme Shelter, the 1970 Rolling Stones documentary?",
         "answer": "LaLee's Kin: The Legacy of Cotton",
-        "type": "comparison"
+        "id": 25
     },
     {
         "question": "Which board game was published most recently, Pirate's Cove or Catan?",
         "answer": "Pirate's Cove",
-        "type": "comparison"
+        "id": 26
     },
     {
         "question": "Who had the best singles ranking, Roberta Vinci or Jorge Lozano?",
         "answer": "Roberta Vinci",
-        "type": "comparison"
+        "id": 27
     },
     {
         "question": "Josey Scott and Ian Watkins were both promising musicians. Which of these talented men was incarcerated, impacting his career with a rock band?",
         "answer": "Lostprophets disbanded in 2013 after Watkins was charged with sexual offences in late 2012.",
-        "type": "comparison"
+        "id": 28
     },
     {
         "question": "What occupation was shared by David Yates and Pietro Germi?",
         "answer": "director",
-        "type": "comparison"
+        "id": 29
     },
     {
         "question": "Are Broughtonia and Laeliocattleya both orchids?",
         "answer": "yes",
-        "type": "comparison"
+        "id": 30
     },
     {
         "question": "Which was fought earlier in our nation's history, the Seven Days Battles or the Battle of Manila?",
         "answer": "The Seven Days Battles",
-        "type": "comparison"
+        "id": 31
     },
     {
         "question": "Which came out first, Dinosaur or McFarland, USA",
         "answer": "Dinosaur",
-        "type": "comparison"
+        "id": 32
     },
     {
         "question": "Are Bamboo Mañalac and Danny Jones both musicians?",
         "answer": "yes",
-        "type": "comparison"
+        "id": 33
     },
     {
         "question": "Do The Importance of Being Icelandic and The Five Obstructions belong to different film genres ?",
         "answer": "no",
-        "type": "comparison"
+        "id": 34
     },
     {
         "question": "Are Hot Rod and The Memory of Our People both magazines?",
         "answer": "yes",
-        "type": "comparison"
+        "id": 35
     },
     {
         "question": "Who has written more than 300 papers, Semyon Aranovich Gershgorin or Pavel Alexandrov?",
         "answer": "Pavel Sergeyevich Alexandrov",
-        "type": "comparison"
+        "id": 36
     },
     {
         "question": "Which tower is taller, 712 Fifth Avenue or Manhattan Life Insurance Building?",
         "answer": "712 5th Avenue",
-        "type": "comparison"
+        "id": 37
     },
     {
         "question": "Who was born first, Arthur Conan Doyle or Penelope Lively?",
         "answer": "Arthur Ignatius Conan Doyle",
-        "type": "comparison"
+        "id": 38
     },
     {
         "question": "Are both Dafeng District and Dazhou located in the same province?",
         "answer": "no",
-        "type": "comparison"
+        "id": 39
     },
     {
         "question": "Is the Marsilea or the Brabejum the genus of more individual species of plants?",
         "answer": "Marsilea",
-        "type": "comparison"
+        "id": 40
     },
     {
         "question": "Which case came first, Craig v. Boren or United States v. Paramount Pictures, Inc.?",
         "answer": "Craig v. Boren",
-        "type": "comparison"
+        "id": 41
     },
     {
         "question": "Which genus has more species, Xanthoceras or Ehretia?",
         "answer": "Ehretia",
-        "type": "comparison"
+        "id": 42
     },
     {
         "question": "Are  Chrysalis and Look both women's magazines?",
         "answer": "yes",
-        "type": "comparison"
+        "id": 43
     },
     {
         "question": "Which author has won more Pulitzer Prizes, Thomas Friedman or Henri Bergson?",
         "answer": "Thomas Loren Friedman",
-        "type": "comparison"
+        "id": 44
     },
     {
         "question": "In what city can a person find both the Nusretiye Clock Tower and the Eski Imaret Mosque be found?",
         "answer": "Istanbul, Turkey",
-        "type": "comparison"
+        "id": 45
     },
     {
         "question": "Which director had the longest career, Alain Resnais or Scott Sidney?",
         "answer": "Scott Sidney",
-        "type": "comparison"
+        "id": 46
     },
     {
         "question": "which is larger Asante Traditional Buildings or Gulangyu?",
         "answer": "Gulangyu",
-        "type": "comparison"
+        "id": 47
     },
     {
         "question": "Can Stenocereus and Pachypodium both include tree like plants?",
         "answer": "yes",
-        "type": "comparison"
+        "id": 48
     },
     {
         "question": "Which Genus has more species Eucryphia or Lepidozamia ?",
         "answer": "Eucryphia",
-        "type": "comparison"
+        "id": 49
     },
     {
         "question": "Which film was released first: Sacred Planet or Oz the Great and Powerful?",
         "answer": "Sacred Planet",
-        "type": "comparison"
+        "id": 50
     },
     {
         "question": "Who is older, Ferdi Taygan or Mahesh Bhupathi?",
         "answer": "Ferdi Taygan",
-        "type": "comparison"
+        "id": 51
     },
     {
         "question": "Which came to market first, \"Hey Pa! There's a Goat on the Roof\" or \"Poleconomy\"",
         "answer": "Hey Pa! There's a Goat on the Roof",
-        "type": "comparison"
+        "id": 52
     },
     {
         "question": "Are Skeptical Inquirer and The Progressive Populist both tabloid-style magazines?",
         "answer": "no",
-        "type": "comparison"
+        "id": 53
     },
     {
         "question": "Which dog is considered a giant dog breed, the  Leonberger or the Basset Hound?",
         "answer": "The Leonberger is a giant dog breed.",
-        "type": "comparison"
+        "id": 54
     },
     {
         "question": "Are Staten Island Catapult and This Is Elvis both documentaries?",
         "answer": "yes",
-        "type": "comparison"
+        "id": 55
     },
     {
         "question": "Which magazine is published more often, Shonen Jump or Rolling Stone?",
         "answer": "Rolling Stone",
-        "type": "comparison"
+        "id": 56
     },
     {
         "question": "Who was born first Am Rong or Ava DuVernay ?",
         "answer": "Am Rong",
-        "type": "comparison"
+        "id": 57
     },
     {
         "question": "Are both Duke Energy and Affiliated Managers Group based in Massachusetts?",
         "answer": "no",
-        "type": "comparison"
+        "id": 58
     },
     {
         "question": "Who was also an actor, Serri or John Fogerty?",
         "answer": "Serri",
-        "type": "comparison"
+        "id": 59
     },
     {
         "question": "Were Enrique Carreras and Lionel Ngakane both filmakers during the 20th century? ",
         "answer": "yes",
-        "type": "comparison"
+        "id": 60
     },
     {
         "question": "Which case was decided first, Selle v. Gibb or Reynolds v. Sims?",
         "answer": "1964",
-        "type": "comparison"
+        "id": 61
     },
     {
         "question": "Did Franki Valli sing with Hellogoodbye or The Four Seasons?",
         "answer": "The Four Seasons",
-        "type": "comparison"
+        "id": 62
     },
     {
         "question": "Both Sorbaria and Goldenrod are a genus of more than 50 flowering plants?",
         "answer": "no",
-        "type": "comparison"
+        "id": 63
     },
     {
         "question": "Which of these battles occurred earlier--the Battle of Peleliu or the Battle of Belleau Wood?",
         "answer": "The Battle of Belleau Wood",
-        "type": "comparison"
+        "id": 64
     },
     {
         "question": "Which playwright lived a longer life, Edward Albee or J. M. Barrie?",
         "answer": "Edward Franklin Albee III",
-        "type": "comparison"
+        "id": 65
     },
     {
         "question": "Are both Rutgers University and Carnegie Mellon University located in America?",
         "answer": "yes",
-        "type": "comparison"
+        "id": 66
     },
     {
         "question": "Were Thomas H. Ince and Joseph McGrath of the same nationality?",
         "answer": "no",
-        "type": "comparison"
+        "id": 67
     },
     {
         "question": "Are Phlebodium and Pieris both species of ferns?",
         "answer": "no",
-        "type": "comparison"
+        "id": 68
     },
     {
         "question": "Which novelist, J. G. Farrell or Louis Aragon, wrote of the political and human consequences of his country's colonial rule?",
         "answer": "Farrell",
-        "type": "comparison"
+        "id": 69
     },
     {
         "question": "What type of media does Bitter Jester and Sicko have in common?",
         "answer": "documentary",
-        "type": "comparison"
+        "id": 70
     },
     {
         "question": "which is traditionally drunk before retiring to bed, Hot toddy or Kir?",
         "answer": "Hot toddy",
-        "type": "comparison"
+        "id": 71
     },
     {
         "question": "Who was born first, José Echegaray y Eizaguirre or P. J. O'Rourke?",
         "answer": "José Echegaray y Eizaguirre",
-        "type": "comparison"
+        "id": 72
     },
     {
         "question": "Which Grand Slam singles tournament have Francesca Schiavone and Olga Morozova both been finalists in?",
         "answer": "French Open",
-        "type": "comparison"
+        "id": 73
     },
     {
         "question": "Which game was released first, Icehouse pieces or Kill Doctor Lucky?",
         "answer": "Icehouse pieces",
-        "type": "comparison"
+        "id": 74
     },
     {
         "question": "Which magazine is older, Gallery or Dime Magazine?",
         "answer": "arose on the \"Playboy\" magazine pattern in the 1970s.",
-        "type": "comparison"
+        "id": 75
     },
     {
         "question": "which writer has the highest number of skill  Langston Hughes or  Ian McEwan",
         "answer": "Langston Hughes",
-        "type": "comparison"
+        "id": 76
     },
     {
         "question": "Which has the larger population, Shanghai or Hanggin Rear Banner?",
         "answer": "Shanghai",
-        "type": "comparison"
+        "id": 77
     },
     {
         "question": "Which band is from England, Fireflight or Dirty Pretty Things?",
         "answer": "Dirty Pretty Things",
-        "type": "comparison"
+        "id": 78
     },
     {
         "question": "Are Buried Country and South of the Border both films turned into stage performances?",
         "answer": "no",
-        "type": "comparison"
+        "id": 79
     },
     {
         "question": "\"A Summer in the Cage\" and \"American Hardcore\" are both what kind of film?",
         "answer": "documentary",
-        "type": "comparison"
+        "id": 80
     },
     {
         "question": "Which musical fantasy film is older, Bedknobs and Broomsticks or The Muppet Christmas Carol?",
         "answer": "Bedknobs and Broomsticks",
-        "type": "comparison"
+        "id": 81
     },
     {
         "question": "Were both the Battle of Stones River and the Battle of the Ch'ongch'on River fought in the 19th century?",
         "answer": "no",
-        "type": "comparison"
+        "id": 82
     },
     {
         "question": "Who has more scope of profession, Phil Rosen or  Delmer Daves?",
         "answer": "Delmer Lawrence Daves",
-        "type": "comparison"
+        "id": 83
     },
     {
         "question": "Which band has more members, Test Icicles or X Ambassadors?",
         "answer": "X Ambassadors",
-        "type": "comparison"
+        "id": 84
     },
     {
         "question": "The movies The Boatniks and The Great Locomotive Chase were both made by which production company?",
         "answer": "Walt Disney Productions",
-        "type": "comparison"
+        "id": 85
     },
     {
         "question": "In between The Bears and I and Oceans which was released on July 31, 1974, by Buena Vista Distribution?",
         "answer": "The Bears and I",
-        "type": "comparison"
+        "id": 86
     },
     {
         "question": "Are Agee and To Shoot an Elephant both documentaries about war?",
         "answer": "no",
-        "type": "comparison"
+        "id": 87
     },
     {
         "question": "Who was born first Mahbub ul Haq or Ibn Arabi?",
         "answer": "ibnʿArabī",
-        "type": "comparison"
+        "id": 88
     },
     {
         "question": "Which battle occurred first, the Battle of Manila or the Battle of Guam?",
         "answer": "Battle of Guam",
-        "type": "comparison"
+        "id": 89
     },
     {
         "question": "Eric Ambler and Carol Shields are both best Known for what profession?",
         "answer": "author",
-        "type": "comparison"
+        "id": 90
     },
     {
         "question": "Which is a Macedonian weekly, Hänt Extra or Tea Moderna?",
         "answer": "Tea Moderna",
-        "type": "comparison"
+        "id": 91
     },
     {
         "question": "What is the shared country of ancestry between Art Laboe and Scout Tufankjian?",
         "answer": "Armenian",
-        "type": "comparison"
+        "id": 92
     },
     {
         "question": "Were Goo Goo Dolls and Echosmith formed in the same city?",
         "answer": "no",
-        "type": "comparison"
+        "id": 93
     },
     {
         "question": "What genre of music was played by both Tappi Tíkarrass and INXS?",
         "answer": "rock",
-        "type": "comparison"
+        "id": 94
     },
     {
         "question": "In between Berghuis v. Thompkins and Mississippi University for Women v. Hogan which one was a  case decided 5-4 by the Supreme Court of the United States?",
         "answer": "Mississippi University for Women",
-        "type": "comparison"
+        "id": 95
     },
     {
         "question": "What type of film are both \"500 Years Later\" and \"Manson\"?",
         "answer": "documentary",
-        "type": "comparison"
+        "id": 96
     },
     {
         "question": "Is Gasherbrum II or Nuptse closest to the tallest mountain in the world?",
         "answer": "It lies two kilometres WSW of Mount Everest.",
-        "type": "comparison"
+        "id": 97
     },
     {
         "question": "What professions did S. Sylvan Simon and Danny Cannon have in common?",
         "answer": "director and producer",
-        "type": "comparison"
+        "id": 98
     },
     {
         "question": "who had to escape nazis, Sigmund Freud or Evelyn Waugh?",
         "answer": "Sigmund Freud",
-        "type": "comparison"
+        "id": 99
     },
     {
         "question": "José Saramago and Ivo Andrić were recipients of what award in Literature?",
         "answer": "Nobel Prize in Literature",
-        "type": "comparison"
+        "id": 100
     }
 ]

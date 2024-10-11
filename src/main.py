@@ -1,4 +1,4 @@
-import sys, json
+import os, sys, json
 import argparse
 import multiprocessing
 from model.gpt_wrapper import GPTWrapper
@@ -49,15 +49,28 @@ def main():
             if args.question:
                 result = scheduler.run(planner.plan(args.question))
             elif args.test_file:
-                with open(args.file, "r") as f:
+                with open(args.test_file, "r") as f:
                     data = json.load(f)
-                results = [scheduler.run(planner.plan(question)) for question in data]
-                if args.output_file:
-                    with open(args.output_file, "w") as f:
-                        json.dump(results, f)
+
+                if os.path.exists(args.output_file):
+                    with open(args.output_file, "r") as f:
+                        partial_results = json.load(f)
+                else:
+                    partial_results = []
+
+                processed_questions = set(result['question']['id'] for result in partial_results)
+
+                for question in data:
+                    if question['id'] not in processed_questions:
+                        result = scheduler.run(planner.plan(question))
+                        partial_results.append({'question': question, 'result': result})
+                        with open(args.output_file, "w") as f:
+                            json.dump(partial_results, f, ensure_ascii=False, indent=4)
+
+                with open(args.output_file, "w") as f:
+                    json.dump(partial_results, f, ensure_ascii=False, indent=4)
             else:
                 raise ValueError("Either --question or --test_file must be provided.")
-            # print(result)
         else:
             raise ValueError(f"Unsupported task: {task}")
 

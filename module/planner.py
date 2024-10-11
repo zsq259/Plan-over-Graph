@@ -1,4 +1,5 @@
 import json, re
+from retry import retry
 from collections import deque
 from module.subtask import SubTaskNode
 from template.decompose_plan import instruction, example 
@@ -35,12 +36,19 @@ class ParallelPlanner(Planner):
         super().__init__(model)
         self._name = 'ParallelPlanner'
     
+    @retry(ValueError, tries=3, delay=2)
+    def predict_with_retry(self, prompt):
+        response = self.model.predict(prompt)
+        return self.extract_json(response)
+    
     def decompose_task(self, task: str) -> list[SubTaskNode]:
         subtasks = []
         prompt = instruction.format(example=example, task=task)
+        
         try:
-            response = self.model.predict(prompt)
-            tasks = self.extract_json(response)
+            # response = self.model.predict(prompt)
+            # tasks = self.extract_json(response)
+            tasks = self.predict_with_retry(prompt)
         except ValueError as e:
             raise ValueError(f"Error decomposing task: {e}")
         
