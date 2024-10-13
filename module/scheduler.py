@@ -8,16 +8,17 @@ def execute_task(runner, task, queue):
     queue.put((task.question, result))
 
 class scheduler:
-    def __init__(self, runner):
+    def __init__(self, runner, env):
         self.name = 'scheduler'
         self.runner = runner
+        self.env = env
     
     def run(self, task: list) -> str:
         raise NotImplementedError
     
 class ParallelScheduler(scheduler):
-    def __init__(self, runner):
-        super().__init__(runner)
+    def __init__(self, runner, env):
+        super().__init__(runner, env)
         self.name = 'ParallelScheduler'
         
     def copy_runner(self):
@@ -52,6 +53,7 @@ class ParallelScheduler(scheduler):
                     
                     completed_task, result = queue.get()
                     logger.info(f"Task {COLOR_CODES['GREEN']}{completed_task}{RESET} completed with result: {COLOR_CODES['GREEN']}{result}{RESET}")
+                    self.tasks[task_name].answer = result
                     final_result = result
                     
                     with self.task_completed[task_name].get_lock():
@@ -60,7 +62,8 @@ class ParallelScheduler(scheduler):
                     for dependent_task_name, task in self.tasks.items():
                         if task_name in task.dependencies:
                             task.dependencies.remove(task_name)
-                            task.infos.append((completed_task, result))
+                            # task.infos.append((completed_task, result))
+                            self.env.commit(task, self.tasks[task_name])
                             self.dependency_count[dependent_task_name] -= 1
                             if self.dependency_count[dependent_task_name] == 0:
                                 new_runner = self.copy_runner()

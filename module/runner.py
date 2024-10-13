@@ -1,4 +1,5 @@
 import json, re
+from retry import retry
 from module.subtask import SubTaskNode
 from src.logger_config import logger, COLOR_CODES, RESET
 
@@ -45,10 +46,15 @@ class HotPotQARunner(Runner):
             return json.loads(actions)
         return actions
     
-    def step(self, prompt, i, print_info=True):
+    @retry(tries=3, delay=1)
+    def get_actions(self, prompt, i):
         result = self.model.predict(prompt + f"Thought {i}:", stop=[f"\nObservation {i}:"])
         thought, actions = self.get_thought_actions(result)
         actions = self.find_actions(actions)
+        return thought, actions
+            
+    def step(self, prompt, i, print_info=True):
+        thought, actions = self.get_actions(prompt, i)
         if isinstance(actions, list):
             actions = actions[0]
         obs, r, done, info = self.executor.run(actions)
@@ -69,12 +75,14 @@ class HotPotQARunner(Runner):
         prompt = instruction.format(examples=webthink_example, question=subtask.question, informations=informations)
         if print_info:
             logger.info(f"Question: {subtask.question}")
+            logger.info(f"Initial informations: {informations}")
         for i in range(1, 11):
             prompt, r, done, info = self.step(prompt, i, print_info)
             if done:
                 break
         if not done:
             obs, r, done, info = self.executor.run("finish[]")
+        subtask.answer = info["answer"]
         return info["answer"]
     
 if __name__ == "__main__":

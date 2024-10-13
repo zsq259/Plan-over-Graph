@@ -6,6 +6,7 @@ import requests
 import re
 from bs4 import BeautifulSoup
 
+from module.subtask import SubQANode
 # import wikipedia
 
 def clean_str(p):
@@ -168,3 +169,7 @@ class WikiEnv(gym.Env):
         "call_time": self.search_time,
         "num_calls": self.num_searches,
     }
+
+  def commit(self, task: SubQANode, completed_task):
+      task.infos.append((completed_task.name, completed_task.answer))
+    

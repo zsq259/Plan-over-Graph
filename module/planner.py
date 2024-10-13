@@ -41,26 +41,23 @@ class ParallelPlanner(Planner):
         response = self.model.predict(prompt)
         return self.extract_json(response)
     
-    def decompose_task(self, task: str) -> list[SubTaskNode]:
+    def decompose_task(self, task: str, node_type) -> list[SubTaskNode]:
         subtasks = []
         prompt = instruction.format(example=example, task=task)
         
         try:
-            # response = self.model.predict(prompt)
-            # tasks = self.extract_json(response)
             tasks = self.predict_with_retry(prompt)
         except ValueError as e:
             raise ValueError(f"Error decomposing task: {e}")
         
-        # print(f"\033[94mDecomposed task: {tasks}\033[0m")
         logger.info(f"Decomposed task: {COLOR_CODES['CYAN']}{tasks}{RESET}")
         for task in tasks:
-            subtask = SubTaskNode(task)
+            subtask = node_type(task)
             subtasks.append(subtask)
         return subtasks
     
-    def plan(self, task: str) -> list[SubTaskNode]:
-        tasks = self.decompose_task(task)
+    def plan(self, task: str, node_type) -> list[SubTaskNode]:
+        tasks = self.decompose_task(task, node_type)
         return self.topological_sort(tasks)
     
     def topological_sort(self, tasks: list[SubTaskNode]) -> list[SubTaskNode]:
