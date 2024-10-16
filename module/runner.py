@@ -1,6 +1,6 @@
-import json, re
+import json, re, time
 from retry import retry
-from module.subtask import SubTaskNode
+from module.subtask import SubTaskNode, SubQANode, SubTTNode
 from src.logger_config import logger, COLOR_CODES, RESET
 
 class Runner:
@@ -65,7 +65,7 @@ class HotPotQARunner(Runner):
             logger.info(step_str)
         return prompt, r, done, info
 
-    def run(self, subtask: SubTaskNode, print_info=True) -> str:
+    def run(self, subtask: SubQANode, print_info=True) -> str:
         from template.webthink0 import instruction, webthink_example
         informations = ""
         if len(subtask.infos) > 0:
@@ -84,6 +84,15 @@ class HotPotQARunner(Runner):
             obs, r, done, info = self.executor.run("finish[]")
         subtask.answer = info["answer"]
         return info["answer"]
+    
+class TTRunner(Runner):
+    def __init__(self, model, executor):
+        super().__init__(model, executor)
+        self._name = 'TTRunner'
+    
+    def run(self, subtask: SubTTNode) -> str:
+        time.sleep(subtask.time)
+        return subtask.name
     
 if __name__ == "__main__":
     content = """I need to search for a data source or API about Giuseppe Verdi, and fetch relevant information about him.

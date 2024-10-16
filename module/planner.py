@@ -2,15 +2,15 @@ import json, re
 from retry import retry
 from collections import deque
 from module.subtask import SubTaskNode
-from template.decompose_plan import instruction, example 
 from model.model import Model
 from src.logger_config import logger, COLOR_CODES, RESET
 
 class Planner:
-    def __init__(self, model: Model):
+    def __init__(self, model: Model, env):
         self._name = 'Planner'
         self.sub_tasks = []
         self.model = model
+        self.env = env
     
     def extract_json(self, text: str) -> dict:
         json_regex = r'```json\s*\[\s*[\s\S]*?\s*\]\s*(?:```|\Z)'
@@ -32,8 +32,8 @@ class Planner:
         raise NotImplementedError
         
 class ParallelPlanner(Planner):
-    def __init__(self, model):
-        super().__init__(model)
+    def __init__(self, model, env):
+        super().__init__(model, env)
         self._name = 'ParallelPlanner'
     
     @retry(ValueError, tries=3, delay=2)
@@ -41,19 +41,29 @@ class ParallelPlanner(Planner):
         response = self.model.predict(prompt)
         return self.extract_json(response)
     
-    def decompose_task(self, task: str, node_type) -> list[SubTaskNode]:
+    def decompose_task(self, prompt: str, node_type) -> list[SubTaskNode]:
         subtasks = []
-        prompt = instruction.format(example=example, task=task)
-        
-        try:
-            tasks = self.predict_with_retry(prompt)
-        except ValueError as e:
-            raise ValueError(f"Error decomposing task: {e}")
-        
-        logger.info(f"Decomposed task: {COLOR_CODES['CYAN']}{tasks}{RESET}")
-        for task in tasks:
-            subtask = node_type(task)
-            subtasks.append(subtask)
+        valid = False
+        while not valid:
+            valid = True
+            try:
+                tasks = self.predict_with_retry(prompt)
+            except ValueError as e:
+                logger.info(f"Error decomposing task: {COLOR_CODES['RED']}{e}{RESET}")
+                valid = False
+                continue
+            
+            logger.info(f"Decomposed task: {COLOR_CODES['CYAN']}{tasks}{RESET}")
+            for task in tasks:
+                subtask = node_type(task)
+                subtasks.append(subtask)
+            
+            if hasattr(self.env, 'is_valid_sub_node'):
+                for subtask in subtasks:
+                    if not self.env.is_valid_sub_node(subtask):
+                        valid = False
+                        logger.info(f"Subtask {COLOR_CODES['RED']}{subtask.name}{RESET} is invalid, retrying...")            
+                        break
         return subtasks
     
     def plan(self, task: str, node_type) -> list[SubTaskNode]:

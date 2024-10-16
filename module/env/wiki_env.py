@@ -170,6 +170,6 @@ class WikiEnv(gym.Env):
         "num_calls": self.num_searches,
     }
 
-  def commit(self, task: SubQANode, completed_task):
+  def update(self, task: SubQANode, completed_task):
       task.infos.append((completed_task.name, completed_task.answer))
     

@@ -5,8 +5,11 @@ from src.logger_config import logger, COLOR_CODES, RESET
 
 def execute_task(runner, task, queue):
     result = runner.run(task)
-    queue.put((task.question, result))
-
+    if hasattr(task, 'question'):
+        queue.put((task.question, result))
+    else:
+        queue.put((task.name, result))
+    
 class scheduler:
     def __init__(self, runner, env):
         self.name = 'scheduler'
@@ -40,8 +43,6 @@ class ParallelScheduler(scheduler):
             processes = {}
             for task in executable_tasks:
                 new_runner = self.copy_runner()
-                # logger.debug(self.runner.model)
-                # logger.debug(new_runner.model)
                 process = multiprocessing.Process(target=execute_task, args=(new_runner, task, queue))
                 process.start()
                 processes[process] = task.name
@@ -53,6 +54,8 @@ class ParallelScheduler(scheduler):
                     
                     completed_task, result = queue.get()
                     logger.info(f"Task {COLOR_CODES['GREEN']}{completed_task}{RESET} completed with result: {COLOR_CODES['GREEN']}{result}{RESET}")
+                    if hasattr(self.env, 'commit'):
+                        result = self.env.commit(self.tasks[task_name])
                     self.tasks[task_name].answer = result
                     final_result = result
                     
@@ -62,8 +65,8 @@ class ParallelScheduler(scheduler):
                     for dependent_task_name, task in self.tasks.items():
                         if task_name in task.dependencies:
                             task.dependencies.remove(task_name)
-                            # task.infos.append((completed_task, result))
-                            self.env.commit(task, self.tasks[task_name])
+                            if hasattr(self.env, 'update'):
+                                self.env.update(task, self.tasks[task_name])
                             self.dependency_count[dependent_task_name] -= 1
                             if self.dependency_count[dependent_task_name] == 0:
                                 new_runner = self.copy_runner()

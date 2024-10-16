@@ -4,12 +4,49 @@ import multiprocessing
 from model.gpt_wrapper import GPTWrapper
 from model.llama_wrapper import LlamaWrapper
 from module.env.wiki_env import WikiEnv
+from module.env.tt_env import TTEnv
 from module.excutor import HotPotQAExcutor
-from module.runner import HotPotQARunner
+from module.runner import HotPotQARunner, TTRunner
 from module.scheduler import ParallelScheduler
 from module.planner import ParallelPlanner
+from module.subtask import SubQANode, SubTTNode
 from src.logger_config import logger, COLOR_CODES, RESET
 
+def preprocess_question(args):
+    questions = []
+    partial_results = []
+    if args.question:
+        questions.append(args.question)
+    elif args.test_file:
+        with open(args.test_file, "r") as f:
+            data = json.load(f)
+
+        if os.path.exists(args.output_file):
+            with open(args.output_file, "r") as f:
+                partial_results = json.load(f)
+        else:
+            partial_results = []
+        processed_questions = set(result['question']['id'] for result in partial_results)
+        for question in data:
+            if question['id'] not in processed_questions:
+                questions.append(question)        
+    else:
+        raise ValueError("Either --question or --test_file must be provided.")
+    
+    prompts = []
+    if args.task == "hotpotqa":
+        for question in questions:
+            from template.planner.decompose_plan import instruction, example
+            prompt = instruction.format(example=example, task=question)
+            prompts.append((question, prompt))
+    elif args.task == "techtree":
+        for question in questions:
+            from template.planner.techtree_plan import instruction, example
+            prompt = instruction.format(example=example, task=question)
+            prompts.append((question, prompt))
+            
+    return partial_results, prompts
+            
 def main():
     parser = argparse.ArgumentParser(description="Run the specified task with the given model and scheduler.")
     parser.add_argument("--task", type=str, required=True, help="The task to run.")
@@ -35,44 +72,37 @@ def main():
         model = GPTWrapper(name=model)
     
     multiprocessing.set_start_method('spawn')
-    planner = ParallelPlanner(model)
 
     try:
-        if task == "hotpotqa":
-            env = WikiEnv()
-            executor = HotPotQAExcutor(env)
-            runner = HotPotQARunner(model, executor)
-            if scheduler_type == "parallel":
-                scheduler = ParallelScheduler(runner)
+        def save_results(partial_results, output_file):
+            with open(output_file, "w") as f:
+                json.dump(partial_results, f, ensure_ascii=False, indent=4)
+        
+        partial_results, prompts = preprocess_question(args)
+        for question, prompt in prompts:
+            if task == "hotpotqa":
+                env = WikiEnv()
+                executor = HotPotQAExcutor(env)
+                runner = HotPotQARunner(model, executor)
+                node_type = SubQANode
+            elif task == "techtree":
+                env = TTEnv(question)
+                runner = TTRunner(None, None)
+                node_type = SubTTNode    
             else:
-                raise ValueError(f"Unsupported scheduler type: {scheduler_type}")
-            if args.question:
-                result = scheduler.run(planner.plan(args.question))
-            elif args.test_file:
-                with open(args.test_file, "r") as f:
-                    data = json.load(f)
-
-                if os.path.exists(args.output_file):
-                    with open(args.output_file, "r") as f:
-                        partial_results = json.load(f)
-                else:
-                    partial_results = []
-
-                processed_questions = set(result['question']['id'] for result in partial_results)
-
-                for question in data:
-                    if question['id'] not in processed_questions:
-                        result = scheduler.run(planner.plan(question))
-                        partial_results.append({'question': question, 'result': result})
-                        with open(args.output_file, "w") as f:
-                            json.dump(partial_results, f, ensure_ascii=False, indent=4)
-
-                with open(args.output_file, "w") as f:
-                    json.dump(partial_results, f, ensure_ascii=False, indent=4)
-            else:
-                raise ValueError("Either --question or --test_file must be provided.")
+                raise ValueError(f"Unsupported task: {task}")
+            planner = ParallelPlanner(model, env)
+            scheduler = ParallelScheduler(runner, env)
+            
+            result = scheduler.run(planner.plan(prompt, node_type))
+            partial_results.append({'question': question, 'result': result})
+            if args.output_file:
+                save_results(partial_results, args.output_file)
+        if args.output_file:
+           save_results(partial_results, args.output_file) 
         else:
-            raise ValueError(f"Unsupported task: {task}")
+            logger.info(f"Results: {COLOR_CODES['CYAN']}{partial_results}{RESET}")
+    
 
     except KeyboardInterrupt:
         logger.info(f"{COLOR_CODES['YELLOW']}Program interrupted by user{RESET}")
