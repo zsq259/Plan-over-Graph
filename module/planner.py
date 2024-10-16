@@ -44,13 +44,16 @@ class ParallelPlanner(Planner):
     def decompose_task(self, prompt: str, node_type) -> list[SubTaskNode]:
         subtasks = []
         valid = False
-        while not valid:
+        max_retry = 3
+        retry_count = 0
+        while not valid and retry_count < max_retry:
             valid = True
             try:
                 tasks = self.predict_with_retry(prompt)
             except ValueError as e:
                 logger.info(f"Error decomposing task: {COLOR_CODES['RED']}{e}{RESET}")
                 valid = False
+                retry_count += 1
                 continue
             
             logger.info(f"Decomposed task: {COLOR_CODES['CYAN']}{tasks}{RESET}")
@@ -63,7 +66,10 @@ class ParallelPlanner(Planner):
                     if not self.env.is_valid_sub_node(subtask):
                         valid = False
                         logger.info(f"Subtask {COLOR_CODES['RED']}{subtask.name}{RESET} is invalid, retrying...")            
+                        retry_count += 1
                         break
+        if not valid:
+            raise ValueError("Failed to decompose task")
         return subtasks
     
     def plan(self, task: str, node_type) -> list[SubTaskNode]:

@@ -58,6 +58,8 @@ class TTEnv:
     def get_available_materials(self) -> Set[str]:
         return self.available_materials.copy()
 
+    def get_final_result(self) -> int:
+        return self.material_earliest_time.get(self.target, None)
 # 示例用法
 if __name__ == "__main__":
     # 示例 JSON 配置

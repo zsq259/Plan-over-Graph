@@ -22,7 +22,7 @@ class GPTWrapper(Model):
                         {"role": "system", "content": "You are a helpful assistant."},
                         {"role": "user", "content": prompt}
                     ],
-                    temperature=0,
+                    temperature=0.1,
                     max_tokens=max_tokens,
                     top_p=1,
                     frequency_penalty=0.0,
@@ -35,7 +35,7 @@ class GPTWrapper(Model):
         response = client.completions.create(
                     model=self.name,
                     prompt=prompt,
-                    temperature=0,
+                    temperature=0.1,
                     max_tokens=max_tokens,
                     top_p=1,
                     frequency_penalty=0.0,

@@ -37,12 +37,12 @@ def preprocess_question(args):
     if args.task == "hotpotqa":
         for question in questions:
             from template.planner.decompose_plan import instruction, example
-            prompt = instruction.format(example=example, task=question)
+            prompt = instruction.format(example=example, task=question['question'])
             prompts.append((question, prompt))
-    elif args.task == "techtree":
+    elif args.task == "abstask":
         for question in questions:
-            from template.planner.techtree_plan import instruction, example
-            prompt = instruction.format(example=example, task=question)
+            from template.planner.abstask_plan import instruction, example
+            prompt = instruction.format(example=example, task=question['question'])
             prompts.append((question, prompt))
             
     return partial_results, prompts
@@ -85,8 +85,8 @@ def main():
                 executor = HotPotQAExcutor(env)
                 runner = HotPotQARunner(model, executor)
                 node_type = SubQANode
-            elif task == "techtree":
-                env = TTEnv(question)
+            elif task == "abstask":
+                env = TTEnv(question['question'])
                 runner = TTRunner(None, None)
                 node_type = SubTTNode    
             else:
@@ -94,7 +94,16 @@ def main():
             planner = ParallelPlanner(model, env)
             scheduler = ParallelScheduler(runner, env)
             
-            result = scheduler.run(planner.plan(prompt, node_type))
+            max_retry = 1
+            retry_count = 0
+            while retry_count < max_retry:
+                try:
+                    result = scheduler.run(planner.plan(prompt, node_type))
+                    break
+                except Exception as e:
+                    logger.error(f"Error: {COLOR_CODES['RED']}{e}{RESET}")
+                    retry_count += 1
+                    result = None
             partial_results.append({'question': question, 'result': result})
             if args.output_file:
                 save_results(partial_results, args.output_file)

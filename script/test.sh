@@ -1,6 +1,6 @@
 python -m src.main\
-    --task hotpotqa\
+    --task abstask\
     --model "gpt-3.5-turbo-instruct"\
     --scheduler parallel\
-    --test_file "data/hotpotqa/test.json"\
-    --output_file "data/hotpotqa/output1.json"\
+    --test_file "data/abstask/test.json"\
+    --output_file "data/abstask/output2.json"\

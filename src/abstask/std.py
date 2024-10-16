@@ -1,4 +1,4 @@
-def min_time_to_target(task_info):
+def min_time_to_target(task_info: dict) -> int:
     rules = task_info["rules"]
     initial_source = task_info["initial_source"]
     target = task_info["target"]

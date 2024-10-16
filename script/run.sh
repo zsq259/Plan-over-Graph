@@ -1,5 +1,5 @@
 python -m src.main\
-    --task techtree\
+    --task abstask\
     --model "gpt-3.5-turbo-instruct"\
     --scheduler parallel\
     --question '{

@@ -75,6 +75,8 @@ class ParallelScheduler(scheduler):
                                 processes[new_process] = dependent_task_name
                     del self.tasks[task_name]
 
+        if hasattr(self.env, 'get_final_result'):
+            return self.env.get_final_result()
         return final_result
 
 if __name__ == "__main__":

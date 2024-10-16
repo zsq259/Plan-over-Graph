@@ -1,0 +1,336 @@
+[
+    {
+        "question": {
+            "id": 1,
+            "question": {
+                "rules": [
+                    {
+                        "source": [
+                            "N1"
+                        ],
+                        "target": [
+                            "N2"
+                        ],
+                        "time": 3
+                    },
+                    {
+                        "source": [
+                            "N2"
+                        ],
+                        "target": [
+                            "N3"
+                        ],
+                        "time": 5
+                    },
+                    {
+                        "source": [
+                            "N1",
+                            "N3",
+                            "N2"
+                        ],
+                        "target": [
+                            "N4"
+                        ],
+                        "time": 1
+                    },
+                    {
+                        "source": [
+                            "N1",
+                            "N2"
+                        ],
+                        "target": [
+                            "N5"
+                        ],
+                        "time": 5
+                    }
+                ],
+                "initial_source": [
+                    "N1"
+                ],
+                "target": "N4"
+            },
+            "answer": 9
+        },
+        "result": 9
+    },
+    {
+        "question": {
+            "id": 2,
+            "question": {
+                "rules": [
+                    {
+                        "source": [
+                            "N1"
+                        ],
+                        "target": [
+                            "N2"
+                        ],
+                        "time": 5
+                    },
+                    {
+                        "source": [
+                            "N2"
+                        ],
+                        "target": [
+                            "N3"
+                        ],
+                        "time": 4
+                    },
+                    {
+                        "source": [
+                            "N1",
+                            "N3"
+                        ],
+                        "target": [
+                            "N4"
+                        ],
+                        "time": 4
+                    },
+                    {
+                        "source": [
+                            "N1"
+                        ],
+                        "target": [
+                            "N5"
+                        ],
+                        "time": 2
+                    },
+                    {
+                        "source": [
+                            "N2"
+                        ],
+                        "target": [
+                            "N5"
+                        ],
+                        "time": 5
+                    },
+                    {
+                        "source": [
+                            "N4"
+                        ],
+                        "target": [
+                            "N5"
+                        ],
+                        "time": 2
+                    }
+                ],
+                "initial_source": [
+                    "N1"
+                ],
+                "target": "N5"
+            },
+            "answer": 2
+        },
+        "result": 2
+    },
+    {
+        "question": {
+            "id": 3,
+            "question": {
+                "rules": [
+                    {
+                        "source": [
+                            "N1"
+                        ],
+                        "target": [
+                            "N2"
+                        ],
+                        "time": 3
+                    },
+                    {
+                        "source": [
+                            "N1"
+                        ],
+                        "target": [
+                            "N3"
+                        ],
+                        "time": 1
+                    },
+                    {
+                        "source": [
+                            "N2"
+                        ],
+                        "target": [
+                            "N3"
+                        ],
+                        "time": 1
+                    },
+                    {
+                        "source": [
+                            "N3"
+                        ],
+                        "target": [
+                            "N4"
+                        ],
+                        "time": 5
+                    },
+                    {
+                        "source": [
+                            "N2"
+                        ],
+                        "target": [
+                            "N4"
+                        ],
+                        "time": 2
+                    },
+                    {
+                        "source": [
+                            "N4"
+                        ],
+                        "target": [
+                            "N5"
+                        ],
+                        "time": 4
+                    },
+                    {
+                        "source": [
+                            "N3"
+                        ],
+                        "target": [
+                            "N5"
+                        ],
+                        "time": 1
+                    }
+                ],
+                "initial_source": [
+                    "N1"
+                ],
+                "target": "N5"
+            },
+            "answer": 2
+        },
+        "result": 9
+    },
+    {
+        "question": {
+            "id": 4,
+            "question": {
+                "rules": [
+                    {
+                        "source": [
+                            "N1"
+                        ],
+                        "target": [
+                            "N2"
+                        ],
+                        "time": 4
+                    },
+                    {
+                        "source": [
+                            "N1"
+                        ],
+                        "target": [
+                            "N3"
+                        ],
+                        "time": 5
+                    },
+                    {
+                        "source": [
+                            "N2"
+                        ],
+                        "target": [
+                            "N4"
+                        ],
+                        "time": 5
+                    },
+                    {
+                        "source": [
+                            "N1"
+                        ],
+                        "target": [
+                            "N4"
+                        ],
+                        "time": 5
+                    },
+                    {
+                        "source": [
+                            "N3"
+                        ],
+                        "target": [
+                            "N4"
+                        ],
+                        "time": 3
+                    },
+                    {
+                        "source": [
+                            "N1",
+                            "N2"
+                        ],
+                        "target": [
+                            "N5"
+                        ],
+                        "time": 5
+                    }
+                ],
+                "initial_source": [
+                    "N1"
+                ],
+                "target": "N4"
+            },
+            "answer": 5
+        },
+        "result": 5
+    },
+    {
+        "question": {
+            "id": 5,
+            "question": {
+                "rules": [
+                    {
+                        "source": [
+                            "N1"
+                        ],
+                        "target": [
+                            "N2"
+                        ],
+                        "time": 5
+                    },
+                    {
+                        "source": [
+                            "N1"
+                        ],
+                        "target": [
+                            "N3"
+                        ],
+                        "time": 2
+                    },
+                    {
+                        "source": [
+                            "N2"
+                        ],
+                        "target": [
+                            "N3"
+                        ],
+                        "time": 2
+                    },
+                    {
+                        "source": [
+                            "N3",
+                            "N2"
+                        ],
+                        "target": [
+                            "N4"
+                        ],
+                        "time": 5
+                    },
+                    {
+                        "source": [
+                            "N3",
+                            "N1"
+                        ],
+                        "target": [
+                            "N5"
+                        ],
+                        "time": 3
+                    }
+                ],
+                "initial_source": [
+                    "N1"
+                ],
+                "target": "N5"
+            },
+            "answer": 5
+        },
+        "result": 5
+    }
+]
