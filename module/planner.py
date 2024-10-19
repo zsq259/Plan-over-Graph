@@ -48,6 +48,8 @@ class ParallelPlanner(Planner):
             except ValueError as e:
                 logger.info(f"Error decomposing task: {COLOR_CODES['RED']}{e}{RESET}")
                 valid = False
+                if retry_count == 0:
+                    prompt = "You have failed to decompose the task. Please try again." + prompt
                 retry_count += 1
                 continue
             
@@ -61,6 +63,8 @@ class ParallelPlanner(Planner):
                     if not self.env.is_valid_sub_node(subtask):
                         valid = False
                         logger.info(f"Subtask {COLOR_CODES['RED']}{subtask.name}{RESET} is invalid, retrying...")            
+                        if retry_count == 0:
+                            prompt = "You have failed to decompose the task. Please try again." + prompt
                         retry_count += 1
                         break
         if not valid:

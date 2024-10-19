@@ -99,6 +99,7 @@ def main():
             
             max_retry = 1
             retry_count = 0
+            plan = None
             while retry_count < max_retry:
                 try:
                     subtasks, plan = planner.plan(prompt, node_type)
