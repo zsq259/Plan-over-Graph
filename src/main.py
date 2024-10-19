@@ -16,7 +16,10 @@ def preprocess_question(args):
     questions = []
     partial_results = []
     if args.question:
-        questions.append(args.question)
+        if isinstance(args.question, str):
+            questions.append(json.loads(args.question))
+        else:
+            questions.append(args.question)
     elif args.test_file:
         with open(args.test_file, "r") as f:
             data = json.load(f)
@@ -44,7 +47,7 @@ def preprocess_question(args):
             from template.planner.abstask_plan import instruction, example
             prompt = instruction.format(example=example, task=question['question'])
             prompts.append((question, prompt))
-            
+    
     return partial_results, prompts
             
 def main():
@@ -98,13 +101,14 @@ def main():
             retry_count = 0
             while retry_count < max_retry:
                 try:
-                    result = scheduler.run(planner.plan(prompt, node_type))
+                    subtasks, plan = planner.plan(prompt, node_type)
+                    result = scheduler.run(subtasks)
                     break
                 except Exception as e:
                     logger.error(f"Error: {COLOR_CODES['RED']}{e}{RESET}")
                     retry_count += 1
                     result = None
-            partial_results.append({'question': question, 'result': result})
+            partial_results.append({'question': question, 'plan': plan, 'result': result})
             if args.output_file:
                 save_results(partial_results, args.output_file)
         if args.output_file:

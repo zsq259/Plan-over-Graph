@@ -69,16 +69,18 @@ def generate_abstract_workflow(n_nodes, m_edges, group_size_range=(1, 3), time_r
     }
 
 def main():
-    config = [50, 30, 20]
-    nodes = [(8, 10), (25, 30), (45, 50)]
+    # config = [50, 30, 20]
+    # nodes = [(8, 10), (25, 30), (45, 50)]
+    config = [50, 50]
+    nodes = [(8, 10), (25, 30)]
 
     data = []
     count = 0
-    for i in range(0, 3):
+    for i in range(len(config)):
         for _ in range(config[i]):
             count += 1
             n = random.randint(nodes[i][0], nodes[i][1])
-            m = random.randint(n * 2, n * 3)
+            m = random.randint(n * (n - 1) / 3, n * (n - 1) / 2)
             abstract_workflow = generate_abstract_workflow(n, m)
             item = {
                 "id": count,
@@ -87,7 +89,7 @@ def main():
             }
             data.append(item)
     
-    test_file = 'data/abstask/dev.json'
+    test_file = 'data/abstask/dev1.json'
     with open(test_file, 'w') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 

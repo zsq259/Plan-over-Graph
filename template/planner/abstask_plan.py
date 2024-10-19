@@ -17,17 +17,25 @@ Output format:
   - target: The target node resulting from this subtask.
   - dependencies: A list of dependencies (other subtask names) that need to be completed before this subtask can be executed.
   
+Important: The generated JSON must strictly follow the JSON format. The following rules must be strictly adhered to:
+1. All keys and values must be enclosed in double quotes.
+2. All elements in arrays must be separated by commas.
+3. All fields in the JSON must be complete and correctly formatted, with no missing or incorrect elements.
+Your task is to generate the final plan in the specified JSON format. Do not provide any implementation code.
+
 here is a example for you to understand the task better:
 
 {example}
 
 Now, based on the following transformation rules, initial nodes, and target node, please provide an optimal plan that allows the target node to be obtained in the shortest time, supporting parallel transformations.
+Only include necessary steps that are required for the fastest completion. Do not add any extra or redundant transformation steps.
 
 ```json
 {task}
 ```
 
-Please provide an optimal plan in the requested JSON format and the total time required.
+Your task is to generate the final plan in the specified JSON format. Do not provide any implementation code.
+
 """
 
 example = """

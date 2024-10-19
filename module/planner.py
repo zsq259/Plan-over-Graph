@@ -1,5 +1,4 @@
 import json, re
-from retry import retry
 from collections import deque
 from module.subtask import SubTaskNode
 from model.model import Model
@@ -35,12 +34,7 @@ class ParallelPlanner(Planner):
     def __init__(self, model, env):
         super().__init__(model, env)
         self._name = 'ParallelPlanner'
-    
-    @retry(ValueError, tries=3, delay=2)
-    def predict_with_retry(self, prompt):
-        response = self.model.predict(prompt)
-        return self.extract_json(response)
-    
+        
     def decompose_task(self, prompt: str, node_type) -> list[SubTaskNode]:
         subtasks = []
         valid = False
@@ -49,7 +43,8 @@ class ParallelPlanner(Planner):
         while not valid and retry_count < max_retry:
             valid = True
             try:
-                tasks = self.predict_with_retry(prompt)
+                response = self.model.predict(prompt)
+                tasks = self.extract_json(response)
             except ValueError as e:
                 logger.info(f"Error decomposing task: {COLOR_CODES['RED']}{e}{RESET}")
                 valid = False
@@ -70,11 +65,11 @@ class ParallelPlanner(Planner):
                         break
         if not valid:
             raise ValueError("Failed to decompose task")
-        return subtasks
+        return subtasks, tasks
     
     def plan(self, task: str, node_type) -> list[SubTaskNode]:
-        tasks = self.decompose_task(task, node_type)
-        return self.topological_sort(tasks)
+        subtasks, plan = self.decompose_task(task, node_type)
+        return self.topological_sort(subtasks), plan
     
     def topological_sort(self, tasks: list[SubTaskNode]) -> list[SubTaskNode]:
         in_degree = {task.name: 0 for task in tasks}
@@ -103,31 +98,14 @@ if __name__ == "__main__":
     content = """
 ```json
 [
-    {
-        "name": "retrieve_yangtze_length",
-        "question": "How long is the Yangtze River?",
-        "description": "Retrieve the length of the Yangtze River. This requires using the 'length of river' API and specifying the name 'Yangtze River'.",
-        "dependencies": []
-    },
-    {
-        "name": "retrieve_yellow_length",
-        "question": "How long is the Yellow River?",
-        "description": "Retrieve the length of the Yellow River. This requires using the 'length of river' API and specifying the name 'Yellow River'.",
-        "dependencies": []
-    },
-    {
-        "name": "compare_river_lengths",
-        "question": "Which is longer, the Yangtze River or the Yellow River?",
-        "description": "Compare the lengths of the Yangtze River and the Yellow River to determine which one is longer. This requires using the 'compare values' API and specifying the lengths obtained from the previous two subtasks as inputs.",
-        "dependencies": [
-            "retrieve_yangtze_length",
-            "retrieve_yellow_length"
-        ]
-    }
+{'name': 'Subtask1','source': ['N1'], 'target': 'N2', 'dependencies': ['N1']},
+{'name': 'Subtask2','source': ['N6'], 'target': 'N3', 'dependencies': ['N6']},
+{'name': 'Subtask3','source': ['N2', 'N3'], 'target': 'N4', 'dependencies': ['Subtask1', 'Subtask2']},
+{'name': 'Subtask4','source': ['N4'], 'target': 'N5', 'dependencies': ['Subtask3']}
 ]
 ```
-    """
-    planner = ParallelPlanner(None)
+"""
+    planner = ParallelPlanner(None, None)
     tasks = planner.extract_json(content)
     # print(tasks)
     logger.info(tasks)

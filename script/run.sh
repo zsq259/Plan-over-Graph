@@ -1,8 +1,9 @@
 python -m src.main\
     --task abstask\
-    --model "gpt-3.5-turbo-instruct"\
+    --model "meta-llama/Llama-3.2-1B-Instruct"\
     --scheduler parallel\
-    --question '{
+    --question '''{
+    "question": {
         "rules": [
             {
                 "source": ["N1"],
@@ -32,4 +33,5 @@ python -m src.main\
         ],
         "initial_source": ["N1", "N6"],
         "target": "N5"
-    }'
+    }
+}'''

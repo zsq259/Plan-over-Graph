@@ -67,11 +67,10 @@ class GPTWrapper(Model):
             except Exception as e:
                 logger.error(f"Unexpected error: {COLOR_CODES['RED']}{e}{RESET}")
                 exit(1)
-        # with open("2.txt", "a") as f:
-        #     f.write("\n-------------------------------------\n")
-        #     f.write(prompt)
-        #     f.write("\n")
-        #     f.write(response.choices[0].text)
-        #     f.write("\n-------------------------------------\n")
-        # return response.choices[0].text
+        with open("2.txt", "a") as f:
+            f.write("\n-------------------------------------\n")
+            f.write(prompt)
+            f.write("\n")
+            f.write(response)
+            f.write("\n-------------------------------------\n")
         return response
