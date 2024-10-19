@@ -91,7 +91,7 @@ class TTRunner(Runner):
         self._name = 'TTRunner'
     
     def run(self, subtask: SubTTNode) -> str:
-        time.sleep(subtask.time)
+        # time.sleep(subtask.time)
         return subtask.name
     
 if __name__ == "__main__":

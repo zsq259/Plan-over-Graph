@@ -32,7 +32,7 @@ class LlamaWrapper(Model):
                 messages,
                 max_new_tokens=max_new_tokens,
                 pad_token_id=pipe.tokenizer.eos_token_id,
-                temperature=0.1,
+                temperature=0.2,
             )
             response_text = outputs[0]["generated_text"][-1]['content']
         except Exception as e:
@@ -41,12 +41,12 @@ class LlamaWrapper(Model):
             
             exit(1)
 
-        # with open("2.txt", "a") as f:
-        #     f.write("\n-------------------------------------\n")
-        #     f.write(prompt)
-        #     f.write("\n")
-        #     f.write(response_text)
-        #     f.write("\n-------------------------------------\n")
+        with open("3.txt", "a") as f:
+            f.write("\nstart:-------------------------------------\n")
+            f.write(prompt)
+            f.write("\n")
+            f.write(response_text)
+            f.write("\nend:-------------------------------------\n")
         # print(prompt)
         # print(response_text)
         return response_text
