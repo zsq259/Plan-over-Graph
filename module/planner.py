@@ -41,6 +41,7 @@ class ParallelPlanner(Planner):
         max_retry = 3
         retry_count = 0
         while not valid and retry_count < max_retry:
+            subtasks = []
             valid = True
             try:
                 response = self.model.predict(prompt)

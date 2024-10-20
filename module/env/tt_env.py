@@ -14,12 +14,14 @@ class TTEnv:
         self.synthesized_materials: Set[str] = set()
         self.target = config.get("target", "")
         self.material_earliest_time: Dict[str, int] = {material: 0 for material in self.initial_sources}
+        self.total_cost = 0
     
     def is_valid_sub_node(self, sub_node: SubTTNode) -> bool:
         for rule in self.rules:
             if sorted(rule["target"]) == sorted(sub_node.target):
                 if sorted(rule["source"]) == sorted(sub_node.source):
                     sub_node.time = rule.get("time", 0)
+                    sub_node.cost = rule.get("cost", 0)
                     return True
         return False
     
@@ -52,6 +54,8 @@ class TTEnv:
             else:
                 self.material_earliest_time[target] = min(self.material_earliest_time[target], current_time)
         
+        self.total_cost += sub_node.cost
+        
         print(f"反应 {sub_node.name} 成功提交，所需时间: {sub_node.time}，当前时间: {current_time}")
         return current_time
     
@@ -59,7 +63,7 @@ class TTEnv:
         return self.available_materials.copy()
 
     def get_final_result(self) -> int:
-        return self.material_earliest_time.get(self.target, None)
+        return self.material_earliest_time.get(self.target, None), self.total_cost
 # 示例用法
 if __name__ == "__main__":
     # 示例 JSON 配置

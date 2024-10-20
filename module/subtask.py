@@ -19,6 +19,7 @@ class SubTTNode:
         self.target = subtask['target']
         self.dependencies = subtask['dependencies']
         self.time = subtask['time'] if 'time' in subtask else 0
+        self.cost = subtask['cost'] if 'cost' in subtask else 0
         
         if isinstance(self.source, str):
             self.source = [self.source]

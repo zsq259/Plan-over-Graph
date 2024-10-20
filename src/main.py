@@ -44,7 +44,7 @@ def preprocess_question(args):
             prompts.append((question, prompt))
     elif args.task == "abstask":
         for question in questions:
-            from template.planner.abstask_plan import instruction, example
+            from template.planner.abstask_cost_plan import instruction, example
             prompt = instruction.format(example=example, task=question['question'])
             prompts.append((question, prompt))
     
