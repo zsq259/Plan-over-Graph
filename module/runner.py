@@ -66,7 +66,7 @@ class HotPotQARunner(Runner):
         return prompt, r, done, info
 
     def run(self, subtask: SubQANode, print_info=True) -> str:
-        from template.webthink0 import instruction, webthink_example
+        from template.runner.webthink0 import instruction, webthink_example
         informations = ""
         if len(subtask.infos) > 0:
             informations = "\nFor the current question, before you start search, you have some initial informations:\n"

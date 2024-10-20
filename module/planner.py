@@ -34,7 +34,7 @@ class ParallelPlanner(Planner):
     def __init__(self, model, env):
         super().__init__(model, env)
         self._name = 'ParallelPlanner'
-        
+
     def decompose_task(self, prompt: str, node_type) -> list[SubTaskNode]:
         subtasks = []
         valid = False
@@ -101,15 +101,9 @@ class ParallelPlanner(Planner):
 if __name__ == "__main__":
     content = """
 ```json
-[
-{'name': 'Subtask1','source': ['N1'], 'target': 'N2', 'dependencies': ['N1']},
-{'name': 'Subtask2','source': ['N6'], 'target': 'N3', 'dependencies': ['N6']},
-{'name': 'Subtask3','source': ['N2', 'N3'], 'target': 'N4', 'dependencies': ['Subtask1', 'Subtask2']},
-{'name': 'Subtask4','source': ['N4'], 'target': 'N5', 'dependencies': ['Subtask3']}
-]
+[{'name': 'Subtask1', 'source': ['N1'], 'target': 'N2', 'dependencies': []}, {'name': 'Subtask2', 'source': ['N1', 'N2'], 'target': 'N3', 'dependencies': ['Subtask1']}, {'name': 'Subtask3', 'source': ['N3'], 'target': 'N4', 'dependencies': ['Subtask2']}, {'name': 'Subtask4', 'source': ['N1'], 'target': 'N4', 'dependencies': ['Subtask3']}, {'name': 'Subtask5', 'source': ['N2'], 'target': 'N4', 'dependencies': ['Subtask4']}, {'name': 'Subtask6', 'source': ['N3'], 'target': 'N5', 'dependencies': ['Subtask3']}, {'name': 'Subtask7', 'source': ['N1'], 'target': 'N5', 'dependencies': ['Subtask6']}, {'name': 'Subtask8', 'source': ['N2'], 'target': 'N5', 'dependencies': ['Subtask7']}, {'name': 'Subtask9', 'source': ['N2', 'N1'], 'target': 'N6', 'dependencies': ['Subtask1']}, {'name': 'Subtask10', 'source': ['N4'], 'target': 'N6', 'dependencies': ['Subtask3']}, {'name': 'Subtask11', 'source': ['N1', 'N2', 'N5'], 'target': 'N7', 'dependencies': ['Subtask2', 'Subtask8']}, {'name': 'Subtask12', 'source': ['N4', 'N6', 'N3'], 'target': 'N7', 'dependencies': ['Subtask3', 'Subtask10']}, {'name': 'Subtask13', 'source': ['N3', 'N1', 'N4'], 'target': 'N8', 'dependencies': ['Subtask3', 'Subtask4']}, {'name': 'Subtask14', 'source': ['N7', 'N5'], 'target': 'N8', 'dependencies': ['Subtask6', 'Subtask11']}, {'name': 'Subtask15', 'source': ['N8', 'N2'], 'target': 'N9', 'dependencies': ['Subtask8', 'Subtask13']}, {'name': 'Subtask16', 'source': ['N7', 'N6'], 'target': 'N9', 'dependencies': ['Subtask10', 'Subtask12']}]
 ```
 """
     planner = ParallelPlanner(None, None)
     tasks = planner.extract_json(content)
-    # print(tasks)
-    logger.info(tasks)
+    

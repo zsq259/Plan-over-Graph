@@ -77,15 +77,6 @@ if __name__ == "__main__":
             },
             {
                 "source": [
-                    "N2"
-                ],
-                "target": [
-                    "N3"
-                ],
-                "time": 5
-            },
-            {
-                "source": [
                     "N1"
                 ],
                 "target": [
@@ -95,29 +86,229 @@ if __name__ == "__main__":
             },
             {
                 "source": [
-                    "N2",
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "time": 4
+            },
+            {
+                "source": [
                     "N1"
                 ],
                 "target": [
                     "N4"
                 ],
-                "time": 1
+                "time": 3
             },
             {
                 "source": [
-                    "N1",
                     "N2"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "time": 2
+            },
+            {
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "time": 4
+            },
+            {
+                "source": [
+                    "N4"
                 ],
                 "target": [
                     "N5"
                 ],
+                "time": 2
+            },
+            {
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "time": 4
+            },
+            {
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N6"
+                ],
                 "time": 1
+            },
+            {
+                "source": [
+                    "N4"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "time": 5
+            },
+            {
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "time": 2
+            },
+            {
+                "source": [
+                    "N2",
+                    "N3",
+                    "N5"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "time": 5
+            },
+            {
+                "source": [
+                    "N4"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "time": 2
+            },
+            {
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "time": 4
+            },
+            {
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "time": 2
+            },
+            {
+                "source": [
+                    "N7"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "time": 4
+            },
+            {
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "time": 4
+            },
+            {
+                "source": [
+                    "N6"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "time": 1
+            },
+            {
+                "source": [
+                    "N5"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "time": 5
+            },
+            {
+                "source": [
+                    "N4"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "time": 5
+            },
+            {
+                "source": [
+                    "N4",
+                    "N7"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "time": 4
+            },
+            {
+                "source": [
+                    "N5",
+                    "N3"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "time": 2
+            },
+            {
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "time": 3
+            },
+            {
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "time": 1
+            },
+            {
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "time": 1
+            },
+            {
+                "source": [
+                    "N8"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "time": 3
             }
         ],
         "initial_source": [
             "N1"
         ],
-        "target": "N3"
+        "target": "N10"
     }
     '''
     
@@ -126,60 +317,68 @@ if __name__ == "__main__":
     
     # 打印初始可用物质
     print("初始可用物质:", env.get_available_materials())
-    
-    # 创建并提交一个合法的反应
-    subtask1 = SubTTNode({
-        "name": "Task1",
-        "source": ["N1"],
-        "target": ["N2"],
-        "dependencies": [],
-        "time": 4
-    })
-    env.commit(subtask1)
-    print("提交后可用物质:", env.get_available_materials())
+    tasks = """
+    [{"name": "Subtask1", "source": ["N1"], "target": "N2", "dependencies": []}]
+    """
+ 
+    subtasks = json.loads(tasks)
+    for task in subtasks:
+        subtask = SubTTNode(task)
+        print(f"Subtask {subtask.name} is valid: {env.is_valid_sub_node(subtask)}")
+    # # 创建并提交一个合法的反应
+    # subtask1 = SubTTNode({
+    #     "name": "Task1",
+    #     "source": ["N1"],
+    #     "target": ["N2"],
+    #     "dependencies": [],
+    #     "time": 4
+    # })
+    # print(env.is_valid_sub_node(subtask1))
+    # env.commit(subtask1)
+    # print("提交后可用物质:", env.get_available_materials())
 
-    # 创建并提交另一个合法的反应
-    subtask2 = SubTTNode({
-        "name": "N3",
-        "source": ["N2"],
-        "target": ["N3"],
-        "dependencies": [],
-        "time": 5
-    })
-    env.commit(subtask2)
-    print("提交后可用物质:", env.get_available_materials())
+    # # 创建并提交另一个合法的反应
+    # subtask2 = SubTTNode({
+    #     "name": "N3",
+    #     "source": ["N2"],
+    #     "target": ["N3"],
+    #     "dependencies": [],
+    #     "time": 5
+    # })
+    # env.commit(subtask2)
+    # print("提交后可用物质:", env.get_available_materials())
 
-    # 创建并提交一个使用初始物质的反应
-    subtask3 = SubTTNode({
-        "name": "N3",
-        "source": ["N1"],
-        "target": ["N3"],
-        "dependencies": [],
-        "time": 2
-    })
-    env.commit(subtask3)
-    print("提交后可用物质:", env.get_available_materials())
+    # # 创建并提交一个使用初始物质的反应
+    # subtask3 = SubTTNode({
+    #     "name": "N3",
+    #     "source": ["N1"],
+    #     "target": ["N3"],
+    #     "dependencies": [],
+    #     "time": 2
+    # })
+    # env.commit(subtask3)
+    # print("提交后可用物质:", env.get_available_materials())
 
-    # 创建并提交一个合法的多源反应
-    subtask4 = SubTTNode({
-        "name": "N4",
-        "source": ["N1", "N2"],
-        "target": ["N4"],
-        "dependencies": [],
-        "time": 1
-    })
-    env.commit(subtask4)
-    print("提交后可用物质:", env.get_available_materials())
+    # # 创建并提交一个合法的多源反应
+    # subtask4 = SubTTNode({
+    #     "name": "N4",
+    #     "source": ["N1", "N2"],
+    #     "target": ["N4"],
+    #     "dependencies": [],
+    #     "time": 1
+    # })
+    # env.commit(subtask4)
+    # print("提交后可用物质:", env.get_available_materials())
 
-    # 尝试提交一个不合法的反应
-    try:
-        subtask_invalid = SubTTNode({
-            "name": "N6",
-            "source": ["N1", "N3"],
-            "target": ["N6"],
-            "dependencies": [],
-            "time": 3
-        })
-        env.commit(subtask_invalid)
-    except ValueError as e:
-        print("错误:", e)
+    # # 尝试提交一个不合法的反应
+    # try:
+    #     subtask_invalid = SubTTNode({
+    #         "name": "N6",
+    #         "source": ["N1", "N3"],
+    #         "target": ["N6"],
+    #         "dependencies": [],
+    #         "time": 3
+    #     })
+    #     env.commit(subtask_invalid)
+    # except ValueError as e:
+    #     print("错误:", e)
