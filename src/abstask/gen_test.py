@@ -91,13 +91,14 @@ def main():
             # m = random.randint(n * (n - 1) // 3, n * (n - 1) // 2)
             m = random.randint(n * 2, n * 3)
             abstract_workflow = generate_abstract_workflow(n, m)
-            min_time, min_cost, path_count = min_time_cost_to_target(abstract_workflow)
+            min_time, min_cost, path_count, plan = min_time_cost_to_target(abstract_workflow)
             item = {
                 "id": count,
                 "node_count": n,
                 "edge_count": m,
                 "question": abstract_workflow,
-                "answer": min_time,
+                "answer": plan,
+                "min_time": min_time,
                 "min_cost": min_cost,
                 "path_count": path_count
             }

@@ -1,4 +1,4 @@
-import math
+import math, json
 
 def topological_sort(rules: list) -> list:
     graph = {}
@@ -16,21 +16,12 @@ def topological_sort(rules: list) -> list:
             for target in rule["target"]:
                 graph[source].append(target)
                 in_degree[target] += 1
-    queue = [node for node in in_degree if in_degree[node] == 0]        
-    # result = [rule for rule in rules if all(in_degree[source] == 0 for source in rule["source"])]
+    queue = [node for node in in_degree if in_degree[node] == 0]
     result = []
     exist_nodes = []
-    # print(queue)
     while queue:
         node = queue.pop(0)
         exist_nodes.append(node)
-        # print(f"node = {node}")
-        # for rule in rules:
-        #     if node in rule["source"]:
-        #         if all(source in exist_nodes for source in rule["source"]):
-        #             print(f"rule = {rule}")
-        #             result.append(rule)
-        
         for target in graph[node]:
             in_degree[target] -= 1
             if in_degree[target] == 0:
@@ -38,11 +29,25 @@ def topological_sort(rules: list) -> list:
                 for rule in rules:
                     if target in rule["target"]:
                         if all(source in exist_nodes for source in rule["source"]):
-                            # print(f"rule = {rule}")
-                            result.append(rule)
-    # print("------------------------")
-                
+                            result.append(rule)            
     return result
+
+def convert_rules(rules: list) -> list:
+    converted_rules = []
+    for rule in rules:
+        converted_rule = {
+            "name": f"Subtask{len(converted_rules) + 1}",
+            "source": rule["source"],
+            "target": rule["target"],
+            "dependencies": []
+        }
+        converted_rules.append(converted_rule)
+    for rule in converted_rules:
+        for src in rule["source"]:
+            for dep_rule in converted_rules:
+                if src in dep_rule["target"]:
+                    rule["dependencies"].append(dep_rule["name"])
+    return converted_rules
 
 def min_time_cost_to_target(task_info: dict) -> int:
     rules = task_info["rules"]
@@ -72,12 +77,9 @@ def min_time_cost_to_target(task_info: dict) -> int:
         new_rules = []
         for src in rule["source"]:
             new_rules.extend(get_rules(src))
-        
         new_rules.append(rule)
-
         unique_rules = []
         seen = set()
-
         for r in new_rules:
             r_tuple = make_hashable(r)  # 将字典转换为可哈希的对象
             if r_tuple not in seen:
@@ -86,12 +88,7 @@ def min_time_cost_to_target(task_info: dict) -> int:
 
         return unique_rules
 
-
-    
-    # rules = sort_rules_by_topology(task_info)
     sorted_rules = topological_sort(rules)
-    
-    # print(len(rules))
     for rule in sorted_rules:
         if not all(source in time_map for source in rule["source"]):
             # print(sorted_rules)
@@ -99,9 +96,6 @@ def min_time_cost_to_target(task_info: dict) -> int:
             raise ValueError("Invalid rule")
         source_time = max(get_time(src) for src in rule["source"])
         new_time = source_time + rule["time"]
-        # new_rules = list(set().union(*(get_rules(src) for src in rule["source"])))
-        # new_rules.append(rule)
-        # new_rules = list(set(new_rules))
         new_rules = get_new_rules(rule)
         new_cost = sum(rule["cost"] for rule in new_rules)
         new_path_count = math.prod(path_count[src] for src in rule["source"])
@@ -120,8 +114,8 @@ def min_time_cost_to_target(task_info: dict) -> int:
                 path_count[target_node] += new_path_count
             # print(f"cost_map[{target_node}] = {cost_map[target_node]}")
             # print(f"path_count[{target_node}] = {path_count[target_node]}")
-
-    return time_map.get(target, float('inf')), cost_map.get(target, float('inf')), path_count.get(target, 0)
+    converted_rules = convert_rules(get_rules(target))
+    return time_map.get(target, float('inf')), cost_map.get(target, float('inf')), path_count.get(target, 0), converted_rules
 
 def main():
     # 输入的任务信息
@@ -246,7 +240,8 @@ def main():
             }
 
     # 计算最短时间
-    min_time, min_cost, path_count = min_time_cost_to_target(task_info)
+    min_time, min_cost, path_count, plan = min_time_cost_to_target(task_info)
+    print(plan)
     print(f"到达目标 {task_info['target']} 的最短时间是 {min_time}")
     print(f"到达目标 {task_info['target']} 的最小成本是 {min_cost}")
     print(f"到达目标 {task_info['target']} 的路径数量是 {path_count}")

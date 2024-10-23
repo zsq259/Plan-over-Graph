@@ -139,9 +139,45 @@
             ],
             "target": "N8"
         },
-        "answer": 69,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N2",
+                    "N5"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 10
+        "path_count": 10,
+        "min_time": 69
     },
     {
         "id": 2,
@@ -464,9 +500,33 @@
             ],
             "target": "N10"
         },
-        "answer": 17,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 54
+        "path_count": 54,
+        "min_time": 17
     },
     {
         "id": 3,
@@ -591,9 +651,94 @@
             ],
             "target": "N8"
         },
-        "answer": 108,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N2",
+                    "N1",
+                    "N3"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N1",
+                    "N3"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask5",
+                "source": [
+                    "N6",
+                    "N3",
+                    "N4"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": [
+                    "Subtask3",
+                    "Subtask2",
+                    "Subtask4"
+                ]
+            },
+            {
+                "name": "Subtask6",
+                "source": [
+                    "N3",
+                    "N7",
+                    "N4"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask5",
+                    "Subtask4"
+                ]
+            }
+        ],
         "min_cost": 6,
-        "path_count": 5
+        "path_count": 5,
+        "min_time": 108
     },
     {
         "id": 4,
@@ -876,9 +1021,58 @@
             ],
             "target": "N10"
         },
-        "answer": 35,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1",
+                    "N5"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N4",
+                    "N8"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 342
+        "path_count": 342,
+        "min_time": 35
     },
     {
         "id": 5,
@@ -1032,9 +1226,33 @@
             ],
             "target": "N8"
         },
-        "answer": 57,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 11
+        "path_count": 11,
+        "min_time": 57
     },
     {
         "id": 6,
@@ -1201,9 +1419,33 @@
             ],
             "target": "N8"
         },
-        "answer": 55,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 422
+        "path_count": 422,
+        "min_time": 55
     },
     {
         "id": 7,
@@ -1412,9 +1654,47 @@
             ],
             "target": "N9"
         },
-        "answer": 70,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N5"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N5",
+                    "N8"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 64
+        "path_count": 64,
+        "min_time": 70
     },
     {
         "id": 8,
@@ -1590,9 +1870,21 @@
             ],
             "target": "N8"
         },
-        "answer": 31,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 11
+        "path_count": 11,
+        "min_time": 31
     },
     {
         "id": 9,
@@ -1752,9 +2044,60 @@
             ],
             "target": "N8"
         },
-        "answer": 42,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N3",
+                    "N7"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 68
+        "path_count": 68,
+        "min_time": 42
     },
     {
         "id": 10,
@@ -1954,9 +2297,46 @@
             ],
             "target": "N10"
         },
-        "answer": 25,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N4"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 115
+        "path_count": 115,
+        "min_time": 25
     },
     {
         "id": 11,
@@ -2135,9 +2515,46 @@
             ],
             "target": "N10"
         },
-        "answer": 50,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N4"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 23
+        "path_count": 23,
+        "min_time": 50
     },
     {
         "id": 12,
@@ -2363,9 +2780,33 @@
             ],
             "target": "N10"
         },
-        "answer": 44,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N4"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 22
+        "path_count": 22,
+        "min_time": 44
     },
     {
         "id": 13,
@@ -2514,9 +2955,21 @@
             ],
             "target": "N8"
         },
-        "answer": 36,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 7
+        "path_count": 7,
+        "min_time": 36
     },
     {
         "id": 14,
@@ -2701,9 +3154,21 @@
             ],
             "target": "N8"
         },
-        "answer": 10,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 133
+        "path_count": 133,
+        "min_time": 10
     },
     {
         "id": 15,
@@ -2951,9 +3416,88 @@
             ],
             "target": "N9"
         },
-        "answer": 27,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N3",
+                    "N6"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask3"
+                ]
+            },
+            {
+                "name": "Subtask5",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask6",
+                "source": [
+                    "N7",
+                    "N5",
+                    "N6"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask4",
+                    "Subtask5",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 6,
-        "path_count": 443
+        "path_count": 443,
+        "min_time": 27
     },
     {
         "id": 16,
@@ -3146,9 +3690,57 @@
             ],
             "target": "N9"
         },
-        "answer": 112,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N8",
+                    "N3"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 36
+        "path_count": 36,
+        "min_time": 112
     },
     {
         "id": 17,
@@ -3361,9 +3953,33 @@
             ],
             "target": "N8"
         },
-        "answer": 24,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N6"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 67
+        "path_count": 67,
+        "min_time": 24
     },
     {
         "id": 18,
@@ -3536,9 +4152,46 @@
             ],
             "target": "N9"
         },
-        "answer": 36,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N6"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1",
+                    "N7"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 96
+        "path_count": 96,
+        "min_time": 36
     },
     {
         "id": 19,
@@ -3778,9 +4431,88 @@
             ],
             "target": "N10"
         },
-        "answer": 65,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N1",
+                    "N3",
+                    "N2"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": [
+                    "Subtask3",
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask5",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask6",
+                "source": [
+                    "N4",
+                    "N6",
+                    "N9"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask4",
+                    "Subtask5"
+                ]
+            }
+        ],
         "min_cost": 6,
-        "path_count": 76
+        "path_count": 76,
+        "min_time": 65
     },
     {
         "id": 20,
@@ -4060,9 +4792,21 @@
             ],
             "target": "N10"
         },
-        "answer": 35,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 72
+        "path_count": 72,
+        "min_time": 35
     },
     {
         "id": 21,
@@ -4336,9 +5080,33 @@
             ],
             "target": "N9"
         },
-        "answer": 28,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 109
+        "path_count": 109,
+        "min_time": 28
     },
     {
         "id": 22,
@@ -4517,9 +5285,45 @@
             ],
             "target": "N8"
         },
-        "answer": 46,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N5"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N6"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 16
+        "path_count": 16,
+        "min_time": 46
     },
     {
         "id": 23,
@@ -4775,9 +5579,21 @@
             ],
             "target": "N10"
         },
-        "answer": 41,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 112
+        "path_count": 112,
+        "min_time": 41
     },
     {
         "id": 24,
@@ -4949,9 +5765,60 @@
             ],
             "target": "N8"
         },
-        "answer": 39,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N3",
+                    "N2"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N4",
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask3",
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 171
+        "path_count": 171,
+        "min_time": 39
     },
     {
         "id": 25,
@@ -5235,9 +6102,21 @@
             ],
             "target": "N9"
         },
-        "answer": 15,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 55
+        "path_count": 55,
+        "min_time": 15
     },
     {
         "id": 26,
@@ -5463,9 +6342,70 @@
             ],
             "target": "N9"
         },
-        "answer": 44,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N6"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": [
+                    "Subtask3"
+                ]
+            },
+            {
+                "name": "Subtask5",
+                "source": [
+                    "N4",
+                    "N1",
+                    "N7"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask4"
+                ]
+            }
+        ],
         "min_cost": 5,
-        "path_count": 706
+        "path_count": 706,
+        "min_time": 44
     },
     {
         "id": 27,
@@ -5802,9 +6742,60 @@
             ],
             "target": "N10"
         },
-        "answer": 53,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N3",
+                    "N2",
+                    "N5"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 4004
+        "path_count": 4004,
+        "min_time": 53
     },
     {
         "id": 28,
@@ -6012,9 +7003,58 @@
             ],
             "target": "N9"
         },
-        "answer": 67,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N7",
+                    "N3"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 27
+        "path_count": 27,
+        "min_time": 67
     },
     {
         "id": 29,
@@ -6300,9 +7340,34 @@
             ],
             "target": "N10"
         },
-        "answer": 32,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1",
+                    "N3"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 327
+        "path_count": 327,
+        "min_time": 32
     },
     {
         "id": 30,
@@ -6568,9 +7633,58 @@
             ],
             "target": "N9"
         },
-        "answer": 70,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N6",
+                    "N1",
+                    "N4"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 2195
+        "path_count": 2195,
+        "min_time": 70
     },
     {
         "id": 31,
@@ -6853,9 +7967,34 @@
             ],
             "target": "N10"
         },
-        "answer": 36,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N7",
+                    "N1"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 3929
+        "path_count": 3929,
+        "min_time": 36
     },
     {
         "id": 32,
@@ -7024,9 +8163,45 @@
             ],
             "target": "N8"
         },
-        "answer": 12,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 12
+        "path_count": 12,
+        "min_time": 12
     },
     {
         "id": 33,
@@ -7319,9 +8494,21 @@
             ],
             "target": "N9"
         },
-        "answer": 49,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 106
+        "path_count": 106,
+        "min_time": 49
     },
     {
         "id": 34,
@@ -7482,9 +8669,74 @@
             ],
             "target": "N8"
         },
-        "answer": 83,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N5",
+                    "N3",
+                    "N2"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask3",
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask5",
+                "source": [
+                    "N7",
+                    "N5"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask4",
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 5,
-        "path_count": 22
+        "path_count": 22,
+        "min_time": 83
     },
     {
         "id": 35,
@@ -7675,9 +8927,33 @@
             ],
             "target": "N8"
         },
-        "answer": 31,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N5"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 18
+        "path_count": 18,
+        "min_time": 31
     },
     {
         "id": 36,
@@ -7841,9 +9117,45 @@
             ],
             "target": "N8"
         },
-        "answer": 73,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N2",
+                    "N4"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 10
+        "path_count": 10,
+        "min_time": 73
     },
     {
         "id": 37,
@@ -8127,9 +9439,45 @@
             ],
             "target": "N9"
         },
-        "answer": 34,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N4"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N6"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 533
+        "path_count": 533,
+        "min_time": 34
     },
     {
         "id": 38,
@@ -8295,9 +9643,75 @@
             ],
             "target": "N9"
         },
-        "answer": 53,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N3",
+                    "N2",
+                    "N4"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask1",
+                    "Subtask3"
+                ]
+            },
+            {
+                "name": "Subtask5",
+                "source": [
+                    "N7",
+                    "N2",
+                    "N3"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask4",
+                    "Subtask1",
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 5,
-        "path_count": 30
+        "path_count": 30,
+        "min_time": 53
     },
     {
         "id": 39,
@@ -8468,9 +9882,60 @@
             ],
             "target": "N8"
         },
-        "answer": 71,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N6",
+                    "N3"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 4
+        "path_count": 4,
+        "min_time": 71
     },
     {
         "id": 40,
@@ -8642,9 +10107,34 @@
             ],
             "target": "N8"
         },
-        "answer": 46,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N6",
+                    "N1"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 51
+        "path_count": 51,
+        "min_time": 46
     },
     {
         "id": 41,
@@ -8796,9 +10286,45 @@
             ],
             "target": "N8"
         },
-        "answer": 33,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N5"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 8
+        "path_count": 8,
+        "min_time": 33
     },
     {
         "id": 42,
@@ -9017,9 +10543,33 @@
             ],
             "target": "N8"
         },
-        "answer": 21,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N6"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 9
+        "path_count": 9,
+        "min_time": 21
     },
     {
         "id": 43,
@@ -9301,9 +10851,33 @@
             ],
             "target": "N7"
         },
-        "answer": 32,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 10
+        "path_count": 10,
+        "min_time": 32
     },
     {
         "id": 44,
@@ -9502,9 +11076,79 @@
             ],
             "target": "N10"
         },
-        "answer": 76,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1",
+                    "N3",
+                    "N2"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N2",
+                    "N3",
+                    "N4"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2",
+                    "Subtask3"
+                ]
+            },
+            {
+                "name": "Subtask5",
+                "source": [
+                    "N5",
+                    "N2"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask4",
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 5,
-        "path_count": 60
+        "path_count": 60,
+        "min_time": 76
     },
     {
         "id": 45,
@@ -9667,9 +11311,45 @@
             ],
             "target": "N8"
         },
-        "answer": 68,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N4",
+                    "N5"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 61
+        "path_count": 61,
+        "min_time": 68
     },
     {
         "id": 46,
@@ -9942,9 +11622,58 @@
             ],
             "target": "N9"
         },
-        "answer": 28,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N3",
+                    "N1",
+                    "N4"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 647
+        "path_count": 647,
+        "min_time": 28
     },
     {
         "id": 47,
@@ -10189,9 +11918,33 @@
             ],
             "target": "N9"
         },
-        "answer": 14,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 24
+        "path_count": 24,
+        "min_time": 14
     },
     {
         "id": 48,
@@ -10405,9 +12158,47 @@
             ],
             "target": "N9"
         },
-        "answer": 28,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N8",
+                    "N3"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 60
+        "path_count": 60,
+        "min_time": 28
     },
     {
         "id": 49,
@@ -10704,9 +12495,33 @@
             ],
             "target": "N10"
         },
-        "answer": 29,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 674
+        "path_count": 674,
+        "min_time": 29
     },
     {
         "id": 50,
@@ -10874,9 +12689,57 @@
             ],
             "target": "N8"
         },
-        "answer": 84,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N4",
+                    "N6"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 7
+        "path_count": 7,
+        "min_time": 84
     },
     {
         "id": 51,
@@ -11107,9 +12970,62 @@
             ],
             "target": "N9"
         },
-        "answer": 48,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1",
+                    "N3"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N8",
+                    "N3",
+                    "N4"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask1",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 261
+        "path_count": 261,
+        "min_time": 48
     },
     {
         "id": 52,
@@ -11355,9 +13271,45 @@
             ],
             "target": "N10"
         },
-        "answer": 48,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N2",
+                    "N3"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 111
+        "path_count": 111,
+        "min_time": 48
     },
     {
         "id": 53,
@@ -11596,9 +13548,21 @@
             ],
             "target": "N8"
         },
-        "answer": 24,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 69
+        "path_count": 69,
+        "min_time": 24
     },
     {
         "id": 54,
@@ -11896,9 +13860,33 @@
             ],
             "target": "N10"
         },
-        "answer": 38,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N9"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 48
+        "path_count": 48,
+        "min_time": 38
     },
     {
         "id": 55,
@@ -12102,9 +14090,21 @@
             ],
             "target": "N8"
         },
-        "answer": 14,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 102
+        "path_count": 102,
+        "min_time": 14
     },
     {
         "id": 56,
@@ -12325,9 +14325,59 @@
             ],
             "target": "N9"
         },
-        "answer": 30,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N5",
+                    "N6"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N8",
+                    "N6"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask3",
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 209
+        "path_count": 209,
+        "min_time": 30
     },
     {
         "id": 57,
@@ -12593,9 +14643,47 @@
             ],
             "target": "N10"
         },
-        "answer": 44,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N3",
+                    "N2"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 167
+        "path_count": 167,
+        "min_time": 44
     },
     {
         "id": 58,
@@ -12895,9 +14983,21 @@
             ],
             "target": "N10"
         },
-        "answer": 15,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 4201
+        "path_count": 4201,
+        "min_time": 15
     },
     {
         "id": 59,
@@ -13217,9 +15317,46 @@
             ],
             "target": "N10"
         },
-        "answer": 40,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 7401
+        "path_count": 7401,
+        "min_time": 40
     },
     {
         "id": 60,
@@ -13420,9 +15557,34 @@
             ],
             "target": "N9"
         },
-        "answer": 65,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 21
+        "path_count": 21,
+        "min_time": 65
     },
     {
         "id": 61,
@@ -13646,9 +15808,72 @@
             ],
             "target": "N10"
         },
-        "answer": 57,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask5",
+                "source": [
+                    "N9",
+                    "N5"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask3",
+                    "Subtask4"
+                ]
+            }
+        ],
         "min_cost": 5,
-        "path_count": 98
+        "path_count": 98,
+        "min_time": 57
     },
     {
         "id": 62,
@@ -13811,9 +16036,46 @@
             ],
             "target": "N8"
         },
-        "answer": 64,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 38
+        "path_count": 38,
+        "min_time": 64
     },
     {
         "id": 63,
@@ -14034,9 +16296,33 @@
             ],
             "target": "N8"
         },
-        "answer": 20,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N6"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 28
+        "path_count": 28,
+        "min_time": 20
     },
     {
         "id": 64,
@@ -14263,9 +16549,34 @@
             ],
             "target": "N10"
         },
-        "answer": 37,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 161
+        "path_count": 161,
+        "min_time": 37
     },
     {
         "id": 65,
@@ -14565,9 +16876,34 @@
             ],
             "target": "N10"
         },
-        "answer": 36,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1",
+                    "N3"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 1132494
+        "path_count": 1132494,
+        "min_time": 36
     },
     {
         "id": 66,
@@ -14788,9 +17124,75 @@
             ],
             "target": "N8"
         },
-        "answer": 29,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N3",
+                    "N2"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask5",
+                "source": [
+                    "N4",
+                    "N7"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask3",
+                    "Subtask4"
+                ]
+            }
+        ],
         "min_cost": 5,
-        "path_count": 158
+        "path_count": 158,
+        "min_time": 29
     },
     {
         "id": 67,
@@ -14998,9 +17400,21 @@
             ],
             "target": "N8"
         },
-        "answer": 23,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 23
+        "path_count": 23,
+        "min_time": 23
     },
     {
         "id": 68,
@@ -15161,9 +17575,21 @@
             ],
             "target": "N8"
         },
-        "answer": 5,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 8
+        "path_count": 8,
+        "min_time": 5
     },
     {
         "id": 69,
@@ -15391,9 +17817,62 @@
             ],
             "target": "N9"
         },
-        "answer": 108,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N2",
+                    "N3"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N2",
+                    "N1",
+                    "N5"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 18806
+        "path_count": 18806,
+        "min_time": 108
     },
     {
         "id": 70,
@@ -15673,9 +18152,34 @@
             ],
             "target": "N9"
         },
-        "answer": 61,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 1595
+        "path_count": 1595,
+        "min_time": 61
     },
     {
         "id": 71,
@@ -15827,9 +18331,21 @@
             ],
             "target": "N8"
         },
-        "answer": 28,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 9
+        "path_count": 9,
+        "min_time": 28
     },
     {
         "id": 72,
@@ -16035,9 +18551,75 @@
             ],
             "target": "N9"
         },
-        "answer": 88,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N1",
+                    "N3",
+                    "N2"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask5",
+                "source": [
+                    "N3",
+                    "N7",
+                    "N4"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask3",
+                    "Subtask4"
+                ]
+            }
+        ],
         "min_cost": 5,
-        "path_count": 11
+        "path_count": 11,
+        "min_time": 88
     },
     {
         "id": 73,
@@ -16189,9 +18771,59 @@
             ],
             "target": "N7"
         },
-        "answer": 91,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N4"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N4",
+                    "N3",
+                    "N6"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 56
+        "path_count": 56,
+        "min_time": 91
     },
     {
         "id": 74,
@@ -16360,9 +18992,47 @@
             ],
             "target": "N8"
         },
-        "answer": 74,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N6",
+                    "N2"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 24
+        "path_count": 24,
+        "min_time": 74
     },
     {
         "id": 75,
@@ -16587,9 +19257,21 @@
             ],
             "target": "N9"
         },
-        "answer": 2,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 38
+        "path_count": 38,
+        "min_time": 2
     },
     {
         "id": 76,
@@ -16810,9 +19492,45 @@
             ],
             "target": "N8"
         },
-        "answer": 12,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N4"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N5"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 78
+        "path_count": 78,
+        "min_time": 12
     },
     {
         "id": 77,
@@ -17012,9 +19730,21 @@
             ],
             "target": "N9"
         },
-        "answer": 14,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 130
+        "path_count": 130,
+        "min_time": 14
     },
     {
         "id": 78,
@@ -17254,9 +19984,21 @@
             ],
             "target": "N7"
         },
-        "answer": 29,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 8
+        "path_count": 8,
+        "min_time": 29
     },
     {
         "id": 79,
@@ -17508,9 +20250,45 @@
             ],
             "target": "N9"
         },
-        "answer": 41,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N2",
+                    "N8"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 50
+        "path_count": 50,
+        "min_time": 41
     },
     {
         "id": 80,
@@ -17817,9 +20595,45 @@
             ],
             "target": "N10"
         },
-        "answer": 42,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N2",
+                    "N6"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 554438
+        "path_count": 554438,
+        "min_time": 42
     },
     {
         "id": 81,
@@ -17933,9 +20747,34 @@
             ],
             "target": "N8"
         },
-        "answer": 72,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 3
+        "path_count": 3,
+        "min_time": 72
     },
     {
         "id": 82,
@@ -18132,9 +20971,71 @@
             ],
             "target": "N10"
         },
-        "answer": 93,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N4"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask5",
+                "source": [
+                    "N5",
+                    "N4",
+                    "N7"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask3",
+                    "Subtask2",
+                    "Subtask4"
+                ]
+            }
+        ],
         "min_cost": 5,
-        "path_count": 330
+        "path_count": 330,
+        "min_time": 93
     },
     {
         "id": 83,
@@ -18394,9 +21295,58 @@
             ],
             "target": "N10"
         },
-        "answer": 55,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N5"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N1",
+                    "N9",
+                    "N2"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 740
+        "path_count": 740,
+        "min_time": 55
     },
     {
         "id": 84,
@@ -18521,9 +21471,61 @@
             ],
             "target": "N8"
         },
-        "answer": 83,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N4",
+                    "N5"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 5
+        "path_count": 5,
+        "min_time": 83
     },
     {
         "id": 85,
@@ -18678,9 +21680,89 @@
             ],
             "target": "N8"
         },
-        "answer": 87,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N3",
+                    "N1"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N4"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": [
+                    "Subtask3"
+                ]
+            },
+            {
+                "name": "Subtask5",
+                "source": [
+                    "N5",
+                    "N4"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": [
+                    "Subtask4",
+                    "Subtask3"
+                ]
+            },
+            {
+                "name": "Subtask6",
+                "source": [
+                    "N7",
+                    "N3",
+                    "N2"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask5",
+                    "Subtask2",
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 6,
-        "path_count": 15
+        "path_count": 15,
+        "min_time": 87
     },
     {
         "id": 86,
@@ -18973,9 +22055,69 @@
             ],
             "target": "N9"
         },
-        "answer": 69,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask5",
+                "source": [
+                    "N6",
+                    "N5",
+                    "N7"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask3",
+                    "Subtask4"
+                ]
+            }
+        ],
         "min_cost": 5,
-        "path_count": 758
+        "path_count": 758,
+        "min_time": 69
     },
     {
         "id": 87,
@@ -19249,9 +22391,47 @@
             ],
             "target": "N10"
         },
-        "answer": 31,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N8",
+                    "N2"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 21459
+        "path_count": 21459,
+        "min_time": 31
     },
     {
         "id": 88,
@@ -19385,9 +22565,46 @@
             ],
             "target": "N8"
         },
-        "answer": 87,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N4"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 5
+        "path_count": 5,
+        "min_time": 87
     },
     {
         "id": 89,
@@ -19695,9 +22912,72 @@
             ],
             "target": "N10"
         },
-        "answer": 67,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N8"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask3"
+                ]
+            },
+            {
+                "name": "Subtask5",
+                "source": [
+                    "N7",
+                    "N8",
+                    "N9"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask3",
+                    "Subtask4"
+                ]
+            }
+        ],
         "min_cost": 5,
-        "path_count": 39239
+        "path_count": 39239,
+        "min_time": 67
     },
     {
         "id": 90,
@@ -19937,9 +23217,33 @@
             ],
             "target": "N8"
         },
-        "answer": 41,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 1732
+        "path_count": 1732,
+        "min_time": 41
     },
     {
         "id": 91,
@@ -20112,9 +23416,60 @@
             ],
             "target": "N9"
         },
-        "answer": 61,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N3",
+                    "N2"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": [
+                    "Subtask2",
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N1",
+                    "N6"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 679
+        "path_count": 679,
+        "min_time": 61
     },
     {
         "id": 92,
@@ -20358,9 +23713,33 @@
             ],
             "target": "N9"
         },
-        "answer": 16,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N3"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 85
+        "path_count": 85,
+        "min_time": 16
     },
     {
         "id": 93,
@@ -20601,9 +23980,34 @@
             ],
             "target": "N9"
         },
-        "answer": 33,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N4",
+                    "N1"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 3264
+        "path_count": 3264,
+        "min_time": 33
     },
     {
         "id": 94,
@@ -20765,9 +24169,59 @@
             ],
             "target": "N8"
         },
-        "answer": 77,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N1",
+                    "N3"
+                ],
+                "target": [
+                    "N4"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N4"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 72
+        "path_count": 72,
+        "min_time": 77
     },
     {
         "id": 95,
@@ -21077,9 +24531,34 @@
             ],
             "target": "N10"
         },
-        "answer": 45,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N5",
+                    "N1"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            }
+        ],
         "min_cost": 2,
-        "path_count": 5785
+        "path_count": 5785,
+        "min_time": 45
     },
     {
         "id": 96,
@@ -21377,9 +24856,58 @@
             ],
             "target": "N10"
         },
-        "answer": 46,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N2",
+                    "N1"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N9",
+                    "N3"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 108
+        "path_count": 108,
+        "min_time": 46
     },
     {
         "id": 97,
@@ -21647,9 +25175,21 @@
             ],
             "target": "N10"
         },
-        "answer": 44,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": []
+            }
+        ],
         "min_cost": 1,
-        "path_count": 169
+        "path_count": 169,
+        "min_time": 44
     },
     {
         "id": 98,
@@ -21895,9 +25435,46 @@
             ],
             "target": "N9"
         },
-        "answer": 31,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N6"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N6",
+                    "N1",
+                    "N7"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2"
+                ]
+            }
+        ],
         "min_cost": 3,
-        "path_count": 283
+        "path_count": 283,
+        "min_time": 31
     },
     {
         "id": 99,
@@ -22216,9 +25793,59 @@
             ],
             "target": "N10"
         },
-        "answer": 49,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N9"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N2"
+                ],
+                "target": [
+                    "N3"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N2",
+                    "N9",
+                    "N3"
+                ],
+                "target": [
+                    "N10"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 8150
+        "path_count": 8150,
+        "min_time": 49
     },
     {
         "id": 100,
@@ -22374,8 +26001,62 @@
             ],
             "target": "N8"
         },
-        "answer": 74,
+        "answer": [
+            {
+                "name": "Subtask1",
+                "source": [
+                    "N1"
+                ],
+                "target": [
+                    "N2"
+                ],
+                "dependencies": []
+            },
+            {
+                "name": "Subtask2",
+                "source": [
+                    "N1",
+                    "N2"
+                ],
+                "target": [
+                    "N5"
+                ],
+                "dependencies": [
+                    "Subtask1"
+                ]
+            },
+            {
+                "name": "Subtask3",
+                "source": [
+                    "N2",
+                    "N5"
+                ],
+                "target": [
+                    "N7"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask2"
+                ]
+            },
+            {
+                "name": "Subtask4",
+                "source": [
+                    "N2",
+                    "N7",
+                    "N1"
+                ],
+                "target": [
+                    "N8"
+                ],
+                "dependencies": [
+                    "Subtask1",
+                    "Subtask3"
+                ]
+            }
+        ],
         "min_cost": 4,
-        "path_count": 55
+        "path_count": 55,
+        "min_time": 74
     }
 ]
