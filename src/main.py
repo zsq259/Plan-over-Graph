@@ -97,7 +97,7 @@ def main():
             planner = ParallelPlanner(model, env)
             scheduler = ParallelScheduler(runner, env)
             
-            max_retry = 1
+            max_retry = 3
             retry_count = 0
             plan = None
             while retry_count < max_retry:
