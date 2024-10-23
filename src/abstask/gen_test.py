@@ -1,5 +1,6 @@
 import random
 import json
+import os
 from cyaron import *
 from src.abstask.std import min_time_cost_to_target
 
@@ -70,10 +71,16 @@ def generate_abstract_workflow(n_nodes, m_edges, group_size_range=(1, 3), time_r
     }
 
 def main():
+    test_file = 'data/abstask/dev/50-1-100.json'
+    if os.path.exists(test_file):
+        user_input = input(f"文件 {test_file} 已存在。是否继续？(y/n): ")
+        if user_input.lower() != 'y':
+            print("操作已取消。")
+            exit()
     # config = [50, 30, 20]
     # nodes = [(8, 10), (25, 30), (45, 50)]
     config = [100]
-    nodes = [(8, 10)]
+    nodes = [(45, 50)]
 
     data = []
     count = 0
@@ -81,7 +88,8 @@ def main():
         for _ in range(config[i]):
             count += 1
             n = random.randint(nodes[i][0], nodes[i][1])
-            m = random.randint(n * (n - 1) // 3, n * (n - 1) // 2)
+            # m = random.randint(n * (n - 1) // 3, n * (n - 1) // 2)
+            m = random.randint(n * 2, n * 3)
             abstract_workflow = generate_abstract_workflow(n, m)
             min_time, min_cost, path_count = min_time_cost_to_target(abstract_workflow)
             item = {
@@ -95,7 +103,6 @@ def main():
             }
             data.append(item)
     
-    test_file = 'data/abstask/dev2.json'
     with open(test_file, 'w') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
