@@ -2,7 +2,8 @@ import json
 import os
 
 # 设置文件路径
-file_path = "/home/maxb/hst/test/data/abstask/output.json"
+file_path = "/home/maxb/hst/test/data/abstask/result/30-1-100-output.json"
+# file_path = "/home/maxb/hst/test/data/abstask/result/output.json"
 
 # 检查文件是否存在
 if not os.path.exists(file_path):
@@ -14,7 +15,7 @@ with open(file_path, "r", encoding="utf-8") as f:
     data = json.load(f)
 
 # 初始化分类统计变量
-config = [50, 30, 20]  # 各分类的任务数量
+config = [100, 0, 0]  # 各分类的任务数量
 category_ranges = [
     (1, config[0]),  # 第一类
     (config[0] + 1, config[0] + config[1]),  # 第二类
@@ -33,6 +34,7 @@ for item in data:
     task_id = item["question"]["id"]
     answer_time = item["question"]["answer"]
     result_time = item.get("result")
+    result_time = None if result_time is None else result_time[0]
 
     # 根据任务编号归类
     if category_ranges[0][0] <= task_id <= category_ranges[0][1]:

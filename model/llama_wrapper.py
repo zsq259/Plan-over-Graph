@@ -16,7 +16,7 @@ class LlamaWrapper(Model):
         super().__init__(name="LlamaWrapper")
         self.model_id = model_id
 
-    def predict(self, prompt, max_new_tokens=1024, stop=None):
+    def predict(self, prompt, max_new_tokens=2048, stop=None):
         pipe = pipeline(
             "text-generation",
             model=self.model_id,
