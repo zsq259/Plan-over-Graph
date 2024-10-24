@@ -2925,7 +2925,7 @@
                 "target": "N42"
             },
             "answer": 104,
-            "min_cost": 8,
+            "min_cost": 11,
             "path_count": 95
         },
         "plan": [
@@ -3735,7 +3735,7 @@
                 "target": "N43"
             },
             "answer": 180,
-            "min_cost": 18,
+            "min_cost": 31,
             "path_count": 99
         },
         "plan": [
@@ -5550,7 +5550,7 @@
                 "target": "N28"
             },
             "answer": 126,
-            "min_cost": 8,
+            "min_cost": 15,
             "path_count": 7
         },
         "plan": [
@@ -7366,7 +7366,7 @@
                 "target": "N38"
             },
             "answer": 156,
-            "min_cost": 8,
+            "min_cost": 9,
             "path_count": 171
         },
         "plan": [
@@ -9877,7 +9877,7 @@
                 "target": "N47"
             },
             "answer": 71,
-            "min_cost": 6,
+            "min_cost": 7,
             "path_count": 8
         },
         "plan": null,
@@ -15469,7 +15469,7 @@
                 "target": "N44"
             },
             "answer": 132,
-            "min_cost": 10,
+            "min_cost": 19,
             "path_count": 68
         },
         "plan": [
@@ -16582,7 +16582,7 @@
                 "target": "N45"
             },
             "answer": 222,
-            "min_cost": 15,
+            "min_cost": 26,
             "path_count": 1770
         },
         "plan": [
@@ -18776,7 +18776,7 @@
                 "target": "N48"
             },
             "answer": 93,
-            "min_cost": 7,
+            "min_cost": 9,
             "path_count": 40
         },
         "plan": null,
@@ -21718,7 +21718,7 @@
                 "target": "N30"
             },
             "answer": 134,
-            "min_cost": 4,
+            "min_cost": 5,
             "path_count": 3
         },
         "plan": [
@@ -22772,7 +22772,7 @@
                 "target": "N49"
             },
             "answer": 98,
-            "min_cost": 8,
+            "min_cost": 11,
             "path_count": 465
         },
         "plan": [
@@ -32976,7 +32976,7 @@
                 "target": "N49"
             },
             "answer": 126,
-            "min_cost": 17,
+            "min_cost": 31,
             "path_count": 98
         },
         "plan": [
@@ -34041,7 +34041,7 @@
                 "target": "N48"
             },
             "answer": 107,
-            "min_cost": 4,
+            "min_cost": 5,
             "path_count": 36
         },
         "plan": [
@@ -37291,7 +37291,7 @@
                 "target": "N40"
             },
             "answer": 46,
-            "min_cost": 4,
+            "min_cost": 5,
             "path_count": 22
         },
         "plan": [
@@ -38118,7 +38118,7 @@
                 "target": "N46"
             },
             "answer": 80,
-            "min_cost": 9,
+            "min_cost": 10,
             "path_count": 10
         },
         "plan": [
@@ -41213,7 +41213,7 @@
                 "target": "N48"
             },
             "answer": 97,
-            "min_cost": 10,
+            "min_cost": 14,
             "path_count": 81627
         },
         "plan": [
@@ -42180,7 +42180,7 @@
                 "target": "N37"
             },
             "answer": 204,
-            "min_cost": 13,
+            "min_cost": 22,
             "path_count": 2457
         },
         "plan": null,
@@ -44792,7 +44792,7 @@
                 "target": "N37"
             },
             "answer": 173,
-            "min_cost": 8,
+            "min_cost": 10,
             "path_count": 18
         },
         "plan": null,
@@ -49805,7 +49805,7 @@
                 "target": "N24"
             },
             "answer": 109,
-            "min_cost": 6,
+            "min_cost": 8,
             "path_count": 4
         },
         "plan": [
@@ -51819,7 +51819,7 @@
                 "target": "N46"
             },
             "answer": 111,
-            "min_cost": 8,
+            "min_cost": 10,
             "path_count": 65
         },
         "plan": null,
@@ -54430,7 +54430,7 @@
                 "target": "N31"
             },
             "answer": 129,
-            "min_cost": 7,
+            "min_cost": 8,
             "path_count": 26
         },
         "plan": [
@@ -55227,7 +55227,7 @@
                 "target": "N38"
             },
             "answer": 214,
-            "min_cost": 9,
+            "min_cost": 12,
             "path_count": 1
         },
         "plan": [
@@ -58893,7 +58893,7 @@
                 "target": "N46"
             },
             "answer": 155,
-            "min_cost": 10,
+            "min_cost": 11,
             "path_count": 4
         },
         "plan": [
@@ -62017,7 +62017,7 @@
                 "target": "N38"
             },
             "answer": 106,
-            "min_cost": 6,
+            "min_cost": 8,
             "path_count": 71
         },
         "plan": null,
@@ -62925,7 +62925,7 @@
                 "target": "N43"
             },
             "answer": 93,
-            "min_cost": 4,
+            "min_cost": 5,
             "path_count": 11
         },
         "plan": [
@@ -65707,7 +65707,7 @@
                 "target": "N43"
             },
             "answer": 109,
-            "min_cost": 8,
+            "min_cost": 9,
             "path_count": 9
         },
         "plan": [
@@ -66559,7 +66559,7 @@
                 "target": "N38"
             },
             "answer": 133,
-            "min_cost": 6,
+            "min_cost": 7,
             "path_count": 5
         },
         "plan": [
@@ -67602,7 +67602,7 @@
                 "target": "N43"
             },
             "answer": 84,
-            "min_cost": 8,
+            "min_cost": 9,
             "path_count": 58
         },
         "plan": [
@@ -70278,7 +70278,7 @@
                 "target": "N42"
             },
             "answer": 195,
-            "min_cost": 10,
+            "min_cost": 15,
             "path_count": 6
         },
         "plan": [
@@ -72272,7 +72272,7 @@
                 "target": "N39"
             },
             "answer": 151,
-            "min_cost": 12,
+            "min_cost": 15,
             "path_count": 45
         },
         "plan": [
@@ -73139,7 +73139,7 @@
                 "target": "N42"
             },
             "answer": 173,
-            "min_cost": 5,
+            "min_cost": 6,
             "path_count": 1
         },
         "plan": null,
@@ -74001,7 +74001,7 @@
                 "target": "N46"
             },
             "answer": 122,
-            "min_cost": 11,
+            "min_cost": 19,
             "path_count": 150
         },
         "plan": [
@@ -76967,7 +76967,7 @@
                 "target": "N44"
             },
             "answer": 107,
-            "min_cost": 6,
+            "min_cost": 8,
             "path_count": 3
         },
         "plan": [
@@ -78065,7 +78065,7 @@
                 "target": "N45"
             },
             "answer": 119,
-            "min_cost": 9,
+            "min_cost": 17,
             "path_count": 32
         },
         "plan": [
@@ -79883,7 +79883,7 @@
                 "target": "N42"
             },
             "answer": 27,
-            "min_cost": 4,
+            "min_cost": 6,
             "path_count": 8
         },
         "plan": [
@@ -81675,7 +81675,7 @@
                 "target": "N9"
             },
             "answer": 123,
-            "min_cost": 5,
+            "min_cost": 7,
             "path_count": 1
         },
         "plan": [
@@ -84497,7 +84497,7 @@
                 "target": "N46"
             },
             "answer": 211,
-            "min_cost": 10,
+            "min_cost": 15,
             "path_count": 18
         },
         "plan": [
@@ -85433,7 +85433,7 @@
                 "target": "N48"
             },
             "answer": 134,
-            "min_cost": 12,
+            "min_cost": 21,
             "path_count": 20
         },
         "plan": [
@@ -86481,7 +86481,7 @@
                 "target": "N40"
             },
             "answer": 147,
-            "min_cost": 6,
+            "min_cost": 7,
             "path_count": 9
         },
         "plan": [
@@ -89323,7 +89323,7 @@
                 "target": "N39"
             },
             "answer": 174,
-            "min_cost": 9,
+            "min_cost": 10,
             "path_count": 6
         },
         "plan": [
@@ -93915,7 +93915,7 @@
                 "target": "N48"
             },
             "answer": 125,
-            "min_cost": 7,
+            "min_cost": 9,
             "path_count": 6
         },
         "plan": [
@@ -94977,7 +94977,7 @@
                 "target": "N37"
             },
             "answer": 64,
-            "min_cost": 7,
+            "min_cost": 8,
             "path_count": 4
         },
         "plan": null,

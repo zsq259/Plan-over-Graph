@@ -95,7 +95,7 @@ def main():
     args = parser.parse_args()
 
     # 基目录和文件后缀
-    base_dir = "/home/zhangsq/1/test/data/abstask/result/"
+    base_dir = "/home/zhangsq/1/test/data/abstask/result/llama-31-8b-instruct/"
     file_suffix = "-output.json"
 
     # 获取文件路径列表

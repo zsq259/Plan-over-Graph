@@ -1,6 +1,6 @@
 python -m src.main\
     --task abstask\
-    --model "gpt-3.5-turbo-instruct"\
+    --model "/data/maxb/VLM/llama-31-8B-Instruct"\
     --scheduler parallel\
-    --test_file "data/abstask/test.json"\
-    --output_file "data/abstask/output2.json"\
+    --test_file "data/abstask/dev/30-1-100.json"\
+    --output_file "data/abstask/result/30-1-100-output.json"\
