@@ -62,7 +62,7 @@ def analyze_file(file_path):
 
     return results, failed_results
 
-def visualize_failed_data(failed_df):
+def visualize_failed_data(failed_df, output_dir):
     plt.figure(figsize=(8, 6))
 
     # 绘制失败数据的散点图
@@ -74,10 +74,10 @@ def visualize_failed_data(failed_df):
     plt.ylabel('Number of Edges')
     plt.grid()
     plt.tight_layout()
-    plt.savefig("failed_tasks_distribution.png", bbox_inches='tight')
+    plt.savefig(output_dir + "failed_tasks_distribution.png", bbox_inches='tight')
     plt.show()
 
-def visualize_data(df):
+def visualize_data(df, output_dir):
     plt.figure(figsize=(14, 6))
 
     # 自定义颜色映射，使得最小值也能显示较深的颜色
@@ -111,7 +111,7 @@ def visualize_data(df):
     plt.colorbar(scatter, label='Edge Count')  # 显示边数的颜色条
 
     plt.tight_layout()
-    plt.savefig("ratios_visualization.png", bbox_inches='tight')
+    plt.savefig(output_dir + "ratios_visualization.png", bbox_inches='tight')
     plt.show()
 
 
@@ -120,11 +120,11 @@ def main():
     # 设置命令行参数解析
     parser = argparse.ArgumentParser(description="分析 JSON 数据文件")
     parser.add_argument("file_prefixes", type=str, nargs='+', help="JSON 数据文件的文件名前缀列表")
-    parser.add_argument("--output", type=str, default="output.csv", help="输出文件的路径")
     args = parser.parse_args()
 
     # 基目录和文件后缀
-    base_dir = "/home/zhangsq/1/test/data/abstask/result/llama-31-70b-instruct/"
+    model_name = "llama-31-70b-instruct"
+    base_dir = f"/home/zhangsq/1/test/data/abstask/result/{model_name}/"
     file_suffix = "-output.json"
 
     # 获取文件路径列表
@@ -153,7 +153,10 @@ def main():
     df = df.sort_values(by='Node Count')
 
     print(df)
-    df.to_csv(args.output, index=False)
+    output_dir = base_dir + "analysis/"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    df.to_csv(output_dir + "result.csv", index=False)
     
     # 可视化表格并保存为图片
     fig, ax = plt.subplots(figsize=(12, 8))  # 设置图片大小
@@ -163,14 +166,14 @@ def main():
     table.auto_set_font_size(False)
     table.set_fontsize(10)
     table.scale(1.2, 1.2)  # 设置表格缩放比例
-    plt.savefig("analysis_results.png", bbox_inches='tight')
+    plt.savefig(output_dir + "analysis_results.png", bbox_inches='tight')
     print("表格已保存为 analysis_results.png")
 
     # 可视化成功数据
-    visualize_data(df)
+    visualize_data(df, output_dir)
 
     # 可视化失败数据
-    visualize_failed_data(failed_df)
+    visualize_failed_data(failed_df, output_dir)
 
 if __name__ == "__main__":
     main()

@@ -91,11 +91,12 @@ def main():
     # 设置命令行参数解析
     parser = argparse.ArgumentParser(description="分析 JSON 数据文件")
     parser.add_argument("file_prefixes", type=str, nargs='+', help="JSON 数据文件的文件名前缀列表")
-    parser.add_argument("--output", type=str, default="output.csv", help="输出文件的路径")
+    # parser.add_argument("--output", type=str, default="output.csv", help="输出文件的路径")
     args = parser.parse_args()
 
     # 基目录和文件后缀
-    base_dir = "/home/zhangsq/1/test/data/abstask/result/llama-31-8b-instruct/"
+    model_name = "llama-31-8b-instruct"
+    base_dir = f"/home/zhangsq/1/test/data/abstask/result/{model_name}/"
     file_suffix = "-output.json"
 
     # 获取文件路径列表
@@ -116,8 +117,9 @@ def main():
     # 截断小数点后数据
     df = df.round(2)
 
-    print(df)
-    df.to_csv(args.output, index=False)
+    print(df)    
+    output_dir = base_dir + "analysis/"
+    df.to_csv(output_dir + "result.csv", index=False)
     
     # 可视化表格并保存为图片
     fig, ax = plt.subplots(figsize=(12, 8))  # 设置图片大小
