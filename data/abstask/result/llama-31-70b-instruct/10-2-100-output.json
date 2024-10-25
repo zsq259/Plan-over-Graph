@@ -140,7 +140,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 69,
+            "min_time": 69,
             "min_cost": 3,
             "path_count": 10
         },
@@ -513,7 +513,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 17,
+            "min_time": 17,
             "min_cost": 2,
             "path_count": 54
         },
@@ -682,7 +682,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 108,
+            "min_time": 108,
             "min_cost": 16,
             "path_count": 5
         },
@@ -1031,7 +1031,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 35,
+            "min_time": 35,
             "min_cost": 4,
             "path_count": 342
         },
@@ -1228,7 +1228,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 57,
+            "min_time": 57,
             "min_cost": 2,
             "path_count": 11
         },
@@ -1430,7 +1430,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 55,
+            "min_time": 55,
             "min_cost": 2,
             "path_count": 422
         },
@@ -1665,7 +1665,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 70,
+            "min_time": 70,
             "min_cost": 4,
             "path_count": 64
         },
@@ -1876,7 +1876,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 31,
+            "min_time": 31,
             "min_cost": 1,
             "path_count": 11
         },
@@ -2062,7 +2062,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 42,
+            "min_time": 42,
             "min_cost": 5,
             "path_count": 68
         },
@@ -2323,7 +2323,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 25,
+            "min_time": 25,
             "min_cost": 3,
             "path_count": 115
         },
@@ -2537,7 +2537,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 50,
+            "min_time": 50,
             "min_cost": 3,
             "path_count": 23
         },
@@ -2798,7 +2798,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 44,
+            "min_time": 44,
             "min_cost": 2,
             "path_count": 22
         },
@@ -2990,7 +2990,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 36,
+            "min_time": 36,
             "min_cost": 1,
             "path_count": 7
         },
@@ -3201,7 +3201,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 10,
+            "min_time": 10,
             "min_cost": 1,
             "path_count": 133
         },
@@ -3467,7 +3467,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 27,
+            "min_time": 27,
             "min_cost": 12,
             "path_count": 443
         },
@@ -3734,7 +3734,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 112,
+            "min_time": 112,
             "min_cost": 4,
             "path_count": 36
         },
@@ -4010,7 +4010,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 24,
+            "min_time": 24,
             "min_cost": 2,
             "path_count": 67
         },
@@ -4226,7 +4226,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 36,
+            "min_time": 36,
             "min_cost": 3,
             "path_count": 96
         },
@@ -4501,7 +4501,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 65,
+            "min_time": 65,
             "min_cost": 8,
             "path_count": 76
         },
@@ -4814,7 +4814,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 35,
+            "min_time": 35,
             "min_cost": 1,
             "path_count": 72
         },
@@ -5094,7 +5094,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 28,
+            "min_time": 28,
             "min_cost": 2,
             "path_count": 109
         },
@@ -5299,7 +5299,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 46,
+            "min_time": 46,
             "min_cost": 3,
             "path_count": 16
         },
@@ -5616,7 +5616,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 41,
+            "min_time": 41,
             "min_cost": 1,
             "path_count": 112
         },
@@ -5814,7 +5814,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 39,
+            "min_time": 39,
             "min_cost": 5,
             "path_count": 171
         },
@@ -6152,7 +6152,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 15,
+            "min_time": 15,
             "min_cost": 1,
             "path_count": 55
         },
@@ -6404,7 +6404,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 44,
+            "min_time": 44,
             "min_cost": 5,
             "path_count": 706
         },
@@ -6801,7 +6801,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 53,
+            "min_time": 53,
             "min_cost": 5,
             "path_count": 4004
         },
@@ -7054,7 +7054,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 67,
+            "min_time": 67,
             "min_cost": 4,
             "path_count": 27
         },
@@ -7346,7 +7346,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 32,
+            "min_time": 32,
             "min_cost": 2,
             "path_count": 327
         },
@@ -7668,7 +7668,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 70,
+            "min_time": 70,
             "min_cost": 4,
             "path_count": 2195
         },
@@ -8002,7 +8002,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 36,
+            "min_time": 36,
             "min_cost": 2,
             "path_count": 3929
         },
@@ -8222,7 +8222,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 12,
+            "min_time": 12,
             "min_cost": 3,
             "path_count": 12
         },
@@ -8549,7 +8549,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 49,
+            "min_time": 49,
             "min_cost": 1,
             "path_count": 106
         },
@@ -8752,7 +8752,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 83,
+            "min_time": 83,
             "min_cost": 7,
             "path_count": 22
         },
@@ -8975,7 +8975,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 31,
+            "min_time": 31,
             "min_cost": 2,
             "path_count": 18
         },
@@ -9181,7 +9181,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 73,
+            "min_time": 73,
             "min_cost": 3,
             "path_count": 10
         },
@@ -9500,7 +9500,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 34,
+            "min_time": 34,
             "min_cost": 3,
             "path_count": 533
         },
@@ -9672,7 +9672,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 53,
+            "min_time": 53,
             "min_cost": 9,
             "path_count": 30
         },
@@ -9897,7 +9897,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 71,
+            "min_time": 71,
             "min_cost": 5,
             "path_count": 4
         },
@@ -10113,7 +10113,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 46,
+            "min_time": 46,
             "min_cost": 2,
             "path_count": 51
         },
@@ -10315,7 +10315,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 33,
+            "min_time": 33,
             "min_cost": 3,
             "path_count": 8
         },
@@ -10577,7 +10577,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 21,
+            "min_time": 21,
             "min_cost": 2,
             "path_count": 9
         },
@@ -10901,7 +10901,7 @@
                 ],
                 "target": "N7"
             },
-            "answer": 32,
+            "min_time": 32,
             "min_cost": 2,
             "path_count": 10
         },
@@ -11126,7 +11126,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 76,
+            "min_time": 76,
             "min_cost": 10,
             "path_count": 60
         },
@@ -11295,7 +11295,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 68,
+            "min_time": 68,
             "min_cost": 3,
             "path_count": 61
         },
@@ -11633,7 +11633,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 28,
+            "min_time": 28,
             "min_cost": 4,
             "path_count": 647
         },
@@ -11911,7 +11911,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 14,
+            "min_time": 14,
             "min_cost": 2,
             "path_count": 24
         },
@@ -12159,7 +12159,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 28,
+            "min_time": 28,
             "min_cost": 4,
             "path_count": 60
         },
@@ -12491,7 +12491,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 29,
+            "min_time": 29,
             "min_cost": 2,
             "path_count": 674
         },
@@ -12685,7 +12685,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 84,
+            "min_time": 84,
             "min_cost": 4,
             "path_count": 7
         },
@@ -12985,7 +12985,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 48,
+            "min_time": 48,
             "min_cost": 6,
             "path_count": 261
         },
@@ -13276,7 +13276,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 48,
+            "min_time": 48,
             "min_cost": 3,
             "path_count": 111
         },
@@ -13558,7 +13558,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 24,
+            "min_time": 24,
             "min_cost": 1,
             "path_count": 69
         },
@@ -13882,7 +13882,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 38,
+            "min_time": 38,
             "min_cost": 2,
             "path_count": 48
         },
@@ -14138,7 +14138,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 14,
+            "min_time": 14,
             "min_cost": 1,
             "path_count": 102
         },
@@ -14385,7 +14385,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 30,
+            "min_time": 30,
             "min_cost": 5,
             "path_count": 209
         },
@@ -14695,7 +14695,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 44,
+            "min_time": 44,
             "min_cost": 4,
             "path_count": 167
         },
@@ -15030,7 +15030,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 15,
+            "min_time": 15,
             "min_cost": 1,
             "path_count": 4201
         },
@@ -15368,7 +15368,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 40,
+            "min_time": 40,
             "min_cost": 3,
             "path_count": 7401
         },
@@ -15575,7 +15575,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 65,
+            "min_time": 65,
             "min_cost": 2,
             "path_count": 21
         },
@@ -15847,7 +15847,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 57,
+            "min_time": 57,
             "min_cost": 7,
             "path_count": 98
         },
@@ -16062,7 +16062,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 64,
+            "min_time": 64,
             "min_cost": 3,
             "path_count": 38
         },
@@ -16318,7 +16318,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 20,
+            "min_time": 20,
             "min_cost": 2,
             "path_count": 28
         },
@@ -16588,7 +16588,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 37,
+            "min_time": 37,
             "min_cost": 2,
             "path_count": 161
         },
@@ -16921,7 +16921,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 36,
+            "min_time": 36,
             "min_cost": 2,
             "path_count": 1132494
         },
@@ -17166,7 +17166,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 29,
+            "min_time": 29,
             "min_cost": 7,
             "path_count": 158
         },
@@ -17427,7 +17427,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 23,
+            "min_time": 23,
             "min_cost": 1,
             "path_count": 23
         },
@@ -17623,7 +17623,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 5,
+            "min_time": 5,
             "min_cost": 1,
             "path_count": 8
         },
@@ -17886,7 +17886,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 108,
+            "min_time": 108,
             "min_cost": 6,
             "path_count": 18806
         },
@@ -18227,7 +18227,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 61,
+            "min_time": 61,
             "min_cost": 2,
             "path_count": 1595
         },
@@ -18439,7 +18439,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 28,
+            "min_time": 28,
             "min_cost": 1,
             "path_count": 9
         },
@@ -18671,7 +18671,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 88,
+            "min_time": 88,
             "min_cost": 8,
             "path_count": 11
         },
@@ -18878,7 +18878,7 @@
                 ],
                 "target": "N7"
             },
-            "answer": 91,
+            "min_time": 91,
             "min_cost": 5,
             "path_count": 56
         },
@@ -19089,7 +19089,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 74,
+            "min_time": 74,
             "min_cost": 4,
             "path_count": 24
         },
@@ -19320,7 +19320,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 2,
+            "min_time": 2,
             "min_cost": 1,
             "path_count": 38
         },
@@ -19559,7 +19559,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 12,
+            "min_time": 12,
             "min_cost": 3,
             "path_count": 78
         },
@@ -19785,7 +19785,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 14,
+            "min_time": 14,
             "min_cost": 1,
             "path_count": 130
         },
@@ -20051,7 +20051,7 @@
                 ],
                 "target": "N7"
             },
-            "answer": 29,
+            "min_time": 29,
             "min_cost": 1,
             "path_count": 8
         },
@@ -20329,7 +20329,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 41,
+            "min_time": 41,
             "min_cost": 3,
             "path_count": 50
         },
@@ -20671,7 +20671,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 42,
+            "min_time": 42,
             "min_cost": 3,
             "path_count": 554438
         },
@@ -20820,7 +20820,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 72,
+            "min_time": 72,
             "min_cost": 2,
             "path_count": 3
         },
@@ -21053,7 +21053,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 93,
+            "min_time": 93,
             "min_cost": 7,
             "path_count": 330
         },
@@ -21375,7 +21375,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 55,
+            "min_time": 55,
             "min_cost": 4,
             "path_count": 740
         },
@@ -21562,7 +21562,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 83,
+            "min_time": 83,
             "min_cost": 5,
             "path_count": 5
         },
@@ -21771,7 +21771,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 87,
+            "min_time": 87,
             "min_cost": 12,
             "path_count": 15
         },
@@ -22127,7 +22127,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 69,
+            "min_time": 69,
             "min_cost": 5,
             "path_count": 758
         },
@@ -22407,7 +22407,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 31,
+            "min_time": 31,
             "min_cost": 4,
             "path_count": 21459
         },
@@ -22584,7 +22584,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 87,
+            "min_time": 87,
             "min_cost": 3,
             "path_count": 5
         },
@@ -22965,7 +22965,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 67,
+            "min_time": 67,
             "min_cost": 6,
             "path_count": 39239
         },
@@ -23246,7 +23246,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 41,
+            "min_time": 41,
             "min_cost": 2,
             "path_count": 1732
         },
@@ -23468,7 +23468,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 61,
+            "min_time": 61,
             "min_cost": 5,
             "path_count": 679
         },
@@ -23718,7 +23718,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 16,
+            "min_time": 16,
             "min_cost": 2,
             "path_count": 85
         },
@@ -23985,7 +23985,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 33,
+            "min_time": 33,
             "min_cost": 2,
             "path_count": 3264
         },
@@ -24190,7 +24190,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 77,
+            "min_time": 77,
             "min_cost": 4,
             "path_count": 72
         },
@@ -24544,7 +24544,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 45,
+            "min_time": 45,
             "min_cost": 2,
             "path_count": 5785
         },
@@ -24869,7 +24869,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 46,
+            "min_time": 46,
             "min_cost": 4,
             "path_count": 108
         },
@@ -25177,7 +25177,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 44,
+            "min_time": 44,
             "min_cost": 1,
             "path_count": 169
         },
@@ -25429,7 +25429,7 @@
                 ],
                 "target": "N9"
             },
-            "answer": 31,
+            "min_time": 31,
             "min_cost": 3,
             "path_count": 283
         },
@@ -25784,7 +25784,7 @@
                 ],
                 "target": "N10"
             },
-            "answer": 49,
+            "min_time": 49,
             "min_cost": 5,
             "path_count": 8150
         },
@@ -26010,7 +26010,7 @@
                 ],
                 "target": "N8"
             },
-            "answer": 74,
+            "min_time": 74,
             "min_cost": 6,
             "path_count": 55
         },

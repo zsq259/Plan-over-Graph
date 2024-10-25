@@ -31,7 +31,7 @@ Here is an example to better understand the task:
 
 Now, based on the following transformation rules, initial nodes, and target node, please provide an optimal plan that allows the target node to be obtained in the shortest time with the minimal total cost, supporting parallel transformations.
 Only include necessary steps that are required for the fastest completion with the least cost. Do not add any extra or redundant transformation steps.
-
+Task:
 ```json
 {task}
 ```
