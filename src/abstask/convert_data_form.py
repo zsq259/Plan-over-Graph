@@ -4,7 +4,7 @@ from template.planner.abstask_cost_plan import instruction, example
 def convert_task_form(task):
     prompt = instruction.format(example=example, task=task['question'])
     output = str(task['answer'])
-    new_task = {"instruction": prompt, "output": output}
+    new_task = {"instruction": prompt, "input": "", "output": output}
     return new_task
 
 def convert_data(input_file, output_file):
@@ -23,9 +23,9 @@ def main():
         "30-1-100",
         "50-1-100",
     ]
-    input_dir = "/home/zhangsq/1/test/data/abstask/dev/"
+    input_dir = "/home/maxb/hst/test/data/abstask/dev/"
     file_suffix = ".json"
-    output_file = "/home/zhangsq/1/test/data/abstask/dev/alpaca_form/abstask.json"
+    output_file = "/home/maxb/hst/test/data/abstask/dev/alpaca_form/abstask.json"
     new_data = []
     for file in file_list:
         input_file = input_dir + file + file_suffix

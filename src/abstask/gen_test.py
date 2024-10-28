@@ -71,7 +71,7 @@ def generate_abstract_workflow(n_nodes, m_edges, group_size_range=(1, 3), time_r
     }
 
 def main():
-    test_file = 'data/abstask/dev/50-1-100.json'
+    test_file = 'data/abstask/dev/10-3-200.json'
     if os.path.exists(test_file):
         user_input = input(f"文件 {test_file} 已存在。是否继续？(y/n): ")
         if user_input.lower() != 'y':
@@ -79,8 +79,8 @@ def main():
             exit()
     # config = [50, 30, 20]
     # nodes = [(8, 10), (25, 30), (45, 50)]
-    config = [100]
-    nodes = [(45, 50)]
+    config = [200]
+    nodes = [(10, 10)]
 
     data = []
     count = 0
@@ -89,7 +89,7 @@ def main():
             count += 1
             n = random.randint(nodes[i][0], nodes[i][1])
             # m = random.randint(n * (n - 1) // 3, n * (n - 1) // 2)
-            m = random.randint(n * 2, n * 3)
+            m = random.randint(n, n * (n - 1) // 2)
             abstract_workflow = generate_abstract_workflow(n, m)
             min_time, min_cost, path_count, plan = min_time_cost_to_target(abstract_workflow)
             item = {

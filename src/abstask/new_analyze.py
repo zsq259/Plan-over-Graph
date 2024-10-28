@@ -123,7 +123,7 @@ def main():
     args = parser.parse_args()
 
     # 基目录和文件后缀
-    model_name = "llama-31-70b-instruct"
+    model_name = "llama-31-8b-instruct"
     base_dir = f"/home/zhangsq/1/test/data/abstask/result/{model_name}/"
     file_suffix = "-output.json"
 
