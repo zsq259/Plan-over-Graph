@@ -27,6 +27,8 @@ def analyze_file(file_path):
     # 初始化结果存储
     results = []
     failed_results = []
+    time_ratios = []
+    cost_ratios = []
 
     # 遍历数据
     for item in data:
@@ -45,6 +47,8 @@ def analyze_file(file_path):
         if result_time is not None and result_cost is not None:
             time_ratio = result_time / answer_time
             cost_ratio = result_cost / min_cost
+            time_ratios.append(time_ratio)
+            cost_ratios.append(cost_ratio)
             results.append({
                 "Category": os.path.basename(file_path).replace("-output.json", ""),
                 "Node Count": nodes,
@@ -59,8 +63,42 @@ def analyze_file(file_path):
                 "Node Count": nodes,
                 "Edge Count": edges,
             })
+    in_all_results = []
+    time_stats = analyze_ratios(time_ratios)
+    cost_stats = analyze_ratios(cost_ratios)
+    total_count = len(results) + len(failed_results)
+    if total_count > 0:
+        success_rate = len(results) / total_count
+        failure_rate = len(failed_results) / total_count
+    else:
+        success_rate = None
+        failure_rate = None
 
-    return results, failed_results
+    if time_stats and cost_stats:
+        in_all_results.append({
+            "Category": os.path.basename(file_path).replace("-output.json", ""),
+            "Success Rate": success_rate,
+            "Failure Rate": failure_rate,
+            "Min Time Ratio": time_stats["min_ratio"],
+            "Max Time Ratio": time_stats["max_ratio"],
+            "Avg Time Ratio": time_stats["avg_ratio"],
+            "Min Cost Ratio": cost_stats["min_ratio"],
+            "Max Cost Ratio": cost_stats["max_ratio"],
+            "Avg Cost Ratio": cost_stats["avg_ratio"]
+        })
+    else:
+        in_all_results.append({
+            "Category": os.path.basename(file_path).replace("-output.json", ""),
+            "Success Rate": success_rate,
+            "Failure Rate": failure_rate,
+            "Min Time Ratio": None,
+            "Max Time Ratio": None,
+            "Avg Time Ratio": None,
+            "Min Cost Ratio": None,
+            "Max Cost Ratio": None,
+            "Avg Cost Ratio": None
+        })
+    return results, failed_results, in_all_results[0]
 
 def visualize_failed_data(failed_df, output_dir):
     plt.figure(figsize=(8, 6))
@@ -114,6 +152,31 @@ def visualize_data(df, output_dir):
     plt.savefig(output_dir + "ratios_visualization.png", bbox_inches='tight')
     plt.show()
 
+def generate_combined_table_image(model_name, results, output_image_path):
+    # 创建一个 DataFrame 来存储所有结果
+    df = pd.DataFrame(results)
+    df = df.round(2)
+    
+    # 创建一个 matplotlib 图形
+    fig, ax = plt.subplots(figsize=(12, len(results) * 0.5 + 1))  # 动态调整图形大小
+    ax.set_title(model_name, fontsize=16)
+    
+    # 隐藏坐标轴
+    ax.axis('tight')
+    ax.axis('off')
+    
+    # 创建表格
+    table = ax.table(cellText=df.values, colLabels=df.columns, cellLoc='center', loc='center')
+    
+    # 调整表格样式
+    table.auto_set_font_size(False)
+    table.set_fontsize(12)
+    table.scale(1.2, 1.2)
+    
+    # 保存为图片
+    plt.tight_layout()
+    plt.savefig(output_image_path, bbox_inches='tight')
+    plt.close()
 
 
 def main():
@@ -126,6 +189,9 @@ def main():
     model_name = "llama-31-8b-instruct"
     base_dir = f"/home/zhangsq/1/test/data/abstask/result/{model_name}/"
     file_suffix = "-output.json"
+    output_dir = base_dir + "analysis/"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
 
     # 获取文件路径列表
     file_paths = [os.path.join(base_dir, file_prefix + file_suffix) for file_prefix in args.file_prefixes]
@@ -133,15 +199,18 @@ def main():
     # 初始化结果存储
     all_results = []
     all_failed_results = []
+    all_in_all_results = []
 
     # 分析每个文件
     for file_path in file_paths:
-        file_results, file_failed_results = analyze_file(file_path)
+        file_results, file_failed_results, file_in_all_results = analyze_file(file_path)
         if file_results:
             all_results.extend(file_results)
         if file_failed_results:
             all_failed_results.extend(file_failed_results)
+        all_in_all_results.append(file_in_all_results)
 
+    generate_combined_table_image(model_name, all_in_all_results, output_dir + "output_image.png")
     # 将结果转换为 DataFrame 并输出
     df = pd.DataFrame(all_results)
     failed_df = pd.DataFrame(all_failed_results)
@@ -153,9 +222,6 @@ def main():
     df = df.sort_values(by='Node Count')
 
     print(df)
-    output_dir = base_dir + "analysis/"
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
     df.to_csv(output_dir + "result.csv", index=False)
     
     # 可视化表格并保存为图片
