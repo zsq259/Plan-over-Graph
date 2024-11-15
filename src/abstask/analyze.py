@@ -45,6 +45,7 @@ def main():
     # 设置命令行参数解析
     parser = argparse.ArgumentParser(description="分析 JSON 数据文件")
     parser.add_argument("file_prefixes", type=str, nargs='+', help="JSON 数据文件的文件名前缀列表")
+    parser.add_argument("--segment_size", type=int, default=10, help="边数分段的大小")
     args = parser.parse_args()
 
     # 基目录和文件后缀
@@ -69,42 +70,51 @@ def main():
 
     # 将结果转换为 DataFrame 并输出
     df = pd.DataFrame(all_results)
+    
+    node_count = df['Node Count'][0]
 
-    # 按点数分组并分析边数变化对性能的影响
-    grouped = df.groupby("Node Count")
-    for node_count, group in grouped:
-        group = group.sort_values(by="Edge Count").reset_index(drop=True)
-        output_image_path = output_dir + f"analysis_results_node_count_{node_count}.png"
-        
-        # 可视化 time_ratio 和 cost_ratio 随 edge_count 的变化
-        fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 18))
-        
-        # 图表1: Time Ratio
-        success_group = group[group['Status'] == 'Success']
-        ax1.set_title(f'Node Count: {node_count} - Time Ratio', fontsize=16)
-        ax1.set_xlabel('Edge Count', fontsize=14)
-        ax1.set_ylabel('Time Ratio', fontsize=14, color='tab:blue')
-        ax1.plot(success_group['Edge Count'], success_group['Time Ratio'], marker='o', color='tab:blue', label='Time Ratio')
-        ax1.tick_params(axis='y', labelcolor='tab:blue')
-        
-        # 图表2: Cost Ratio
-        ax2.set_title(f'Node Count: {node_count} - Cost Ratio', fontsize=16)
-        ax2.set_xlabel('Edge Count', fontsize=14)
-        ax2.set_ylabel('Cost Ratio', fontsize=14, color='tab:orange')
-        ax2.plot(success_group['Edge Count'], success_group['Cost Ratio'], marker='x', color='tab:orange', label='Cost Ratio')
-        ax2.tick_params(axis='y', labelcolor='tab:orange')
-        
-        # 图表3: 成功和失败任务数量随边数变化
-        status_counts = group.groupby(['Edge Count', 'Status']).size().unstack(fill_value=0)
-        status_counts.plot(kind='bar', stacked=True, ax=ax3, color=['tab:red', 'tab:green'])
-        ax3.set_title(f'Node Count: {node_count} - Task Status by Edge Count', fontsize=16)
-        ax3.set_xlabel('Edge Count', fontsize=14)
-        ax3.set_ylabel('Count', fontsize=14)
-        
-        fig.tight_layout()
-        plt.savefig(output_image_path, bbox_inches='tight')
-        plt.close()
-        print(f"图表已保存为 {output_image_path}")
+    # 添加边数段列
+    segment_size = args.segment_size
+    df['Edge Count Segment'] = ((df['Edge Count'] - 1) // segment_size + 1) * segment_size
+
+    # 按边数段将数据汇总，计算平均值
+    aggregated_df = df.groupby('Edge Count Segment').agg({
+        'Node Count': 'mean',
+        'Time Ratio': 'mean',
+        'Cost Ratio': 'mean',
+        'Status': lambda x: x.value_counts().idxmax()
+    }).reset_index()
+
+    output_image_path = output_dir + f"aggregated_analysis_results_seg{args.segment_size}.png"
+
+    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 18))
+
+    # 图表1: 平均 Time Ratio 随边数段的变化
+    ax1.set_title(f'{node_count} - Edge Count - Time Ratio', fontsize=16)
+    ax1.set_xlabel('Edge Count', fontsize=14)
+    ax1.set_ylabel('mean Time Ratio', fontsize=14)
+    ax1.plot(aggregated_df['Edge Count Segment'], aggregated_df['Time Ratio'], marker='o')
+    ax1.grid(True)
+
+    # 图表2: 平均 Cost Ratio 随边数段的变化
+    ax2.set_title(f'{node_count} - Edge Count - Cost Ratio', fontsize=16)
+    ax2.set_xlabel('Edge Count', fontsize=14)
+    ax2.set_ylabel('mean Cost Ratio', fontsize=14)
+    ax2.plot(aggregated_df['Edge Count Segment'], aggregated_df['Cost Ratio'], marker='x', color='orange')
+    ax2.grid(True)
+
+    # 图表3: 成功与失败任务数量随边数段的变化
+    status_counts = df.groupby(['Edge Count Segment', 'Status']).size().unstack(fill_value=0).reset_index()
+    status_counts.plot(x='Edge Count Segment', kind='bar', stacked=True, ax=ax3, color=['red', 'green'])
+    ax3.set_title(f'{node_count} - Edge Count - Task Status', fontsize=16)
+    ax3.set_xlabel('Edge Count', fontsize=14)
+    ax3.set_ylabel('Count', fontsize=14)
+    ax3.legend(title='Status')
+
+    fig.tight_layout()
+    plt.savefig(output_image_path, bbox_inches='tight')
+    plt.close()
+    print(f"图表已保存为 {output_image_path}")
 
 if __name__ == "__main__":
     main()

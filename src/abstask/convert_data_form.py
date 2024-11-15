@@ -1,10 +1,15 @@
 import json
+import re
 from template.planner.abstask_cost_plan import instruction, example
 
 def convert_task_form(task):
-    prompt = instruction.format(example=example, task=task['question'])
+    # example_ = example.replace("\n", "").replace("\"", "'")
+    example_ = re.sub(' +', ' ', example.replace("\n", "").replace("\"", "'"))
+    prompt = instruction.format(example=example_, task=task['question'])
+    ins = prompt.split("Task:\n")[0] + "Task:\n"
+    input = prompt.split("Task:\n")[1]
     output = str(task['answer'])
-    new_task = {"instruction": prompt, "input": "", "output": output}
+    new_task = {"instruction": ins, "input": input, "output": output}
     return new_task
 
 def convert_data(input_file, output_file):
@@ -18,14 +23,15 @@ def convert_data(input_file, output_file):
         
 def main():
     file_list = [
-        "10-1-100",
-        "10-2-100",
-        "30-1-100",
-        "50-1-100",
+        # "10-1-100",
+        # "10-2-100",
+        # "30-1-100",
+        # "50-1-100",
+        "30-3-1200"
     ]
-    input_dir = "/home/maxb/hst/test/data/abstask/dev/"
+    input_dir = "/home/zhangsq/1/test/data/abstask/dev/"
     file_suffix = ".json"
-    output_file = "/home/maxb/hst/test/data/abstask/dev/alpaca_form/abstask.json"
+    output_file = "/home/zhangsq/1/test/data/abstask/dev/alpaca_form/30-3-1200.json"
     new_data = []
     for file in file_list:
         input_file = input_dir + file + file_suffix

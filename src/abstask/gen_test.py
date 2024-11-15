@@ -1,5 +1,6 @@
 import random
 import json
+import uuid
 import os
 from cyaron import *
 from src.abstask.std import min_time_cost_to_target
@@ -18,11 +19,11 @@ def generate_abstract_workflow(n_nodes, m_edges, group_size_range=(1, 3), time_r
     graph = Graph.DAG(n_nodes, m_edges, repeated_edges=False)
     edges = list(graph.iterate_edges())
     
-    # 为每个节点分配抽象名称，如 N1, N2, ...
-    node_mapping = {node: f"N{node}" for node in range(1, n_nodes + 1)}
-    
+    # 为每个节点分配唯一的名称
+    node_mapping = {node: f"Node_{uuid.uuid4().hex}" for node in range(1, n_nodes + 1)}
+
     # 构建前驱节点字典
-    predecessors_dict = {f"N{node}": [] for node in range(1, n_nodes + 1)}
+    predecessors_dict = {node_mapping[node]: [] for node in range(1, n_nodes + 1)}
     for edge in edges:
         source = node_mapping[edge.start]
         target = node_mapping[edge.end]
@@ -71,7 +72,9 @@ def generate_abstract_workflow(n_nodes, m_edges, group_size_range=(1, 3), time_r
     }
 
 def main():
-    test_file = 'data/abstask/dev/10-3-200.json'
+    config = 100
+    nodes = (8, 10)
+    test_file = f'data/abstask/dev/{nodes[1]}-3-{config}.json'
     if os.path.exists(test_file):
         user_input = input(f"文件 {test_file} 已存在。是否继续？(y/n): ")
         if user_input.lower() != 'y':
@@ -79,30 +82,27 @@ def main():
             exit()
     # config = [50, 30, 20]
     # nodes = [(8, 10), (25, 30), (45, 50)]
-    config = [200]
-    nodes = [(10, 10)]
-
+    
     data = []
     count = 0
-    for i in range(len(config)):
-        for _ in range(config[i]):
-            count += 1
-            n = random.randint(nodes[i][0], nodes[i][1])
-            # m = random.randint(n * (n - 1) // 3, n * (n - 1) // 2)
-            m = random.randint(n, n * (n - 1) // 2)
-            abstract_workflow = generate_abstract_workflow(n, m)
-            min_time, min_cost, path_count, plan = min_time_cost_to_target(abstract_workflow)
-            item = {
-                "id": count,
-                "node_count": n,
-                "edge_count": m,
-                "question": abstract_workflow,
-                "answer": plan,
-                "min_time": min_time,
-                "min_cost": min_cost,
-                "path_count": path_count
-            }
-            data.append(item)
+    for _ in range(config):
+        count += 1
+        n = random.randint(nodes[0], nodes[1])
+        # m = random.randint(n * (n - 1) // 3, n * (n - 1) // 2)
+        m = random.randint(n, n * (n - 1) // 2)
+        abstract_workflow = generate_abstract_workflow(n, m)
+        min_time, min_cost, path_count, plan = min_time_cost_to_target(abstract_workflow)
+        item = {
+            "id": count,
+            "node_count": n,
+            "edge_count": m,
+            "question": abstract_workflow,
+            "answer": plan,
+            "min_time": min_time,
+            "min_cost": min_cost,
+            "path_count": path_count
+        }
+        data.append(item)
     
     with open(test_file, 'w') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
