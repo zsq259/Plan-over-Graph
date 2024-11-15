@@ -1,0 +1,235 @@
+[
+    {
+        "question": {
+            "id": 1,
+            "node_count": 10,
+            "edge_count": 17,
+            "question": {
+                "rules": [
+                    {
+                        "source": [
+                            "Node_ec376eb17fb94b5a8126e05e3a0f439c"
+                        ],
+                        "target": [
+                            "Node_917751d99e9d44eea4f5c313cf81b343"
+                        ],
+                        "time": 25,
+                        "cost": 1
+                    },
+                    {
+                        "source": [
+                            "Node_917751d99e9d44eea4f5c313cf81b343"
+                        ],
+                        "target": [
+                            "Node_b01c887713294e2ea92cd844bb90ff6f"
+                        ],
+                        "time": 12,
+                        "cost": 1
+                    },
+                    {
+                        "source": [
+                            "Node_917751d99e9d44eea4f5c313cf81b343"
+                        ],
+                        "target": [
+                            "Node_635440750bdd4e4ea550c35884545bd2"
+                        ],
+                        "time": 20,
+                        "cost": 1
+                    },
+                    {
+                        "source": [
+                            "Node_ec376eb17fb94b5a8126e05e3a0f439c"
+                        ],
+                        "target": [
+                            "Node_635440750bdd4e4ea550c35884545bd2"
+                        ],
+                        "time": 33,
+                        "cost": 1
+                    },
+                    {
+                        "source": [
+                            "Node_b01c887713294e2ea92cd844bb90ff6f"
+                        ],
+                        "target": [
+                            "Node_3c7bdc969f194ed5a1ebd41f48e3e840"
+                        ],
+                        "time": 43,
+                        "cost": 1
+                    },
+                    {
+                        "source": [
+                            "Node_635440750bdd4e4ea550c35884545bd2"
+                        ],
+                        "target": [
+                            "Node_3c7bdc969f194ed5a1ebd41f48e3e840"
+                        ],
+                        "time": 41,
+                        "cost": 1
+                    },
+                    {
+                        "source": [
+                            "Node_635440750bdd4e4ea550c35884545bd2",
+                            "Node_ec376eb17fb94b5a8126e05e3a0f439c"
+                        ],
+                        "target": [
+                            "Node_a69f4e74c9c6414596c4b9fd00891294"
+                        ],
+                        "time": 47,
+                        "cost": 1
+                    },
+                    {
+                        "source": [
+                            "Node_3c7bdc969f194ed5a1ebd41f48e3e840",
+                            "Node_635440750bdd4e4ea550c35884545bd2"
+                        ],
+                        "target": [
+                            "Node_6bae2257fb86452db71ffbb1953a9b3f"
+                        ],
+                        "time": 8,
+                        "cost": 1
+                    },
+                    {
+                        "source": [
+                            "Node_6bae2257fb86452db71ffbb1953a9b3f"
+                        ],
+                        "target": [
+                            "Node_7f24e490b22444fbbea9417c35618101"
+                        ],
+                        "time": 27,
+                        "cost": 1
+                    },
+                    {
+                        "source": [
+                            "Node_a69f4e74c9c6414596c4b9fd00891294"
+                        ],
+                        "target": [
+                            "Node_b2364b24e7894bf7a8722f4211b0384b"
+                        ],
+                        "time": 20,
+                        "cost": 1
+                    },
+                    {
+                        "source": [
+                            "Node_6bae2257fb86452db71ffbb1953a9b3f",
+                            "Node_b01c887713294e2ea92cd844bb90ff6f",
+                            "Node_7f24e490b22444fbbea9417c35618101"
+                        ],
+                        "target": [
+                            "Node_4373af708aa34e51b0282c6acbe6a152"
+                        ],
+                        "time": 28,
+                        "cost": 1
+                    },
+                    {
+                        "source": [
+                            "Node_a69f4e74c9c6414596c4b9fd00891294",
+                            "Node_b2364b24e7894bf7a8722f4211b0384b"
+                        ],
+                        "target": [
+                            "Node_4373af708aa34e51b0282c6acbe6a152"
+                        ],
+                        "time": 44,
+                        "cost": 1
+                    }
+                ],
+                "initial_source": [
+                    "Node_ec376eb17fb94b5a8126e05e3a0f439c"
+                ],
+                "target": "Node_4373af708aa34e51b0282c6acbe6a152"
+            },
+            "answer": [
+                {
+                    "name": "Subtask1",
+                    "source": [
+                        "Node_ec376eb17fb94b5a8126e05e3a0f439c"
+                    ],
+                    "target": [
+                        "Node_635440750bdd4e4ea550c35884545bd2"
+                    ],
+                    "dependencies": []
+                },
+                {
+                    "name": "Subtask2",
+                    "source": [
+                        "Node_635440750bdd4e4ea550c35884545bd2"
+                    ],
+                    "target": [
+                        "Node_3c7bdc969f194ed5a1ebd41f48e3e840"
+                    ],
+                    "dependencies": [
+                        "Subtask1"
+                    ]
+                },
+                {
+                    "name": "Subtask3",
+                    "source": [
+                        "Node_3c7bdc969f194ed5a1ebd41f48e3e840",
+                        "Node_635440750bdd4e4ea550c35884545bd2"
+                    ],
+                    "target": [
+                        "Node_6bae2257fb86452db71ffbb1953a9b3f"
+                    ],
+                    "dependencies": [
+                        "Subtask2",
+                        "Subtask1"
+                    ]
+                },
+                {
+                    "name": "Subtask4",
+                    "source": [
+                        "Node_ec376eb17fb94b5a8126e05e3a0f439c"
+                    ],
+                    "target": [
+                        "Node_917751d99e9d44eea4f5c313cf81b343"
+                    ],
+                    "dependencies": []
+                },
+                {
+                    "name": "Subtask5",
+                    "source": [
+                        "Node_917751d99e9d44eea4f5c313cf81b343"
+                    ],
+                    "target": [
+                        "Node_b01c887713294e2ea92cd844bb90ff6f"
+                    ],
+                    "dependencies": [
+                        "Subtask4"
+                    ]
+                },
+                {
+                    "name": "Subtask6",
+                    "source": [
+                        "Node_6bae2257fb86452db71ffbb1953a9b3f"
+                    ],
+                    "target": [
+                        "Node_7f24e490b22444fbbea9417c35618101"
+                    ],
+                    "dependencies": [
+                        "Subtask3"
+                    ]
+                },
+                {
+                    "name": "Subtask7",
+                    "source": [
+                        "Node_6bae2257fb86452db71ffbb1953a9b3f",
+                        "Node_b01c887713294e2ea92cd844bb90ff6f",
+                        "Node_7f24e490b22444fbbea9417c35618101"
+                    ],
+                    "target": [
+                        "Node_4373af708aa34e51b0282c6acbe6a152"
+                    ],
+                    "dependencies": [
+                        "Subtask3",
+                        "Subtask5",
+                        "Subtask6"
+                    ]
+                }
+            ],
+            "min_time": 137,
+            "min_cost": 7,
+            "path_count": 40
+        },
+        "plan": null,
+        "result": null
+    }
+]
