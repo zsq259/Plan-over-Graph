@@ -5,3 +5,5 @@ data/abstask/dev/30-3-1000.json filter=lfs diff=lfs merge=lfs -text
 data/abstask/dev/50-1-1000.json filter=lfs diff=lfs merge=lfs -text
 data/abstask/dev/alpaca_form/30-3-1000.json filter=lfs diff=lfs merge=lfs -text
 data/abstask/result/llama-31-8b-instruct-sft2/30-3-1000-output.json filter=lfs diff=lfs merge=lfs -text
+data/abstask/dev/*.json filter=lfs diff=lfs merge=lfs -text
+data/abstask/result/**/*.json filter=lfs diff=lfs merge=lfs -text
