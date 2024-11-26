@@ -1,6 +1,6 @@
 python -m src.main\
     --task abstask\
-    --model "/data/maxb/VLM/llama-31-8B-Instruct"\
+    --model "/home/zhangsq/1/test/lora_trained_llama31_1/checkpoint-1250"\
     --scheduler parallel\
-    --test_file "data/abstask/dev/30-1-100.json"\
-    --output_file "data/abstask/result/30-1-100-output.json"\
+    --test_file "/home/zhangsq/1/test/data/abstask/dev/30-3-100.json"\
+    --output_file "/home/zhangsq/1/test/data/abstask/result/llama-31-8b-instruct-sft2/30-3-100-output.json"\

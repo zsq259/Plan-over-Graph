@@ -46,7 +46,7 @@ class LlamaWrapper(Model):
         #     f.write(prompt)
         #     f.write("\n")
         #     f.write(response_text)
-        #     f.write("\nend:-------------------------------------\n")
+        #     f.write("\nend:-------------------------------------\n")··
         # print(prompt)
         # print(response_text)
         return response_text

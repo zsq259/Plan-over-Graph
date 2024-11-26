@@ -154,6 +154,8 @@ def visualize_data(df, output_dir):
 
 def generate_combined_table_image(model_name, results, output_image_path):
     # 创建一个 DataFrame 来存储所有结果
+    print(results)
+
     df = pd.DataFrame(results)
     df = df.round(2)
     
@@ -180,13 +182,15 @@ def generate_combined_table_image(model_name, results, output_image_path):
 
 
 def main():
+    # set export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
+    # how to print the value of LD_LIBRARY_PATH
     # 设置命令行参数解析
     parser = argparse.ArgumentParser(description="分析 JSON 数据文件")
     parser.add_argument("file_prefixes", type=str, nargs='+', help="JSON 数据文件的文件名前缀列表")
     args = parser.parse_args()
 
     # 基目录和文件后缀
-    model_name = "llama-31-8b-instruct-sft1"
+    model_name = "llama-31-8b-instruct-sft2"
     base_dir = f"/home/zhangsq/1/test/data/abstask/result/{model_name}/"
     file_suffix = "-output.json"
     output_dir = base_dir + "analysis/"
@@ -212,6 +216,7 @@ def main():
 
     generate_combined_table_image(model_name, all_in_all_results, output_dir + "output_image.png")
     # 将结果转换为 DataFrame 并输出
+    print(type(all_results))
     df = pd.DataFrame(all_results)
     failed_df = pd.DataFrame(all_failed_results)
 

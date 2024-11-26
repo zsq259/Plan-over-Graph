@@ -20,7 +20,8 @@ def generate_abstract_workflow(n_nodes, m_edges, group_size_range=(1, 3), time_r
     edges = list(graph.iterate_edges())
     
     # 为每个节点分配唯一的名称
-    node_mapping = {node: f"Node_{uuid.uuid4().hex}" for node in range(1, n_nodes + 1)}
+    # node_mapping = {node: f"Node_{uuid.uuid4().hex}" for node in range(1, n_nodes + 1)}
+    node_mapping = {node: f"N{node}" for node in range(1, n_nodes + 1)}
 
     # 构建前驱节点字典
     predecessors_dict = {node_mapping[node]: [] for node in range(1, n_nodes + 1)}
@@ -73,8 +74,9 @@ def generate_abstract_workflow(n_nodes, m_edges, group_size_range=(1, 3), time_r
 
 def main():
     config = 100
-    nodes = (8, 10)
-    test_file = f'data/abstask/dev/{nodes[1]}-3-{config}.json'
+    nodes = (28, 30)
+    edge_config = 3
+    test_file = f'data/abstask/dev/{nodes[1]}-{edge_config}-{config}.json'
     if os.path.exists(test_file):
         user_input = input(f"文件 {test_file} 已存在。是否继续？(y/n): ")
         if user_input.lower() != 'y':
@@ -88,8 +90,14 @@ def main():
     for _ in range(config):
         count += 1
         n = random.randint(nodes[0], nodes[1])
-        # m = random.randint(n * (n - 1) // 3, n * (n - 1) // 2)
-        m = random.randint(n, n * (n - 1) // 2)
+        # 
+        m = 0
+        if edge_config == 1:
+            m = random.randint(n, n * 3)
+        elif edge_config == 2:
+            m = random.randint(n * (n - 1) // 3, n * (n - 1) // 2)
+        elif edge_config == 3:
+            m = random.randint(n, n * (n - 1) // 2)
         abstract_workflow = generate_abstract_workflow(n, m)
         min_time, min_cost, path_count, plan = min_time_cost_to_target(abstract_workflow)
         item = {
