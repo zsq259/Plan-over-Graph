@@ -63,6 +63,11 @@ def main():
     task = args.task
     model = args.model
     scheduler_type = args.scheduler
+    
+    if args.output_file:
+        output_dir = os.path.dirname(args.output_file)
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
 
     logger.info(f"Running task: {task}")
     logger.info(f"Using model: {model}")
