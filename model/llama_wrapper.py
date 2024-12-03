@@ -16,7 +16,7 @@ class LlamaWrapper(Model):
         super().__init__(name="LlamaWrapper")
         self.model_id = model_id
 
-    def predict(self, prompt, max_new_tokens=2048, stop=None):
+    def predict(self, prompt, max_new_tokens=8192, stop=None):
         pipe = pipeline(
             "text-generation",
             model=self.model_id,
@@ -41,12 +41,12 @@ class LlamaWrapper(Model):
             
             exit(1)
 
-        # with open("3.txt", "a") as f:
-        #     f.write("\nstart:-------------------------------------\n")
-        #     f.write(prompt)
-        #     f.write("\n")
-        #     f.write(response_text)
-        #     f.write("\nend:-------------------------------------\n")··
+        with open("4.txt", "a") as f:
+            f.write("\nstart:-------------------------------------\n")
+            f.write(prompt)
+            f.write("\n")
+            f.write(response_text)
+            f.write("\nend:-------------------------------------\n")
         # print(prompt)
         # print(response_text)
         return response_text

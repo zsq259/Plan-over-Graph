@@ -30,6 +30,9 @@ def analyze_file(file_path):
     time_ratios = []
     cost_ratios = []
 
+    feasible_count = 0  # 可行解计数器
+    optimal_count = 0   # 最优解计数器
+    
     # 遍历数据
     for item in data:
         task_id = item["question"]["id"]
@@ -56,6 +59,10 @@ def analyze_file(file_path):
                 "Time Ratio": time_ratio,
                 "Cost Ratio": cost_ratio
             })
+            if result_time == answer_time and result_cost == min_cost:
+                optimal_count += 1
+            else:
+                feasible_count += 1
         else:
             # 记录失败的任务
             failed_results.append({
@@ -70,15 +77,21 @@ def analyze_file(file_path):
     if total_count > 0:
         success_rate = len(results) / total_count
         failure_rate = len(failed_results) / total_count
+        feasible_accuracy = feasible_count / total_count
+        optimal_accuracy = optimal_count / total_count
     else:
         success_rate = None
         failure_rate = None
+        feasible_accuracy = None
+        optimal_accuracy = None
 
     if time_stats and cost_stats:
         in_all_results.append({
             "Category": os.path.basename(file_path).replace("-output.json", ""),
             "Success Rate": success_rate,
             "Failure Rate": failure_rate,
+            "Feasible Accuracy": feasible_accuracy,
+            "Optimal Accuracy": optimal_accuracy,
             "Min Time Ratio": time_stats["min_ratio"],
             "Max Time Ratio": time_stats["max_ratio"],
             "Avg Time Ratio": time_stats["avg_ratio"],
@@ -91,6 +104,8 @@ def analyze_file(file_path):
             "Category": os.path.basename(file_path).replace("-output.json", ""),
             "Success Rate": success_rate,
             "Failure Rate": failure_rate,
+            "Feasible Accuracy": feasible_accuracy,
+            "Optimal Accuracy": optimal_accuracy,
             "Min Time Ratio": None,
             "Max Time Ratio": None,
             "Avg Time Ratio": None,
@@ -190,7 +205,7 @@ def main():
     args = parser.parse_args()
 
     # 基目录和文件后缀
-    model_name = "llama-31-8b-instruct-sft2"
+    model_name = "llama-31-8b-instruct-sft3"
     base_dir = f"/home/zhangsq/1/test/data/abstask/result/{model_name}/"
     file_suffix = "-output.json"
     output_dir = base_dir + "analysis/"

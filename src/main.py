@@ -1,5 +1,6 @@
 import os, sys, json
 import argparse
+import importlib
 import multiprocessing
 from model.gpt_wrapper import GPTWrapper
 from model.llama_wrapper import LlamaWrapper
@@ -44,7 +45,10 @@ def preprocess_question(args):
             prompts.append((question, prompt))
     elif args.task == "abstask":
         for question in questions:
-            from template.planner.abstask_cost_plan import instruction, example
+            # from template.planner.abstask_plan import instruction, example
+            template_module = importlib.import_module(f'template.planner.{args.template}')
+            instruction = template_module.instruction
+            example = template_module.example
             prompt = instruction.format(example=example, task=question['question'])
             prompts.append((question, prompt))
     
@@ -53,6 +57,7 @@ def preprocess_question(args):
 def main():
     parser = argparse.ArgumentParser(description="Run the specified task with the given model and scheduler.")
     parser.add_argument("--task", type=str, required=True, help="The task to run.")
+    parser.add_argument('--template', type=str, required=True, help='The template to use.')
     parser.add_argument("--model", type=str, required=True, help="The model to use.")
     parser.add_argument("--scheduler", type=str, required=True, help="The scheduler to use.")
     parser.add_argument("--question", type=str, help="The single question to ask.", default=None)
@@ -105,6 +110,7 @@ def main():
             max_retry = 3
             retry_count = 0
             plan = None
+            base_prompt = prompt
             while retry_count < max_retry:
                 try:
                     subtasks, plan = planner.plan(prompt, node_type)
@@ -114,6 +120,15 @@ def main():
                     logger.error(f"Error: {COLOR_CODES['RED']}{e}{RESET}")
                     retry_count += 1
                     result = None
+                    # prompt = base_prompt
+                    # prompt += "\nYou failed to generate a correct plan. Please try again. Below is the plan you generated:\n"
+                    # prompt += str(plan) + "\n"
+                    # prompt += "The error message is:\n"
+                    # prompt += env.log
+                    # prompt += str(e)
+                    # prompt += "\nPlease reflect on the error message and try again to generate a correct plan."
+                    env.reset()
+                    
             partial_results.append({'question': question, 'plan': plan, 'result': result})
             if args.output_file:
                 save_results(partial_results, args.output_file)

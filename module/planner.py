@@ -13,7 +13,10 @@ class Planner:
     
     def extract_json(self, text: str) -> dict:
         json_regex = r'```json\s*\[\s*[\s\S]*?\s*\]\s*(?:```|\Z)'
+        # json_regex = r'```json\s*[\{\[]\s*[\s\S]*?\s*[\}\]]\s*(?:```|\Z)'
+        # json_regex = r'```json\s*(\{.*?\})\s*```'
         matches = re.findall(json_regex, text)
+        # matches = re.findall(json_regex, text, re.DOTALL)
         if matches:
             json_data = matches[0].replace('```json', '').replace('```', '').strip()
             try:
@@ -46,16 +49,19 @@ class ParallelPlanner(Planner):
             try:
                 response = self.model.predict(prompt)
                 tasks = self.extract_json(response)
+                # plans = tasks['plan']
+                plans = tasks
             except ValueError as e:
                 logger.info(f"Error decomposing task: {COLOR_CODES['RED']}{e}{RESET}")
                 valid = False
                 if retry_count == 0:
-                    prompt = "You have failed to decompose the task. Please try again." + prompt
+                    # prompt = "You have failed to decompose the task. Please try again." + prompt
+                    prompt = "Failed to decompose the task. Please ensure the json format is correct and wrapped in triple backticks." + prompt
                 retry_count += 1
                 continue
             
             logger.info(f"Decomposed task: {COLOR_CODES['CYAN']}{tasks}{RESET}")
-            for task in tasks:
+            for task in plans:
                 subtask = node_type(task)
                 subtasks.append(subtask)
             
@@ -101,10 +107,37 @@ class ParallelPlanner(Planner):
     
 if __name__ == "__main__":
     content = """
+Your task is to generate the final plan in the specified JSON format. Do not provide any implementation code.
+
+
 ```json
-[{'name': 'Subtask1', 'source': ['N1'], 'target': 'N2', 'dependencies': []}, {'name': 'Subtask2', 'source': ['N1', 'N2'], 'target': 'N3', 'dependencies': ['Subtask1']}, {'name': 'Subtask3', 'source': ['N3'], 'target': 'N4', 'dependencies': ['Subtask2']}, {'name': 'Subtask4', 'source': ['N1'], 'target': 'N4', 'dependencies': ['Subtask3']}, {'name': 'Subtask5', 'source': ['N2'], 'target': 'N4', 'dependencies': ['Subtask4']}, {'name': 'Subtask6', 'source': ['N3'], 'target': 'N5', 'dependencies': ['Subtask3']}, {'name': 'Subtask7', 'source': ['N1'], 'target': 'N5', 'dependencies': ['Subtask6']}, {'name': 'Subtask8', 'source': ['N2'], 'target': 'N5', 'dependencies': ['Subtask7']}, {'name': 'Subtask9', 'source': ['N2', 'N1'], 'target': 'N6', 'dependencies': ['Subtask1']}, {'name': 'Subtask10', 'source': ['N4'], 'target': 'N6', 'dependencies': ['Subtask3']}, {'name': 'Subtask11', 'source': ['N1', 'N2', 'N5'], 'target': 'N7', 'dependencies': ['Subtask2', 'Subtask8']}, {'name': 'Subtask12', 'source': ['N4', 'N6', 'N3'], 'target': 'N7', 'dependencies': ['Subtask3', 'Subtask10']}, {'name': 'Subtask13', 'source': ['N3', 'N1', 'N4'], 'target': 'N8', 'dependencies': ['Subtask3', 'Subtask4']}, {'name': 'Subtask14', 'source': ['N7', 'N5'], 'target': 'N8', 'dependencies': ['Subtask6', 'Subtask11']}, {'name': 'Subtask15', 'source': ['N8', 'N2'], 'target': 'N9', 'dependencies': ['Subtask8', 'Subtask13']}, {'name': 'Subtask16', 'source': ['N7', 'N6'], 'target': 'N9', 'dependencies': ['Subtask10', 'Subtask12']}]
+{
+    "CoT": "Now I have N1, I can do rules[0], then I get N2. Then I can do rules[4], then I get N4. Then I can do rules[11] and get N8. The total time is 40.",
+    "plan": [
+        {
+            "name": "Subtask1",
+            "perform_rule_indx": 0,
+            "dependencies": []
+        },
+        {
+            "name": "Subtask2",
+            "perform_rule_indx": 4,
+            "dependencies": ["Subtask1"]
+        },
+        {
+            "name": "Subtask3",
+            "perform_rule_indx": 11,
+            "dependencies": ["Subtask2"]
+        }
+    ]
+}
 ```
+
+This plan is optimal because it follows the shortest path to the target node 'N8' with the least cost. The steps are as follows:
+
+1. S
 """
     planner = ParallelPlanner(None, None)
     tasks = planner.extract_json(content)
+    print(json.dumps(tasks, indent=4))
     

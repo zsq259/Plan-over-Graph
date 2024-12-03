@@ -1,10 +1,12 @@
 instruction = """
-You are given a set of transformation rules, where each rule consists of source nodes (materials or subtasks), target nodes (resulting materials or tasks), and the time required to complete the transformation. Your goal is to plan a path from the initial nodes to the target node, supporting parallel transformations, to obtain the target node in the shortest time possible, while minimizing the number of transformations needed.
+You are given a set of transformation rules, where each rule consists of source nodes (materials or subtasks), target nodes (resulting materials or tasks), the time required to complete the transformation, and a cost associated with the transformation. Your goal is to plan a path from the initial nodes to the target node, **minimizing the total time required for task completion** while also minimizing the total cost. Ensure that parallel transformations are considered wherever possible to achieve the fastest completion.
+
 Input format:
 - Transformation rules: A list of dictionaries, where each dictionary represents a transformation rule and contains:
   - source: A list of source nodes (the prerequisites for the transformation).
   - target: A list of target nodes (the result of the transformation).
   - time: The time required to complete the transformation (an integer).
+  - cost: The cost associated with the transformation (an integer).
 
 - Initial nodes: A list of strings representing the available nodes at the start.
 
@@ -16,57 +18,67 @@ Output format:
   - source: A list of source nodes involved in this subtask.
   - target: The target node resulting from this subtask.
   - dependencies: A list of dependencies (other subtask names) that need to be completed before this subtask can be executed.
-  
-Important: The generated JSON must strictly follow the JSON format. The following rules must be strictly adhered to:
-1. All keys and values must be enclosed in double quotes.
-2. All elements in arrays must be separated by commas.
-3. All fields in the JSON must be complete and correctly formatted, with no missing or incorrect elements.
-Your task is to generate the final plan in the specified JSON format, minimizing both the total completion time and the number of transformations. Do not provide any implementation code.
 
-here is a example for you to understand the task better:
+Important:
+1. **Ensure that all JSON outputs strictly adhere to the following formatting rules**:
+    - All keys and string values must be enclosed in double quotes.
+    - Arrays must have commas separating elements, and the last element must not end with a comma.
+    - Dependencies must be listed only if they are strictly required for task execution, and must match task names exactly.
+
+2. Only include **necessary steps** that directly contribute to achieving the target node. **Do not include redundant or unnecessary transformations.**
+
+3. **Minimize both the total time and cost** by planning parallel and sequential tasks efficiently. Evaluate possible parallel tasks based on dependencies and time constraints.
+
+Here is an example to better understand the task:
 
 {example}
 
-Now, based on the following transformation rules, initial nodes, and target node, please provide an optimal plan that allows the target node to be obtained in the shortest time, with the fewest necessary transformations.
-Only include necessary steps that are required for the fastest completion. Do not add any extra or redundant transformation steps.
+Now, based on the following transformation rules, initial nodes, and target node, please provide an optimal plan that allows the target node to be obtained in the shortest time with the minimal total cost, supporting parallel transformations. Only include the **minimum set of transformations** required for the fastest completion at the least cost.
 
+Task:
 ```json
 {task}
 ```
 
-Your task is to generate the final plan in the specified JSON format. Do not provide any implementation code.
-
+Your task is to generate the final plan in the specified JSON format. Do not provide any implementation code. 
 """
 
+
+
 example = """
-Task: 
+Task1:
 ```json
 {
     "rules": [
         {
             "source": ["N1"],
             "target": ["N2"],
-            "time": 3
+            "time": 3,
+            "cost": 1
         },
         {
             "source": ["N6"],
             "target": ["N3"],
-            "time": 4
+            "time": 4,
+            "cost": 1
         },
         {
             "source": ["N2", "N3"],
             "target": ["N4"],
-            "time": 2
+            "time": 2,
+            "cost": 1
         },
         {
             "source": ["N4"],
             "target": ["N5"],
-            "time": 1
+            "time": 1,
+            "cost": 1
         },
         {
             "source": ["N2"],
             "target": ["N5"],
-            "time": 5
+            "time": 5,
+            cost": 1
         }
     ],
     "initial_source": ["N1", "N6"],
@@ -104,7 +116,7 @@ Expected output:
 ]
 ```
 
-Task:
+Task2:
 ```json
 {
     "rules": [
@@ -358,10 +370,10 @@ Expected output:
 ```json
 [
     {
-        "name": "Subtask1",
-        "source": ["N1"],
-        "target": "N10",
-        "dependencies": []
+      "name": "Subtask1",
+      "source": ["N1"],
+      "target": "N10",
+      "dependencies": []
     }
 ]
 ```

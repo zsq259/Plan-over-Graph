@@ -12,13 +12,13 @@ Input format:
 - Target node: A string representing the node that needs to be obtained.
 
 Output format:
+- CoT (Chain of Thought) Process: A string detailing the step-by-step decision-making process, showing the rules chosen at each stage, the resulting nodes, and the total time cost.
 - Plan: A list of subtasks, where each subtask is a JSON object with the following fields:
   - name: The name of the subtask or node being completed. The default name format is "Subtask" followed by a sequence number.
-  - source: A list of source nodes involved in this subtask. The sources must be products you already have or can obtain through previous steps.
-  - target: The target node resulting from this subtask. Both the source and target must conform to a given rule and cannot be assumed or self-created.
+  - perform_rule_indx: The index of the transformation rule being applied.
   - dependencies: A list of dependencies (other subtask names) that need to be completed before this subtask can be executed. This ensures the execution order between subtasks, and the dependencies must provide the required sources for this subtask.
 
-Important: 
+Important:
 - The generated JSON must strictly follow the JSON format. The following rules must be strictly adhered to:
   - All keys and values must be enclosed in double quotes.
   - All elements in arrays must be separated by commas.
@@ -49,30 +49,35 @@ Task1:
 {
     "rules": [
         {
+            "id": 0,
             "source": ["N1"],
             "target": ["N2"],
             "time": 3,
             "cost": 1
         },
         {
+            "id": 1,
             "source": ["N6"],
             "target": ["N3"],
             "time": 4,
             "cost": 1
         },
         {
+            "id": 2,
             "source": ["N2", "N3"],
             "target": ["N4"],
             "time": 2,
             "cost": 1
         },
         {
+            "id": 3,
             "source": ["N4"],
             "target": ["N5"],
             "time": 1,
             "cost": 1
         },
         {
+            "id": 4,
             "source": ["N2"],
             "target": ["N5"],
             "time": 5,
@@ -86,32 +91,31 @@ Task1:
 
 Expected output:
 ```json
-[
-    {
-      "name": "Subtask1",
-      "source": ["N1"],
-      "target": "N2",
-      "dependencies": []
-    },
-    {
-      "name": "Subtask2",
-      "source": ["N6"],
-      "target": "N3",
-      "dependencies": []
-    },
-    {
-      "name": "Subtask3",
-      "source": ["N2", "N3"],
-      "target": "N4",
-      "dependencies": ["Subtask1", "Subtask2"]
-    },
-    {
-      "name": "Subtask4",
-      "source": ["N4"],
-      "target": "N5",
-      "dependencies": ["Subtask3"]
-    }
-]
+{
+    "CoT": "Now I have N1 N6, I can do rules[0] and rules[1], then I get N2 and N3. Then I can do rules[2] and rules[4]. If I do rules[2], then I get N4. Then I can do rule[3] and get N5. The total time is 7. If I do rules[4], I get N5. The total time is 9.",
+    "plan": [
+        {
+            "name": "Subtask1",
+            "perform_rule_indx": 0,
+            "dependencies": []
+        },
+        {
+            "name": "Subtask2",
+            "perform_rule_indx": 1,
+            "dependencies": []
+        },
+        {
+            "name": "Subtask3",
+            "perform_rule_indx": 2,
+            "dependencies": ["Subtask1", "Subtask2"]
+        },
+        {
+            "name": "Subtask4",
+            "perform_rule_indx": 3,
+            "dependencies": ["Subtask3"]
+        }
+    ]
+}
 ```
 
 Task2:
@@ -119,84 +123,98 @@ Task2:
 {
     "rules": [
         {
+            "id": 0,
             "source": ["N1"],
             "target": ["N2"],
             "time": 12,
             "cost": 1
         },
         {
+            "id": 1,
             "source": ["N1","N2"],
             "target": ["N3"],
             "time": 28,
             "cost": 1
         },
         {
+            "id": 2,
             "source": ["N2","N1"],
             "target": ["N4"],
             "time": 3,
             "cost": 1
         },
         {
+            "id": 3,
             "source": ["N3"],
             "target": ["N4"],
             "time": 14,
             "cost": 1
         },
         {
+            "id": 4,
             "source": ["N1","N4"],
             "target": ["N5"],
             "time": 12,
             "cost": 1
         },
         {
+            "id": 5,
             "source": ["N2","N5","N3"],
             "target": ["N6"],
             "time": 18,
             "cost": 1
         },
         {
+            "id": 6,
             "source": ["N3","N6"],
             "target": ["N7"],
             "time": 49,
             "cost": 1
         },
         {
+            "id": 7,
             "source": ["N2","N5"],
             "target": ["N7"],
             "time": 39,
             "cost": 1
         },
         {
+            "id": 8,
             "source": ["N7"],
             "target": ["N8"],
             "time": 49,
             "cost": 1
         },
         {
+            "id": 9,
             "source": ["N5"],
             "target": ["N8"],
             "time": 34,
             "cost": 1
         },
         {
+            "id": 10,
             "source": ["N1"],
             "target": ["N8"],
             "time": 42,
             "cost": 1
         },
         {
+            "id": 11,
             "source": ["N2"],
             "target": ["N8"],
             "time": 20,
             "cost": 1
         },
         {
+            "id": 12,
             "source": ["N1","N7"],
             "target": ["N9"],
             "time": 34,
             "cost": 1
         },
         {
+            "id": 13,
             "source": ["N4","N3"],
             "target": ["N9"],
             "time": 24,
@@ -210,21 +228,20 @@ Task2:
 
 Expected output:
 ```json
-[
-    {
-        "name": "Subtask1",
-        "source": ["N1"],
-        "target": ["N2"],
-        "dependencies": []
-    },
-    {
-        "name": "Subtask2",
-        "source": ["N2"],
-        "target": ["N8"],
-        "dependencies": [
-            "Subtask1"
-        ]
-    }
-]
+{
+    "CoT": "Now I have N1, I can do rules[0], then I get N2. Then I can do rules[11] and get N8. The total time is 32.",
+    "plan": [
+        {
+            "name": "Subtask1",
+            "perform_rule_indx": 0,
+            "dependencies": []
+        },
+        {
+            "name": "Subtask2",
+            "perform_rule_indx": 11,
+            "dependencies": ["Subtask1"]
+        }
+    ]
+}
 ```
 """

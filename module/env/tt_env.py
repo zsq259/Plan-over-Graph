@@ -15,8 +15,20 @@ class TTEnv:
         self.target = config.get("target", "")
         self.material_earliest_time: Dict[str, int] = {material: 0 for material in self.initial_sources}
         self.total_cost = 0
+        self.log = ""
+    
+    def reset(self):
+        self.available_materials = set(self.initial_sources)
+        self.synthesized_materials = set()
+        self.material_earliest_time = {material: 0 for material in self.initial_sources}
+        self.total_cost = 0
+        self.log = ""
     
     def is_valid_sub_node(self, sub_node: SubTTNode) -> bool:
+        if sub_node.perform_rule_indx is not None:
+            sub_node.time = self.rules[sub_node.perform_rule_indx].get("time", 0)
+            sub_node.cost = self.rules[sub_node.perform_rule_indx].get("cost", 0)
+            return True
         for rule in self.rules:
             if sorted(rule["target"]) == sorted(sub_node.target):
                 if sorted(rule["source"]) == sorted(sub_node.source):
@@ -32,13 +44,18 @@ class TTEnv:
         :param sub_node: 一个 SubTTNode 对象，表示一次反应。
         :raises ValueError: 如果反应不合法。
         """
-        
+        if sub_node.source is None or sub_node.target is None:
+            sub_node.source = self.rules[sub_node.perform_rule_indx]["source"]
+            sub_node.target = self.rules[sub_node.perform_rule_indx]["target"]
+            
         if not self.is_valid_sub_node(sub_node):
-            raise ValueError(f"反应 {sub_node.name} 不符合任何规则。")
+            # raise ValueError(f"反应 {sub_node.name} 不符合任何规则。")
+            raise ValueError(f"Reaction {sub_node.name} does not match any rule.")
         
         for material in sub_node.source:
             if material not in self.available_materials:
-                raise ValueError(f"源物质 {material} 不可用。")
+                # raise ValueError(f"源物质 {material} 不可用。")
+                raise ValueError(f"Running {sub_node.name}: Source material {material} is not available.")
         
         self.available_materials.update(sub_node.target)
         self.synthesized_materials.update(sub_node.target)
@@ -56,6 +73,7 @@ class TTEnv:
         
         self.total_cost += sub_node.cost
         
+        self.log += f"{sub_node.name} successfully committed. Time: {sub_node.time}, Current time: {current_time}\n"
         print(f"反应 {sub_node.name} 成功提交，所需时间: {sub_node.time}，当前时间: {current_time}")
         return current_time
     
