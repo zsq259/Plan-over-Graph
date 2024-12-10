@@ -117,6 +117,8 @@ def main():
                     result = scheduler.run(subtasks)
                     break
                 except Exception as e:
+                    for process in multiprocessing.active_children():
+                        process.terminate()
                     logger.error(f"Error: {COLOR_CODES['RED']}{e}{RESET}")
                     retry_count += 1
                     result = None

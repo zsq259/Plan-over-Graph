@@ -90,25 +90,25 @@ Expected output:
     {
       "name": "Subtask1",
       "source": ["N1"],
-      "target": "N2",
+      "target": ["N2"],
       "dependencies": []
     },
     {
       "name": "Subtask2",
       "source": ["N6"],
-      "target": "N3",
+      "target": ["N3"],
       "dependencies": []
     },
     {
       "name": "Subtask3",
       "source": ["N2", "N3"],
-      "target": "N4",
+      "target": ["N4"],
       "dependencies": ["Subtask1", "Subtask2"]
     },
     {
       "name": "Subtask4",
       "source": ["N4"],
-      "target": "N5",
+      "target": ["N5"],
       "dependencies": ["Subtask3"]
     }
 ]
