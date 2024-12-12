@@ -8,8 +8,9 @@ def convert_task_form(task):
     prompt = instruction.format(example=example_, task=task['question'])
     ins = prompt.split("Task:\n")[0] + "Task:\n"
     input = prompt.split("Task:\n")[1]
-    output = str(task['answer'])
-    new_task = {"instruction": ins, "input": input, "output": output}
+    chosen = str(task['answer'])
+    rejected = str(task['feasible'])
+    new_task = {"instruction": ins, "input": input, "chosen": chosen, "rejected": rejected}
     return new_task
 
 def convert_data(input_file, output_file):
@@ -23,14 +24,14 @@ def convert_data(input_file, output_file):
         
 def main():
     file_list = [
-        "30-3-100"
-        # "10-3-1000",
-        # "30-3-1000",
-        # "50-1-1000",
+        # "30-3-100"
+        "10-3-1000-dpo",
+        "30-1-1000-dpo",
+        "50-1-1000-dpo",
     ]
-    input_dir = "/home/zhangsq/1/test/data/abstask/dev/"
+    input_dir = "data/abstask/dev/"
     file_suffix = ".json"
-    output_file = "/home/zhangsq/1/test/data/abstask/dev/alpaca_form/30-3-100.json"
+    output_file = "data/abstask/dev/alpaca_form/abstask-dpo.json"
     new_data = []
     for file in file_list:
         input_file = input_dir + file + file_suffix

@@ -73,10 +73,10 @@ def generate_abstract_workflow(n_nodes, m_edges, group_size_range=(1, 3), time_r
     }
 
 def main():
-    config = 100
-    nodes = (28, 30)
-    edge_config = 3
-    test_file = f'data/abstask/dev/{nodes[1]}-{edge_config}-{config}.json'
+    config = 1000
+    nodes = (48, 50)
+    edge_config = 1
+    test_file = f'data/abstask/dev/{nodes[1]}-{edge_config}-{config}-dpo.json'
     if os.path.exists(test_file):
         user_input = input(f"文件 {test_file} 已存在。是否继续？(y/n): ")
         if user_input.lower() != 'y':
@@ -87,7 +87,7 @@ def main():
     
     data = []
     count = 0
-    for _ in range(config):
+    while count < config:
         count += 1
         n = random.randint(nodes[0], nodes[1])
         # 
@@ -99,14 +99,19 @@ def main():
         elif edge_config == 3:
             m = random.randint(n, n * (n - 1) // 2)
         abstract_workflow = generate_abstract_workflow(n, m)
-        min_time, min_cost, path_count, plan = min_time_cost_to_target(abstract_workflow)
+        min_time, min_cost, path_count, plan, feasible, feasible_time = min_time_cost_to_target(abstract_workflow)
+        if path_count <= 1 or len(feasible) == 0:
+            count -= 1
+            continue
         item = {
             "id": count,
             "node_count": n,
             "edge_count": m,
             "question": abstract_workflow,
             "answer": plan,
+            "feasible": feasible,
             "min_time": min_time,
+            "feasible_time": feasible_time,
             "min_cost": min_cost,
             "path_count": path_count
         }

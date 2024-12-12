@@ -63,11 +63,11 @@ def read_jsonl(path, max_seq_length, base_model_path, version='v1', skip_overlen
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--jsonl_path", type=str, default="/home/zhangsq/1/test/play/samples_eval_llama.jsonl")
-    parser.add_argument("--save_path", type=str, default="/home/zhangsq/1/test/play/llama3_eval_tokenize")
+    parser.add_argument("--jsonl_path", type=str, default="sft/samples_train_llama.jsonl")
+    parser.add_argument("--save_path", type=str, default="sft/llama3_train_tokenize")
     parser.add_argument("--max_seq_length", type=int, default=12800)
     parser.add_argument("--skip_overlength", type=bool, default=True)
-    parser.add_argument("--base_model", type=str, default="/home/zhangsq/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659")
+    parser.add_argument("--base_model", type=str, default="/data/maxb/VLM/llama-31-8B-Instruct")
     parser.add_argument("--version", type=str, default='v1')
     args = parser.parse_args()
 

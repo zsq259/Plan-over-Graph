@@ -29,7 +29,7 @@ def topological_sort(rules: list) -> list:
                 for rule in rules:
                     if target in rule["target"]:
                         if all(source in exist_nodes for source in rule["source"]):
-                            result.append(rule)            
+                            result.append(rule)
     return result
 
 def convert_rules(rules: list) -> list:
@@ -59,6 +59,9 @@ def min_time_cost_to_target(task_info: dict) -> int:
     rules_map = {source: [] for source in initial_source}
     path_count = {source: 1 for source in initial_source}
     
+    second_rules_map = {source: [] for source in initial_source}
+    second_time_map = {source: 0 for source in initial_source}
+
     def get_time(node):
         return time_map.get(node, float('inf'))
     def get_cost(node):
@@ -85,14 +88,26 @@ def min_time_cost_to_target(task_info: dict) -> int:
             if r_tuple not in seen:
                 seen.add(r_tuple)
                 unique_rules.append(r)
-
+        return unique_rules
+    
+    def get_second_new_rules(rule):
+        new_rules = []
+        for src in rule["source"]:
+            new_rules.extend(second_rules_map.get(src, []))
+        new_rules.append(rule)
+        unique_rules = []
+        seen = set()
+        for r in new_rules:
+            r_tuple = make_hashable(r)
+            if r_tuple not in seen:
+                seen.add(r_tuple)
+                unique_rules.append(r)
         return unique_rules
 
     sorted_rules = topological_sort(rules)
+    
     for rule in sorted_rules:
         if not all(source in time_map for source in rule["source"]):
-            # print(sorted_rules)
-            # print(rule)
             raise ValueError("Invalid rule")
         source_time = max(get_time(src) for src in rule["source"])
         new_time = source_time + rule["time"]
@@ -101,21 +116,35 @@ def min_time_cost_to_target(task_info: dict) -> int:
         new_path_count = math.prod(path_count[src] for src in rule["source"])
         for target_node in rule["target"]:
             if new_time < get_time(target_node):
+                second_time_map[target_node] = get_time(target_node)
+                second_rules_map[target_node] = get_rules(target_node)
+
                 time_map[target_node] = new_time
                 rules_map[target_node] = new_rules
                 cost_map[target_node] = new_cost
             elif new_time == get_time(target_node):
                 if new_cost < get_cost(target_node):
+                    second_time_map[target_node] = get_time(target_node)
+                    second_rules_map[target_node] = get_rules(target_node)
+
                     cost_map[target_node] = new_cost
                     rules_map[target_node] = new_rules
+                else:
+                    second_time_map[target_node] = new_time
+                    second_rules_map[target_node] = new_rules
+            else:
+                second_time_map[target_node] = new_time
+                second_rules_map[target_node] = new_rules
+
+
             if target_node not in path_count:
                 path_count[target_node] = new_path_count
-            else:
-                path_count[target_node] += new_path_count
-            # print(f"cost_map[{target_node}] = {cost_map[target_node]}")
-            # print(f"path_count[{target_node}] = {path_count[target_node]}")
+            else:                
+                path_count[target_node] += new_path_count            
+    
     converted_rules = convert_rules(get_rules(target))
-    return time_map.get(target, float('inf')), cost_map.get(target, float('inf')), path_count.get(target, 0), converted_rules
+    second_best_converted_rules = convert_rules(second_rules_map.get(target, []))
+    return time_map.get(target, float('inf')), cost_map.get(target, float('inf')), path_count.get(target, 0), converted_rules, second_best_converted_rules, second_time_map[target]
 
 def main():
     # 输入的任务信息

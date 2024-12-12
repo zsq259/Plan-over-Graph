@@ -136,10 +136,10 @@ class Llama3Fintune(object):
         
         writer = SummaryWriter()
         model, tokenizer = FastLanguageModel.from_pretrained(
-            model_name="/home/zhangsq/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659", max_seq_length=12800,
+            model_name="/data/maxb/VLM/llama-31-8B-Instruct", max_seq_length=12800,
             dtype=None, load_in_4bit=True)
-        dataset = datasets.load_from_disk("/home/zhangsq/1/test/play/llama3_train_tokenize")
-        eval_dataset = datasets.load_from_disk("/home/zhangsq/1/test/play/llama3_eval_tokenize")  # 加载验证集数据
+        dataset = datasets.load_from_disk("sft/llama3_train_tokenize")
+        eval_dataset = datasets.load_from_disk("sft/llama3_eval_tokenize")  # 加载验证集数据
         # 配置lora参数
         model = FastLanguageModel.get_peft_model(
             model,
@@ -186,7 +186,7 @@ class Llama3Fintune(object):
         # 自定义损失的Trainer
         train_args = TrainingArguments(
             remove_unused_columns=False,
-            per_device_train_batch_size=2,
+            per_device_train_batch_size=1,
             gradient_accumulation_steps=4,
             warmup_steps=5,
             # max_steps=52000,
@@ -202,7 +202,7 @@ class Llama3Fintune(object):
             num_train_epochs=10,
             save_steps=500,
             eval_steps=500,
-            evaluation_strategy="steps",
+            # eval_strategy="steps",
         )
         trainer = ModifiedTrainer(
             model=model,
