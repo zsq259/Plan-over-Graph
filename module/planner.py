@@ -25,7 +25,12 @@ class Planner:
             except json.JSONDecodeError as e:
                 raise ValueError(f"Error parsing JSON data: {e}")
         else:
-            raise ValueError(f"No JSON data found in the string: \033[38;5;214m{text}\033[0m")
+            text = text.replace("'", '"')            
+            parsed_json = json.loads(text)            
+            if isinstance(parsed_json, list):
+                return parsed_json
+            else:
+                raise ValueError(f"No JSON data found in the string: \033[38;5;214m{text}\033[0m")
     
     def decompose_task(self, task: str) -> list[SubTaskNode]:
         raise NotImplementedError
@@ -107,35 +112,7 @@ class ParallelPlanner(Planner):
     
 if __name__ == "__main__":
     content = """
-Your task is to generate the final plan in the specified JSON format. Do not provide any implementation code.
-
-
-```json
-{
-    "CoT": "Now I have N1, I can do rules[0], then I get N2. Then I can do rules[4], then I get N4. Then I can do rules[11] and get N8. The total time is 40.",
-    "plan": [
-        {
-            "name": "Subtask1",
-            "perform_rule_indx": 0,
-            "dependencies": []
-        },
-        {
-            "name": "Subtask2",
-            "perform_rule_indx": 4,
-            "dependencies": ["Subtask1"]
-        },
-        {
-            "name": "Subtask3",
-            "perform_rule_indx": 11,
-            "dependencies": ["Subtask2"]
-        }
-    ]
-}
-```
-
-This plan is optimal because it follows the shortest path to the target node 'N8' with the least cost. The steps are as follows:
-
-1. S
+[{'name': 'Subtask1','source': ['N1'], 'target': ['N3'], 'dependencies': []}, {'name': 'Subtask2','source': ['N3'], 'target': ['N15'], 'dependencies': ['Subtask1']}]
 """
     planner = ParallelPlanner(None, None)
     tasks = planner.extract_json(content)
