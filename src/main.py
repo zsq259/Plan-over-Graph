@@ -4,13 +4,11 @@ import importlib
 import multiprocessing
 from model.gpt_wrapper import GPTWrapper
 from model.llama_wrapper import LlamaWrapper
-from module.env.wiki_env import WikiEnv
 from module.env.tt_env import TTEnv
-from module.excutor import HotPotQAExcutor
-from module.runner import HotPotQARunner, TTRunner
+from module.runner import TTRunner
 from module.scheduler import ParallelScheduler
 from module.planner import ParallelPlanner
-from module.subtask import SubQANode, SubTTNode
+from module.subtask import SubTTNode
 from src.logger_config import logger, COLOR_CODES, RESET
 
 def preprocess_question(args):
@@ -38,14 +36,8 @@ def preprocess_question(args):
         raise ValueError("Either --question or --test_file must be provided.")
     
     prompts = []
-    if args.task == "hotpotqa":
-        for question in questions:
-            from template.decompose_plan import instruction, example
-            prompt = instruction.format(example=example, task=question['question'])
-            prompts.append((question, prompt))
-    elif args.task == "abstask":
-        for question in questions:
-            # from template.abstask_plan import instruction, example
+    if args.task == "abstask":
+        for question in questions:            
             template_module = importlib.import_module(f'template.{args.template}')
             instruction = template_module.instruction
             example = template_module.example
@@ -93,12 +85,7 @@ def main():
         
         partial_results, prompts = preprocess_question(args)
         for question, prompt in prompts:
-            if task == "hotpotqa":
-                env = WikiEnv()
-                executor = HotPotQAExcutor(env)
-                runner = HotPotQARunner(model, executor)
-                node_type = SubQANode
-            elif task == "abstask":
+            if task == "abstask":
                 env = TTEnv(question['question'])
                 runner = TTRunner(None, None)
                 node_type = SubTTNode    
