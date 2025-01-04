@@ -16,7 +16,7 @@ class LlamaWrapper(Model):
         super().__init__(name="LlamaWrapper")
         self.model_id = model_id
 
-    def predict(self, prompt, max_new_tokens=8192, stop=None):
+    def predict(self, prompt, max_new_tokens=8192, stop=None):        
         pipe = pipeline(
             "text-generation",
             model=self.model_id,
@@ -26,7 +26,7 @@ class LlamaWrapper(Model):
         messages = [
             # {"role": "system", "content": "You are a Nekomusume chatbot who always responds in Nekomusume speak!"},
             {"role": "user", "content": prompt},
-        ]
+        ]        
         try:
             outputs = pipe(
                 messages,
@@ -35,8 +35,8 @@ class LlamaWrapper(Model):
                 temperature=0.2,
             )
             response_text = outputs[0]["generated_text"][-1]['content']
-        except Exception as e:
-            # print(e)
+        except Exception as e:            
+            print(e)
             logger.error(f"Error: {COLOR_CODES['RED']}{e}{RESET}")
             
             exit(1)
