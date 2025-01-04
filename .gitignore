@@ -1,8 +1,0 @@
-*.txt
-.env
-*.log
-__pycache__
-src/test*.py
-src/test*.json
-play/
-!requirements.txt
