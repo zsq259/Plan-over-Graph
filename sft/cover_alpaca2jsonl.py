@@ -14,7 +14,7 @@ def format_example(example: dict) -> dict:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_path", type=str, default="data/abstask/dev/alpaca_form/30-3-100.json")
+    parser.add_argument("--data_path", type=str, default="data/dev/alpaca_form/30-3-100.json")
     parser.add_argument("--save_path", type=str, default="sft/samples_eval_llama.jsonl")
 
     args = parser.parse_args()

@@ -1,5 +1,5 @@
 import json
-from src.abstask.std import min_time_cost_to_target
+from src.std import min_time_cost_to_target
 
 def fix(input_file):
     data = json.load(open(input_file, "r"))
@@ -13,7 +13,7 @@ def fix(input_file):
     json.dump(new_data, open(input_file, "w"), ensure_ascii=False, indent=4)
     
 def main():
-    input_file = "/home/zhangsq/1/test/data/abstask/dev/50-1-100.json"
+    input_file = "/home/zhangsq/1/test/data/dev/50-1-100.json"
     fix(input_file)
 
 if __name__ == "__main__":

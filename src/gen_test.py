@@ -3,7 +3,7 @@ import json
 import uuid
 import os
 from cyaron import *
-from src.abstask.std import min_time_cost_to_target
+from src.std import min_time_cost_to_target
 
 def generate_abstract_workflow(n_nodes, m_edges, group_size_range=(1, 3), time_range=(1, 50), cost_range=(1, 1)):
     """
@@ -76,7 +76,7 @@ def main():
     config = 1000
     nodes = (48, 50)
     edge_config = 1
-    test_file = f'data/abstask/dev/{nodes[1]}-{edge_config}-{config}-dpo.json'
+    test_file = f'data/dev/{nodes[1]}-{edge_config}-{config}-dpo.json'
     if os.path.exists(test_file):
         user_input = input(f"文件 {test_file} 已存在。是否继续？(y/n): ")
         if user_input.lower() != 'y':

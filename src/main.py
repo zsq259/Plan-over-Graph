@@ -40,13 +40,13 @@ def preprocess_question(args):
     prompts = []
     if args.task == "hotpotqa":
         for question in questions:
-            from template.planner.decompose_plan import instruction, example
+            from template.decompose_plan import instruction, example
             prompt = instruction.format(example=example, task=question['question'])
             prompts.append((question, prompt))
     elif args.task == "abstask":
         for question in questions:
-            # from template.planner.abstask_plan import instruction, example
-            template_module = importlib.import_module(f'template.planner.{args.template}')
+            # from template.abstask_plan import instruction, example
+            template_module = importlib.import_module(f'template.{args.template}')
             instruction = template_module.instruction
             example = template_module.example
             prompt = instruction.format(example=example, task=question['question'])

@@ -50,7 +50,7 @@ def main():
 
     # 基目录和文件后缀
     model_name = "llama-31-8b-instruct"
-    base_dir = f"/home/zhangsq/1/test/data/abstask/result/{model_name}/"
+    base_dir = f"/home/zhangsq/1/test/data/result/{model_name}/"
     file_suffix = "-output.json"
     output_dir = base_dir + "analysis/"
     if not os.path.exists(output_dir):

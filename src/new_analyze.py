@@ -206,7 +206,7 @@ def main():
 
     # 基目录和文件后缀
     model_name = "llama-31-8b-instruct-dpo5"
-    base_dir = f"data/abstask/result/{model_name}/"
+    base_dir = f"data/result/{model_name}/"
     file_suffix = "-output.json"
     output_dir = base_dir + "analysis/"
     if not os.path.exists(output_dir):
