@@ -1,42 +1,29 @@
-intstuction = """
-{story_task}
-Projects without dependencies can be completed in parallel to improve overall efficiency. Now, please provide a plan to minimize costs while minimizing completion time.
+instruction = """
+Transform this abstract task into a specific task in a real-world scenario, noting the following:
+1. Tasks without dependencies can be executed in parallel.
+2. Please express the instructions in complete natural language without explicitly listing the rules.
+3. As long as there is one path that reaches the final goal, it is considered successful.
+4. The source of a rule must be fully achieved before proceeding with the rule and obtaining its target.
+5. You must strictly follow the rules I have given, make sure the rules in your story correspond one-to-one with the rules I have provided. 
+6. You must explicitly mention both the time and cost associated with each rule in the story.
+7. You only need to write the rules as a story, without offering any additional evaluation comments or introductory remarks.
 
-Please provide the final solution in JSON format:
-- Plan: A list of subtasks, where each subtask is a JSON object with the following fields:
-  - name: The name of the subtask or node being completed. The default name format is "Subtask" followed by a sequence number.
-  - source: A list of source nodes involved in this subtask. The sources must be products you already have or can obtain through previous steps.
-  - target: The target node resulting from this subtask. Both the source and target must conform to a given rule and cannot be assumed or self-created.
-  - dependencies: A list of dependencies (other subtask names) that need to be completed before this subtask can be executed. This ensures the execution order between subtasks, and the dependencies must provide the required sources for this subtask.
-Here is an example:
+Here is an example from another task for reference:
+
+Input:
 ```json
-[
-    {
-      "name": "Subtask1",
-      "source": ["N1"],
-      "target": ["N2"],
-      "dependencies": []
-    },
-    {
-      "name": "Subtask2",
-      "source": ["N2"],
-      "target": ["N3"],
-      "dependencies": ["Subtask1"]
-    }
-]
+{example_task}
 ```
+
+OutPut:
+In a busy urban construction project, multiple sites must be coordinated to build the "Core Area(N9)" as quickly and cost-effectively as possible. The project begins at three sites: "Infrastructure(N1)," "Elevated(N3)," and "Residential(N7)," each with different tasks. The "Infrastructure Area(N1)" takes 3 days and costs 1 to proceed to the "Bridge Area(N2)", while the "Elevated Area(N3)" moves to the "Building Area(N4)" in 3 days and at a cost of 1. The "Bridge Area(N2)" connects to the "Road Area(N5)" in 4 days and costs 1, and can directly connect to the "Facilities Area(N6)" in 8 days at a cost of 1. The "Building Area(N4)" partners with the "Road Area(N5)" to build the "Facilities Area(N6)" in 2 days and at a cost of 1. The "Residential Area(N7)" takes 5 days and costs 1 to reach the "City Center Area(N8)", while the "Building Area(N4)" directly reaches it in 1 day and costs 1. Once the "Facilities(N6)" and "City Center(N8)" areas are ready, they combine to complete the "Core Area(N9)" in 2 days at a cost of 1. The "Infrastructure Area(N1)" has a shortcut to bypass other areas and reach the "Core Area(N9)" in 15 days at a cost of 1. The project team can select the most efficient route based on resources and progress.
+
+Input:
+```json
+{task}
+```
+
+Output:
 """
 
-example_task = """
-In a large-scale event planning scenario, the goal is to successfully organize a grand festival, with the final objective being the "Grand Finale" (N10). The planning begins with three initial tasks: "Venue Setup" (N1), "Entertainment Booking" (N2), and "Vendor Coordination" (N5). Each of these tasks has its own dependencies and timelines.
-
-The "Entertainment Booking" (N2) team can proceed to secure the "Stage Design" (N3) in 33 days with a cost of 1 unit. Alternatively, the "Venue Setup" (N1) team can also work on the "Stage Design" (N3) but will take 40 days with the same cost. Meanwhile, the "Entertainment Booking" (N2) team can also move forward to arrange the "Lighting and Sound" (N4) in 45 days, costing 1 unit.
-
-The "Venue Setup" (N1) team has another responsibility: they need to prepare the "Guest Accommodation" (N6), which will take 41 days and cost 1 unit. Simultaneously, the "Vendor Coordination" (N5) team can also contribute to the "Guest Accommodation" (N6) by completing their part in 26 days with a cost of 1 unit. Additionally, once the "Lighting and Sound" (N4) is ready, it can be integrated into the "Guest Accommodation" (N6) in 39 days, costing 1 unit.
-
-Once the "Stage Design" (N3), "Entertainment Booking" (N2), and "Guest Accommodation" (N6) are all completed, the team can move forward to organize the "Main Event" (N7), which will take 47 days and cost 1 unit. After the "Main Event" (N7) is successfully executed, the team can proceed to the "Post-Event Cleanup" (N8) in just 7 days with a cost of 1 unit. Alternatively, the "Venue Setup" (N1) team can directly handle the "Post-Event Cleanup" (N8) in 30 days with a cost of 1 unit.
-
-Once both the "Post-Event Cleanup" (N8) and "Lighting and Sound" (N4) are completed, the team can work on the "Final Review and Feedback" (N9), which will take 43 days and cost 1 unit. After the "Final Review and Feedback" (N9) is done, the team can finally achieve the "Grand Finale" (N10) in 47 days with a cost of 1 unit. Alternatively, the "Entertainment Booking" (N2) team can directly contribute to the "Grand Finale" (N10) in 50 days with a cost of 1 unit.
-
-The event planning team can choose the most efficient path based on the progress and resources available, ensuring that the "Grand Finale" (N10) is achieved successfully.
-"""
+example_task = {"rules": [{ 'id': 0, "source": ["N1"], "target": ["N2"], "time": 3, "cost": 1 }, { 'id': 1, "source": ["N3"], "target": ["N4"], "time": 3, "cost": 1 }, { 'id': 2, "source": ["N2"], "target": ["N5"], "time": 4, "cost": 1 }, { 'id': 3, "source": ["N4", "N5"], "target": ["N6"], "time": 2, "cost": 1 }, { 'id': 4, "source": ["N2"], "target": ["N6"], "time": 8, "cost": 1 }, { 'id': 5, "source": ["N7"], "target": ["N8"], "time": 5, "cost": 1 }, { 'id': 6, "source": ["N4"], "target": ["N8"], "time": 1, "cost": 1 }, { 'id': 7, "source": ["N6", "N8"], "target": ["N9"], "time": 2, "cost": 1 }, { 'id': 8, "source": ["N1"], "target": ["N9"], "time": 15, "cost": 1 }, ], "initial_source": ["N1", "N3", "N7"], "target": "N9"}
