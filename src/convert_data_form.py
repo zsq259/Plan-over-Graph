@@ -29,11 +29,11 @@ def main():
         # "30-3-100"
         "10-3-1000",
         "30-3-1000",
-        "50-1-1000",
+        # "50-1-1000",
     ]
     input_dir = "data/dev/"
     file_suffix = ".json"
-    output_file = "data/abstask/dev/alpaca_form/abstask.json"
+    output_file = "data/dev/alpaca_form/10_30_3_2000.json"
     new_data = []
     for file in file_list:
         input_file = input_dir + file + file_suffix
