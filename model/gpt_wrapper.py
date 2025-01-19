@@ -1,5 +1,5 @@
 import os, time
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from openai import OpenAI, OpenAIError
 from model.model import Model
 from src.logger_config import logger, COLOR_CODES, RESET
@@ -7,7 +7,7 @@ from src.logger_config import logger, COLOR_CODES, RESET
 class GPTWrapper(Model):
     def __init__(self, name=None):
         super().__init__(name=name)
-        load_dotenv()
+        # load_dotenv()
         openai_api_key = os.getenv("OPENAI_API_KEY")
         openai_base_url = os.getenv("OPENAI_BASE_URL")
         self.openai_api_key = openai_api_key

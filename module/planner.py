@@ -12,21 +12,26 @@ class Planner:
         self.env = env
     
     def extract_json(self, text: str) -> dict:
-        json_regex = r'```json\s*\[\s*[\s\S]*?\s*\]\s*(?:```|\Z)'
+        # json_regex = r'```json\s*\[\s*[\s\S]*?\s*\]\s*(?:```|\Z)'
         # json_regex = r'```json\s*[\{\[]\s*[\s\S]*?\s*[\}\]]\s*(?:```|\Z)'
         # json_regex = r'```json\s*(\{.*?\})\s*```'
+        json_regex = f'```json\s*([\s\S]*?)\s*```'
         matches = re.findall(json_regex, text)
         # matches = re.findall(json_regex, text, re.DOTALL)
-        if matches:
+        # print(matches)
+        if matches and len(matches) > 0:
             json_data = matches[0].replace('```json', '').replace('```', '').strip()
+            # print(json_data)
             try:
                 parsed_json = json.loads(json_data)
                 return parsed_json
             except json.JSONDecodeError as e:
                 raise ValueError(f"Error parsing JSON data: {e}")
         else:
-            text = text.replace("'", '"')            
-            parsed_json = json.loads(text)            
+            text = text.replace("'", '"')
+            # print(text)
+            parsed_json = json.loads(text)
+            # print(parsed_json)
             if isinstance(parsed_json, list):
                 return parsed_json
             else:
@@ -54,6 +59,8 @@ class ParallelPlanner(Planner):
             try:
                 response = self.model.predict(prompt)
                 tasks = self.extract_json(response)
+                if isinstance(tasks, dict):
+                    tasks = tasks['plan']
                 # plans = tasks['plan']
                 plans = tasks
             except ValueError as e:
@@ -112,9 +119,37 @@ class ParallelPlanner(Planner):
     
 if __name__ == "__main__":
     content = """
-[{'name': 'Subtask1','source': ['N1'], 'target': ['N3'], 'dependencies': []}, {'name': 'Subtask2','source': ['N3'], 'target': ['N15'], 'dependencies': ['Subtask1']}]
+[
+    {
+      "name": "Subtask1",
+      "source": ["N2", "N1"], "target": ["N4"],
+      "dependencies": [
+        {"name": "Subtask2", "source": ["N1"], "target": ["N2"], "dependencies": []}
+      ]
+    },
+    {
+      "name": "Subtask3",
+      "source": ["N3"],
+      "target": ["N5"],
+      "dependencies": []
+    },
+    {
+      "name": "Subtask4",
+      "source": ["N4", "N5"],
+      "target": ["N7"],
+      "dependencies": ["Subtask1", "Subtask3"]
+    },
+    {
+      "name": "Subtask5",
+      "source": ["N7"],
+      "target": ["N10"],
+      "dependencies": ["Subtask4"]
+    }
+]
 """
     planner = ParallelPlanner(None, None)
+    print("ojbk")
     tasks = planner.extract_json(content)
+    print("ojbk")
     print(json.dumps(tasks, indent=4))
     

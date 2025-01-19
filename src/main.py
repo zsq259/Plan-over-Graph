@@ -2,7 +2,6 @@ import os, sys, json
 import argparse
 import importlib
 import multiprocessing
-from model.gpt_wrapper import GPTWrapper
 from model.llama_wrapper import LlamaWrapper
 from module.env.tt_env import TTEnv
 from module.runner import TTRunner
@@ -80,6 +79,8 @@ def main():
     if "llama" in model.lower():
         model = LlamaWrapper(model)
     elif "gpt" in model.lower():
+        model = "gpt-3.5-turbo-instruct"
+        from model.gpt_wrapper import GPTWrapper
         model = GPTWrapper(name=model)
     
     multiprocessing.set_start_method('spawn')
