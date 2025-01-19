@@ -1,10 +1,10 @@
-test_case="30-1-100-t"
-output_dir="data/result/llama-31-8b-instruct-sft15"
+test_case="50-1-100"
+output_dir="data/result/llama-31-8b-instruct-sft14"
 
 python -m src.main\
     --task abstask\
     --template abstask_plan\
-    --model "/data/share/data/llama-factory/LLaMA-Factory/saves/llama3-8b/lora/merged_model/sft_3000"\
+    --model "/home/zhangsq/1/LLaMA-Factory/saves/llama3-8b/merged_models/llama3_lora_sft_abstask"\
     --scheduler parallel\
     --test_file "data/dev/${test_case}.json"\
     --output_file "${output_dir}/${test_case}-output.json"\
