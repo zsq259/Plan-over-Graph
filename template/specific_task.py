@@ -4,7 +4,7 @@ Transform this abstract task into a specific task in a real-world scenario, noti
 2. Please express the instructions in complete natural language without explicitly listing the rules.
 3. As long as there is one path that reaches the final goal, it is considered successful.
 4. The source of a rule must be fully achieved before proceeding with the rule and obtaining its target.
-5. You must strictly follow the rules I have given, make sure the rules in your story correspond one-to-one with the rules I have provided. 
+5. You must strictly follow the rules I have given, make sure the rules in your story correspond one-to-one with the rules I have provided, and the sum of rules in your story must be equal to the sum of rules in the task.
 6. You must explicitly mention both the time and cost associated with each rule in the story.
 7. You only need to write the rules as a story, without offering any additional evaluation comments or introductory remarks.
 

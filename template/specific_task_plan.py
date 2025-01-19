@@ -17,14 +17,14 @@ In a busy urban construction project, multiple sites must be coordinated to buil
 
 Output:
 ```json
-{example_output}
+{example}
 ```
 
 Input:
-{story_task}
+{task}
 
 Output:
 ```
 """
 
-example_output = [{'name': 'Subtask1', 'source': ['N3'], 'target': ['N4'], 'dependencies': []}, {'name': 'Subtask2', 'source': ['N1'], 'target': ['N2'], 'dependencies': []}, {'name': 'Subtask3', 'source': ['N2'], 'target': ['N5'], 'dependencies': ['Subtask2']}, {'name': 'Subtask4', 'source': ['N4', 'N5'], 'target': ['N6'], 'dependencies': ['Subtask1', 'Subtask3']}, {'name': 'Subtask5', 'source': ['N4'], 'target': ['N8'], 'dependencies': ['Subtask1']}, {'name': 'Subtask6', 'source': ['N6', 'N8'], 'target': ['N9'], 'dependencies': ['Subtask4', 'Subtask5']}]
+example = [{'name': 'Subtask1', 'source': ['N3'], 'target': ['N4'], 'dependencies': []}, {'name': 'Subtask2', 'source': ['N1'], 'target': ['N2'], 'dependencies': []}, {'name': 'Subtask3', 'source': ['N2'], 'target': ['N5'], 'dependencies': ['Subtask2']}, {'name': 'Subtask4', 'source': ['N4', 'N5'], 'target': ['N6'], 'dependencies': ['Subtask1', 'Subtask3']}, {'name': 'Subtask5', 'source': ['N4'], 'target': ['N8'], 'dependencies': ['Subtask1']}, {'name': 'Subtask6', 'source': ['N6', 'N8'], 'target': ['N9'], 'dependencies': ['Subtask4', 'Subtask5']}]
