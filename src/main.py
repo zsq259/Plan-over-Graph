@@ -43,6 +43,13 @@ def preprocess_question(args):
             example = template_module.example
             prompt = instruction.format(example=example, task=question['question'])
             prompts.append((question, prompt))
+    elif args.task == "specific_task":
+        for question in questions:
+            template_module = importlib.import_module(f'template.{args.template}')
+            instruction = template_module.instruction
+            example = template_module.example
+            prompt = instruction.format(example_task=example, task=question['story'])
+            prompts.append((question, prompt))
     
     return partial_results, prompts
             
@@ -72,8 +79,7 @@ def main():
     
     if "llama" in model.lower():
         model = LlamaWrapper(model)
-    else:
-        model = "gpt-3.5-turbo-instruct"
+    elif "gpt" in model.lower():
         model = GPTWrapper(name=model)
     
     multiprocessing.set_start_method('spawn')

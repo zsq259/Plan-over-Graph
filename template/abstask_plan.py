@@ -228,3 +228,69 @@ Expected output:
 ]
 ```
 """
+
+example1 = """
+Task1:
+```json
+{
+    "rules": [
+        {
+            "source": ["N1"],
+            "target": ["N2"],
+            "time": 3,
+            "cost": 1
+        },
+        {
+            "source": ["N3"],
+            "target": ["N4"],
+            "time": 3,
+            "cost": 1
+        },
+        {
+            "source": ["N2"],
+            "target": ["N5"],
+            "time": 4,
+            "cost": 1
+        },
+        {
+            "source": ["N4", "N5"],
+            "target": ["N6"],
+            "time": 2,
+            "cost": 1
+        },
+        {
+            "source": ["N2"],
+            "target": ["N6"],
+            "time": 8,
+            "cost": 1
+        },
+        {
+            "source": ["N7"],
+            "target": ["N8"],
+            "time": 5,
+            "cost": 1
+        },
+        {
+            "source": ["N4"],
+            "target": ["N8"],
+            "time": 1,
+            "cost": 1
+        },
+        {
+            "source": ["N6", "N8"],
+            "target": ["N9"],
+            "time": 2,
+            "cost": 1
+        },
+        {
+            "source": ["N1"],
+            "target": ["N9"],
+            "time": 15,
+            "cost": 1
+        },
+    ],
+    "initial_source": ["N1", "N3", "N7"],
+    "target": "N9"
+}
+```
+"""
