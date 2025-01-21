@@ -201,12 +201,13 @@ def main():
     # how to print the value of LD_LIBRARY_PATH
     # 设置命令行参数解析
     parser = argparse.ArgumentParser(description="分析 JSON 数据文件")
-    parser.add_argument("file_prefixes", type=str, nargs='+', help="JSON 数据文件的文件名前缀列表")
+    parser.add_argument("--file_prefixes", type=str, nargs='+', help="JSON 数据文件的文件名前缀列表")
+    parser.add_argument("--model_name", type=str, help="模型名称")
     args = parser.parse_args()
 
     # 基目录和文件后缀
-    model_name = "llama-31-8b-instruct-sft11"
-    base_dir = f"data/result/{model_name}/"
+    # model_name = "llama-31-8b-instruct-sft11"
+    base_dir = f"data/result/{args.model_name}/"
     file_suffix = "-output.json"
     output_dir = base_dir + "analysis/"
     if not os.path.exists(output_dir):
@@ -229,7 +230,7 @@ def main():
             all_failed_results.extend(file_failed_results)
         all_in_all_results.append(file_in_all_results)
 
-    generate_combined_table_image(model_name, all_in_all_results, output_dir + "output_image.png")
+    generate_combined_table_image(args.model_name, all_in_all_results, output_dir + "output_image.png")
     # 将结果转换为 DataFrame 并输出
     print(type(all_results))
     df = pd.DataFrame(all_results)
