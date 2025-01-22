@@ -1,5 +1,6 @@
 import random
 import os, json
+import argparse
 from cyaron import Graph
 from src.std import min_time_cost_to_target
 
@@ -185,9 +186,17 @@ def generate_abstract_workflow(n_nodes, m_edges, group_size_range=(1, 1), time_r
     }
 
 def main():
-    config = 100
-    nodes = (30, 30)
-    edge_config = 1
+    parser = argparse.ArgumentParser(description="生成测试数据")
+    parser.add_argument("--config", type=int, help="生成的数据量", default=100)
+    parser.add_argument("--nodes", type=int, nargs=2, help="节点数量范围", default=(50, 50))
+    parser.add_argument("--edge_config", type=int, help="边的配置", default=1)
+    args = parser.parse_args()
+    config = args.config
+    nodes = args.nodes
+    edge_config = args.edge_config
+    # config = 1000
+    # nodes = (50, 50)
+    # edge_config = 1
     test_file = f'data/dev/{nodes[1]}-{edge_config}-{config}-t.json'
     # test_file = "1"
     if os.path.exists(test_file):
@@ -205,7 +214,7 @@ def main():
         n = random.randint(nodes[0], nodes[1])        
         m = 0
         if edge_config == 1:
-            m = random.randint(n, n * 3)
+            m = random.randint(n, n * 3 // 2)
         elif edge_config == 2:
             m = random.randint(n * (n - 1) // 3, n * (n - 1) // 2)
         elif edge_config == 3:

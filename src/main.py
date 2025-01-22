@@ -2,7 +2,6 @@ import os, sys, json
 import argparse
 import importlib
 import multiprocessing
-from model.llama_wrapper import LlamaWrapper
 from module.env.tt_env import TTEnv
 from module.runner import TTRunner
 from module.scheduler import ParallelScheduler
@@ -77,9 +76,9 @@ def main():
     logger.info(f"Using scheduler: {scheduler_type}")
     
     if "llama" in model.lower():
+        from model.llama_wrapper import LlamaWrapper
         model = LlamaWrapper(model)
-    elif "gpt" in model.lower():
-        model = "gpt-3.5-turbo-instruct"
+    else:
         from model.gpt_wrapper import GPTWrapper
         model = GPTWrapper(name=model)
     

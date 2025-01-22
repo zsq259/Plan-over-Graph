@@ -197,31 +197,26 @@ def generate_combined_table_image(model_name, results, output_image_path):
 
 
 def main():
-    # set export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
-    # how to print the value of LD_LIBRARY_PATH
-    # 设置命令行参数解析
     parser = argparse.ArgumentParser(description="分析 JSON 数据文件")
     parser.add_argument("--file_prefixes", type=str, nargs='+', help="JSON 数据文件的文件名前缀列表")
     parser.add_argument("--model_name", type=str, help="模型名称")
     args = parser.parse_args()
 
-    # 基目录和文件后缀
-    # model_name = "llama-31-8b-instruct-sft11"
     base_dir = f"data/result/{args.model_name}/"
     file_suffix = "-output.json"
     output_dir = base_dir + "analysis/"
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    # 获取文件路径列表
-    file_paths = [os.path.join(base_dir, file_prefix + file_suffix) for file_prefix in args.file_prefixes]
+    if not args.file_prefixes or len(args.file_prefixes) == 0:
+        file_paths = [os.path.join(base_dir, file_name) for file_name in os.listdir(base_dir) if file_name.endswith(file_suffix)]
+    else:
+        file_paths = [os.path.join(base_dir, file_prefix + file_suffix) for file_prefix in args.file_prefixes]
 
-    # 初始化结果存储
     all_results = []
     all_failed_results = []
     all_in_all_results = []
 
-    # 分析每个文件
     for file_path in file_paths:
         file_results, file_failed_results, file_in_all_results = analyze_file(file_path)
         if file_results:
@@ -231,35 +226,30 @@ def main():
         all_in_all_results.append(file_in_all_results)
 
     generate_combined_table_image(args.model_name, all_in_all_results, output_dir + "output_image.png")
-    # 将结果转换为 DataFrame 并输出
+    
     print(type(all_results))
     df = pd.DataFrame(all_results)
     failed_df = pd.DataFrame(all_failed_results)
 
-    # 截断小数点后数据
     df = df.round(2)
 
-    # 对 DataFrame 按节点数进行排序
     df = df.sort_values(by='Node Count')
 
     print(df)
     df.to_csv(output_dir + "result.csv", index=False)
     
-    # 可视化表格并保存为图片
-    fig, ax = plt.subplots(figsize=(12, 8))  # 设置图片大小
+    fig, ax = plt.subplots(figsize=(12, 8))
     ax.axis('tight')
     ax.axis('off')
     table = ax.table(cellText=df.values, colLabels=df.columns, cellLoc='center', loc='center')
     table.auto_set_font_size(False)
     table.set_fontsize(10)
-    table.scale(1.2, 1.2)  # 设置表格缩放比例
+    table.scale(1.2, 1.2)
     plt.savefig(output_dir + "analysis_results.png", bbox_inches='tight')
     print("表格已保存为 analysis_results.png")
 
-    # 可视化成功数据
+    
     visualize_data(df, output_dir)
-
-    # 可视化失败数据
     visualize_failed_data(failed_df, output_dir)
 
 if __name__ == "__main__":

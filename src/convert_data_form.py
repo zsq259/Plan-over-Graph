@@ -1,5 +1,6 @@
 import json
 import re
+import argparse
 from template.abstask_plan import instruction, example
 
 def convert_task_form(task):
@@ -25,17 +26,22 @@ def convert_data(input_file, output_file):
     # json.dump(new_data, open(output_file, "w"), ensure_ascii=False, indent=4)
         
 def main():
-    file_list = [
-        # "30-3-100"
-        "10-3-1000",
-        "30-3-1000",
-        # "50-1-1000",
-    ]
+    parser = argparse.ArgumentParser(description="分析 JSON 数据文件")
+    parser.add_argument("--file_list", type=str, nargs='+', help="JSON 数据文件的文件名前缀列表")
+    parser.add_argument("--output_name", type=str, help="模型名称")
+    args = parser.parse_args()
+    
+    # file_list = [
+    #     "30-3-100"
+    #     "10-1-1000-t",
+    #     "30-1-1000-t",
+    #     "50-1-1000-t",
+    # ]
     input_dir = "data/dev/"
     file_suffix = ".json"
-    output_file = "data/dev/alpaca_form/10_30_3_2000.json"
+    output_file = f"data/dev/alpaca_form/{args.output_name}.json"
     new_data = []
-    for file in file_list:
+    for file in args.file_list:
         input_file = input_dir + file + file_suffix
         new_data.extend(convert_data(input_file, output_file))
     
