@@ -210,6 +210,7 @@ def main():
 
     if not args.file_prefixes or len(args.file_prefixes) == 0:
         file_paths = [os.path.join(base_dir, file_name) for file_name in os.listdir(base_dir) if file_name.endswith(file_suffix)]
+        file_paths.sort()
     else:
         file_paths = [os.path.join(base_dir, file_prefix + file_suffix) for file_prefix in args.file_prefixes]
 
