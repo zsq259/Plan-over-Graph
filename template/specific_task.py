@@ -12,7 +12,7 @@ Here is an example from another task for reference:
 
 Input:
 ```json
-{example_task}
+{example}
 ```
 
 OutPut:

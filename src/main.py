@@ -46,7 +46,7 @@ def preprocess_question(args):
             template_module = importlib.import_module(f'template.{args.template}')
             instruction = template_module.instruction
             example = template_module.example
-            prompt = instruction.format(example_task=example, task=question['story'])
+            prompt = instruction.format(example=example, task=question['story'])
             prompts.append((question, prompt))
     
     return partial_results, prompts
@@ -91,7 +91,7 @@ def main():
         
         partial_results, prompts = preprocess_question(args)
         for question, prompt in prompts:
-            if task == "abstask":
+            if task == "abstask" or task == "specific_task":
                 env = TTEnv(question['question'])
                 runner = TTRunner(None, None)
                 node_type = SubTTNode    
