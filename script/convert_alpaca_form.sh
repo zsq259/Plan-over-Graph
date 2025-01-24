@@ -1,0 +1,1 @@
+python -m src.convert_data_form --file_list 10-1-1000-t 30-1-1000-t 50-1-1000-t --output_name abstask-t-dpo --dpo true

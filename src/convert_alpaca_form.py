@@ -3,32 +3,33 @@ import re
 import argparse
 from template.abstask_plan import instruction, example
 
-def convert_task_form(task):
-    # example_ = example.replace("\n", "").replace("\"", "'")
-    example_ = re.sub(' +', ' ', example.replace("\n", "").replace("\"", "'"))
+def convert_task_form(task, dpo):
+    example_ = re.sub(' +', ' ', example.replace("\n", ""))
     prompt = instruction.format(example=example_, task=task['question'])
     ins = prompt.split("Task:\n")[0] + "Task:\n"
     input = prompt.split("Task:\n")[1]
-    # chosen = str(task['answer'])
-    # rejected = str(task['feasible'])
-    # new_task = {"instruction": ins, "input": input, "chosen": chosen, "rejected": rejected}
-    output = str(task['answer'])
-    new_task = {"instruction": ins, "input": input, "output": output}
+    if dpo:
+        chosen = str(task['answer'])
+        rejected = str(task['feasible'])
+        new_task = {"instruction": ins, "input": input, "chosen": chosen, "rejected": rejected}
+    else:
+        output = str(task['answer'])
+        new_task = {"instruction": ins, "input": input, "output": output}
     return new_task
 
-def convert_data(input_file, output_file):
+def convert_data(input_file, dpo):
     data = json.load(open(input_file, "r"))
     new_data = []
     for task in data:
-        new_task = convert_task_form(task)
+        new_task = convert_task_form(task, dpo)
         new_data.append(new_task)
     return new_data
-    # json.dump(new_data, open(output_file, "w"), ensure_ascii=False, indent=4)
         
 def main():
-    parser = argparse.ArgumentParser(description="分析 JSON 数据文件")
-    parser.add_argument("--file_list", type=str, nargs='+', help="JSON 数据文件的文件名前缀列表")
-    parser.add_argument("--output_name", type=str, help="模型名称")
+    parser = argparse.ArgumentParser(description="Convert data to ALPaCA format")
+    parser.add_argument("--file_list", type=str, nargs='+', help="json file list")
+    parser.add_argument("--output_name", type=str)
+    parser.add_argument("--dpo", help="whether to convert to DPO format", type=bool, default=False)
     args = parser.parse_args()
     
     # file_list = [
@@ -43,7 +44,7 @@ def main():
     new_data = []
     for file in args.file_list:
         input_file = input_dir + file + file_suffix
-        new_data.extend(convert_data(input_file, output_file))
+        new_data.extend(convert_data(input_file, args.dpo))
     
     json.dump(new_data, open(output_file, "w"), ensure_ascii=False, indent=4)
     
