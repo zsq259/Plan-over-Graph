@@ -51,8 +51,9 @@ class ParallelPlanner(Planner):
     def decompose_task(self, prompt: str, node_type) -> list[SubTaskNode]:
         subtasks = []
         valid = False
-        max_retry = 3
+        max_retry = 2
         retry_count = 0
+        failed_plans = []
         while not valid and retry_count < max_retry:
             subtasks = []
             valid = True
@@ -66,6 +67,8 @@ class ParallelPlanner(Planner):
             except ValueError as e:
                 logger.info(f"Error decomposing task: {COLOR_CODES['RED']}{e}{RESET}")
                 valid = False
+                plans = response
+                failed_plans.append(plans)
                 if retry_count == 0:
                     # prompt = "You have failed to decompose the task. Please try again." + prompt
                     prompt = "Failed to decompose the task. Please ensure the json format is correct and wrapped in triple backticks." + prompt
@@ -81,18 +84,24 @@ class ParallelPlanner(Planner):
                 for subtask in subtasks:
                     if not self.env.is_valid_sub_node(subtask):
                         valid = False
+                        failed_plans.append(plans)
                         logger.info(f"Subtask {COLOR_CODES['RED']}{subtask.name}{RESET} is invalid, retrying...")            
                         if retry_count == 0:
                             prompt = "You have failed to decompose the task. Please try again." + prompt
                         retry_count += 1
                         break
         if not valid:
-            raise ValueError("Failed to decompose task")
-        return subtasks, tasks
+            # raise ValueError("Failed to decompose task")
+            logger.warning(f"Failed to decompose task: {COLOR_CODES['RED']}retry count: {retry_count}{RESET}")
+        #     return subtasks, tasks, False
+        return subtasks, plans, valid, failed_plans
     
-    def plan(self, task: str, node_type) -> list[SubTaskNode]:
-        subtasks, plan = self.decompose_task(task, node_type)
-        return self.topological_sort(subtasks), plan
+    def plan(self, task: str, node_type) -> list[SubTaskNode]:        
+        subtasks, plan, valid, failed_plans = self.decompose_task(task, node_type)
+        subtasks = self.topological_sort(subtasks)
+        if not subtasks:
+            valid = False
+        return subtasks, plan, valid, failed_plans
     
     def topological_sort(self, tasks: list[SubTaskNode]) -> list[SubTaskNode]:
         in_degree = {task.name: 0 for task in tasks}
@@ -100,7 +109,8 @@ class ParallelPlanner(Planner):
         for task in tasks:
             for dependency in task.dependencies:
                 in_degree[task.name] += 1
-                graph[dependency].append(task)
+                if dependency in graph:
+                    graph[dependency].append(task)
                 
         queue = deque([task for task in tasks if in_degree[task.name] == 0])
         sorted_tasks = []
@@ -113,7 +123,7 @@ class ParallelPlanner(Planner):
                     queue.append(neighbor)
 
         if len(sorted_tasks) != len(tasks):
-            raise ValueError("Graph has at least one cycle")
+            return None
         
         return sorted_tasks
     

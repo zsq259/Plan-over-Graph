@@ -26,6 +26,7 @@ def preprocess_question(args):
                 partial_results = json.load(f)
         else:
             partial_results = []
+        partial_results = [result for result in partial_results if result['plan'] is not None]
         processed_questions = set(result['question']['id'] for result in partial_results)
         for question in data:
             if question['id'] not in processed_questions:
@@ -100,31 +101,31 @@ def main():
             planner = ParallelPlanner(model, env)
             scheduler = ParallelScheduler(runner, env)
             
-            max_retry = 3
+            max_retry = 1
             retry_count = 0
             plan = None
             base_prompt = prompt
+            all_failed_plans = []
             while retry_count < max_retry:
-                try:
-                    subtasks, plan = planner.plan(prompt, node_type)
-                    result = scheduler.run(subtasks)
-                    break
-                except Exception as e:
-                    for process in multiprocessing.active_children():
-                        process.terminate()
-                    logger.error(f"Error: {COLOR_CODES['RED']}{e}{RESET}")
+                subtasks, plan, valid, failed_plans = planner.plan(prompt, node_type)
+                if valid:
+                    try:
+                        result = scheduler.run(subtasks)
+                        break
+                    except Exception as e:
+                        for process in multiprocessing.active_children():
+                            process.terminate()
+                        logger.error(f"Error1: {COLOR_CODES['RED']}{e}{RESET}")
+                        retry_count += 1
+                        result = None
+                        env.reset()
+                else:
                     retry_count += 1
                     result = None
-                    # prompt = base_prompt
-                    # prompt += "\nYou failed to generate a correct plan. Please try again. Below is the plan you generated:\n"
-                    # prompt += str(plan) + "\n"
-                    # prompt += "The error message is:\n"
-                    # prompt += env.log
-                    # prompt += str(e)
-                    # prompt += "\nPlease reflect on the error message and try again to generate a correct plan."
                     env.reset()
+                    all_failed_plans.extend(failed_plans)
                     
-            partial_results.append({'question': question, 'plan': plan, 'result': result})
+            partial_results.append({'question': question, 'failed_plans': all_failed_plans, 'plan': plan, 'result': result})
             if args.output_file:
                 save_results(partial_results, args.output_file)
         if args.output_file:
@@ -139,7 +140,7 @@ def main():
             process.terminate()
         sys.exit(0)
     except Exception as e:
-        logger.error(f"{COLOR_CODES['RED']}Error: {e}{RESET}")
+        logger.error(f"{COLOR_CODES['RED']}Error2: {e}{RESET}")
 
 if __name__ == "__main__":
     main()
