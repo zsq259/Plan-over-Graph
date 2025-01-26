@@ -58,6 +58,7 @@ def main():
     parser.add_argument('--template', type=str, required=True, help='The template to use.')
     parser.add_argument("--model", type=str, required=True, help="The model to use.")
     parser.add_argument("--scheduler", type=str, required=True, help="The scheduler to use.")
+    parser.add_argument("--max_retry", type=int, help="The maximum number of retries.", default=3)
     parser.add_argument("--question", type=str, help="The single question to ask.", default=None)
     parser.add_argument("--test_file", type=str, help="The test file to use.", default=None)
     parser.add_argument("--output_file", type=str, help="The output file to write to.", default=None)
@@ -101,13 +102,12 @@ def main():
             planner = ParallelPlanner(model, env)
             scheduler = ParallelScheduler(runner, env)
             
-            max_retry = 1
+            max_retry = args.max_retry
             retry_count = 0
             plan = None
-            base_prompt = prompt
             all_failed_plans = []
             while retry_count < max_retry:
-                subtasks, plan, valid, failed_plans = planner.plan(prompt, node_type)
+                subtasks, plan, valid, failed_plans = planner.plan(prompt, node_type, max_retry)
                 if valid:
                     try:
                         result = scheduler.run(subtasks)

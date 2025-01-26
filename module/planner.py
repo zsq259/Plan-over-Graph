@@ -48,10 +48,9 @@ class ParallelPlanner(Planner):
         super().__init__(model, env)
         self._name = 'ParallelPlanner'
 
-    def decompose_task(self, prompt: str, node_type) -> list[SubTaskNode]:
+    def decompose_task(self, prompt: str, node_type, max_retry) -> list[SubTaskNode]:
         subtasks = []
         valid = False
-        max_retry = 2
         retry_count = 0
         failed_plans = []
         while not valid and retry_count < max_retry:
@@ -96,8 +95,8 @@ class ParallelPlanner(Planner):
         #     return subtasks, tasks, False
         return subtasks, plans, valid, failed_plans
     
-    def plan(self, task: str, node_type) -> list[SubTaskNode]:        
-        subtasks, plan, valid, failed_plans = self.decompose_task(task, node_type)
+    def plan(self, task: str, node_type, max_retry) -> list[SubTaskNode]:        
+        subtasks, plan, valid, failed_plans = self.decompose_task(task, node_type, max_retry)
         subtasks = self.topological_sort(subtasks)
         if not subtasks:
             valid = False
