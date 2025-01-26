@@ -107,23 +107,25 @@ def main():
             plan = None
             all_failed_plans = []
             while retry_count < max_retry:
-                subtasks, plan, valid, failed_plans = planner.plan(prompt, node_type, max_retry)
-                if valid:
-                    try:
+                try:
+                    prompt = prompt.replace("\'", "\"")
+                    subtasks, plan, valid, failed_plans = planner.plan(prompt, node_type, max_retry)
+                    if valid:
                         result = scheduler.run(subtasks)
                         break
-                    except Exception as e:
-                        for process in multiprocessing.active_children():
-                            process.terminate()
-                        logger.error(f"Error1: {COLOR_CODES['RED']}{e}{RESET}")
+                    else:
                         retry_count += 1
                         result = None
                         env.reset()
-                else:
+                        all_failed_plans.extend(failed_plans)
+                        all_failed_plans.append(plan)
+                except Exception as e:
+                    for process in multiprocessing.active_children():
+                        process.terminate()
+                    logger.error(f"Error1: {COLOR_CODES['RED']}{e}{RESET}")
                     retry_count += 1
                     result = None
                     env.reset()
-                    all_failed_plans.extend(failed_plans)
                     
             partial_results.append({'question': question, 'failed_plans': all_failed_plans, 'plan': plan, 'result': result})
             if args.output_file:
