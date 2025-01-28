@@ -1,7 +1,7 @@
 import json
 from model.llama_wrapper import LlamaWrapper
-from module.planner import Planner
-from template.extract_rules import instruction, example
+# from module.planner import Planner
+# from template.extract_rules import instruction, example
 
 def normalize_rule(rule):
     """增强的标准化函数，解决列表不可哈希问题"""
@@ -53,11 +53,12 @@ def compare_rule_sets(extracted, existing):
     return extracted_signatures == existing_signatures
 
 def main():
-    model = "/data/share/data/llama-factory/LLaMA-Factory/Meta-Llama-3.1-8B-Instruct"
-    model = LlamaWrapper(model)
+    pass
+    # model = "deepseek-reasoner"
+    # model = LlamaWrapper(model)
 
-    file_path = "/data/share/data/llama-factory/test/data/dev/10-1-100-s-filtered.json"
-    data = json.load(open(file_path, "r"))
+    # file_path = "data/dev/10-1-100-s-filtered.json"
+    # data = json.load(open(file_path, "r"))
 
     planner = Planner()
 

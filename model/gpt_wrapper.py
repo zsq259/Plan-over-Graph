@@ -11,11 +11,8 @@ class GPTWrapper(Model):
             self.openai_base_url = os.environ.get("DEEPSEEK_BASE_URL")
             self.is_chat_model = True
         elif "claude" in name.lower():
-            print(self.name)
             self.openai_api_key = os.environ.get("CLAUDE_API_KEY")
             self.openai_base_url = os.environ.get("CLAUDE_BASE_URL")
-            print(self.openai_api_key)
-            print(self.openai_base_url)
             self.is_chat_model = True
         else:
             self.openai_api_key = os.environ.get("OPENAI_API_KEY")

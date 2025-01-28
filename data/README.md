@@ -13,4 +13,9 @@
 | sft14   |    3000 组接着 13 的训                             |
 | sft15   |    17 上面训的直接 3000组                          |
 | sft16   |    17 上面混合 alpaca_gpt4 訓的                    |
-
+| sft17   |    17 上面用 3000 组 tree 数据训的                 |
+| sft18   |    17上面的 llama31 8B instruct                   |
+| sft19   |    17 上面的 abstask + asbtask-t 6000 组          |
+| sft20   |    在 sft 19 的基础上用的 tree 的 3000 组 dpo      |
+| sft21   |    17 上面用 6000 组 feasible 数据训的            |
+| sft22   |    接着 21 用 abstask + asbtask-t 6000 组          |
