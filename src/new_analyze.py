@@ -169,28 +169,67 @@ def visualize_data(df, output_dir):
 
 def generate_combined_table_image(model_name, results, output_image_path):
     # 创建一个 DataFrame 来存储所有结果
-    print(results)
-
     df = pd.DataFrame(results)
-    df = df.round(2)
     
-    # 创建一个 matplotlib 图形
-    fig, ax = plt.subplots(figsize=(12, len(results) * 0.5 + 1))  # 动态调整图形大小
-    ax.set_title(model_name, fontsize=16)
+    # 添加汇总行
+    if not df.empty:
+        # 初始化汇总字典
+        summary = {"Category": "Overall"}
+        
+        # 需要计算平均值的列
+        avg_columns = ["Success Rate", "Failure Rate", "Feasible Accuracy", "Optimal Accuracy",
+                      "Avg Time Ratio", "Avg Cost Ratio"]
+        
+        # 需要取极值的列
+        minmax_columns = ["Min Time Ratio", "Max Time Ratio", "Min Cost Ratio", "Max Cost Ratio"]
+        
+        # 计算平均值
+        for col in avg_columns:
+            valid_values = df[col].dropna()
+            summary[col] = valid_values.mean() if not valid_values.empty else None
+        
+        # 计算全局最小值和最大值
+        for col in ["Min Time Ratio", "Min Cost Ratio"]:
+            valid_values = df[col].dropna()
+            summary[col] = valid_values.min() if not valid_values.empty else None
+        
+        for col in ["Max Time Ratio", "Max Cost Ratio"]:
+            valid_values = df[col].dropna()
+            summary[col] = valid_values.max() if not valid_values.empty else None
+        
+        # 创建包含汇总行的新DataFrame
+        summary_df = pd.DataFrame([summary])
+        combined_df = pd.concat([df, summary_df], ignore_index=True)
+    else:
+        combined_df = df
     
-    # 隐藏坐标轴
-    ax.axis('tight')
+    # 保留两位小数
+    combined_df = combined_df.round(2)
+    
+    # 创建图形
+    fig, ax = plt.subplots(figsize=(12, (len(results)+1)*0.5 + 1))  # 增加高度适应汇总行
+    ax.set_title(f"{model_name} Analysis Results", fontsize=16)
     ax.axis('off')
     
-    # 创建表格
-    table = ax.table(cellText=df.values, colLabels=df.columns, cellLoc='center', loc='center')
+    # 创建表格并设置样式
+    table = ax.table(cellText=combined_df.values, 
+                    colLabels=combined_df.columns, 
+                    cellLoc='center', 
+                    loc='center',
+                    colColours=['#f5f5f5']*len(combined_df.columns))
     
-    # 调整表格样式
+    # 设置汇总行样式
+    if not df.empty:
+        # 计算表格中的实际行号（数据行号 + 列标题行）
+        last_data_row = len(combined_df)  # 因为列标题占用了第0行
+        for j in range(len(combined_df.columns)):
+            table[(last_data_row, j)].set_facecolor('#e6e6e6')  # 修改这里
+    
     table.auto_set_font_size(False)
     table.set_fontsize(12)
     table.scale(1.2, 1.2)
     
-    # 保存为图片
+    # 保存图片
     plt.tight_layout()
     plt.savefig(output_image_path, bbox_inches='tight')
     plt.close()
