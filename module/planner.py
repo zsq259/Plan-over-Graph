@@ -3,6 +3,7 @@ from collections import deque
 from module.subtask import SubTaskNode
 from model.model import Model
 from src.logger_config import logger, COLOR_CODES, RESET
+from src.utils import extract_json
 
 class Planner:
     def __init__(self, model: Model=None, env=None):
@@ -10,33 +11,6 @@ class Planner:
         self.sub_tasks = []
         self.model = model
         self.env = env
-    
-    def extract_json(self, text: str) -> dict:
-        # json_regex = r'```json\s*\[\s*[\s\S]*?\s*\]\s*(?:```|\Z)'
-        # json_regex = r'```json\s*[\{\[]\s*[\s\S]*?\s*[\}\]]\s*(?:```|\Z)'
-        # json_regex = r'```json\s*(\{.*?\})\s*```'
-        json_regex = f'```json\s*([\s\S]*?)\s*```'
-        matches = re.findall(json_regex, text)
-        # matches = re.findall(json_regex, text, re.DOTALL)
-        # print(matches)
-        if matches and len(matches) > 0:
-            json_data = matches[0].replace('```json', '').replace('```', '').strip().replace('\'', '\"')
-            try:
-                parsed_json = json.loads(json_data)
-                return parsed_json
-            except json.JSONDecodeError as e:
-                raise ValueError(f"Error parsing JSON data: {e}")
-        else:
-            text = text.replace("'", '"')
-            try:
-                parsed_json = json.loads(text)
-            except json.JSONDecodeError as e:
-                raise ValueError(f"Error parsing JSON data: {e}")
-            # print(parsed_json)
-            if isinstance(parsed_json, list) or isinstance(parsed_json, dict):
-                return parsed_json
-            else:
-                raise ValueError(f"No JSON data found in the string: \033[38;5;214m{text}\033[0m")
     
     def decompose_task(self, task: str) -> list[SubTaskNode]:
         raise NotImplementedError
@@ -59,7 +33,7 @@ class ParallelPlanner(Planner):
             valid = True
             try:
                 response = self.model.predict(prompt)
-                tasks = self.extract_json(response)
+                tasks = extract_json(response)
                 if isinstance(tasks, dict):
                     tasks = tasks['plan']
                 # plans = tasks['plan']
@@ -131,7 +105,7 @@ if __name__ == "__main__":
     content = ""
     planner = ParallelPlanner(None, None)
     print("ojbk")
-    tasks = planner.extract_json(content)
+    tasks = extract_json(content)
     print("ojbk")
     print(json.dumps(tasks, indent=4))
     

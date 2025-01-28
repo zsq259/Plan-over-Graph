@@ -6,6 +6,7 @@ from module.env.tt_env import TTEnv
 from module.runner import TTRunner
 from module.scheduler import ParallelScheduler
 from module.planner import ParallelPlanner
+from module.extractor import Extractor
 from module.subtask import SubTTNode
 from src.logger_config import logger, COLOR_CODES, RESET
 
@@ -34,6 +35,8 @@ def preprocess_question(args):
     else:
         raise ValueError("Either --question or --test_file must be provided.")
     
+    return partial_results, questions
+    
     prompts = []
     if args.task == "abstask":
         for question in questions:            
@@ -58,6 +61,7 @@ def main():
     parser.add_argument('--template', type=str, required=True, help='The template to use.')
     parser.add_argument("--model", type=str, required=True, help="The model to use.")
     parser.add_argument("--scheduler", type=str, required=True, help="The scheduler to use.")
+    parser.add_argument("--extractor", type=bool, help="Whether to extract rules.", default=False)
     parser.add_argument("--max_retry", type=int, help="The maximum number of retries.", default=3)
     parser.add_argument("--question", type=str, help="The single question to ask.", default=None)
     parser.add_argument("--test_file", type=str, help="The test file to use.", default=None)
@@ -91,8 +95,8 @@ def main():
             with open(output_file, "w") as f:
                 json.dump(partial_results, f, ensure_ascii=False, indent=4)
         
-        partial_results, prompts = preprocess_question(args)
-        for question, prompt in prompts:
+        partial_results, questions = preprocess_question(args)
+        for question in questions:
             if task == "abstask" or task == "specific_task":
                 env = TTEnv(question['question'])
                 runner = TTRunner(None, None)
@@ -101,6 +105,7 @@ def main():
                 raise ValueError(f"Unsupported task: {task}")
             planner = ParallelPlanner(model, env)
             scheduler = ParallelScheduler(runner, env)
+            extractor = Extractor(model)
             
             max_retry = args.max_retry
             retry_count = 0
@@ -108,7 +113,25 @@ def main():
             all_failed_plans = []
             while retry_count < max_retry:
                 try:
+                    prompt = ""
+                    
+                    if args.task == "abstask":
+                        template_module = importlib.import_module(f'template.{args.template}')
+                        instruction = template_module.instruction
+                        example = template_module.example
+                        prompt = instruction.format(example=example, task=question['question'])                        
+                    elif args.task == "specific_task":
+                        task = question['story']                    
+                        if args.extractor:
+                            task = extractor.extract(task, max_retry)
+                        template_module = importlib.import_module(f'template.{args.template}')
+                        instruction = template_module.instruction
+                        example = template_module.example
+                        prompt = instruction.format(example=example, task=task)
+                        
                     prompt = prompt.replace("\'", "\"")
+                    
+                    print(prompt)
                     subtasks, plan, valid, failed_plans = planner.plan(prompt, node_type, max_retry)
                     if valid:
                         result = scheduler.run(subtasks)
