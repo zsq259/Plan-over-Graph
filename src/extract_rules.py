@@ -2,7 +2,7 @@ import json, os
 from model.gpt_wrapper import GPTWrapper
 from model.llama_wrapper import LlamaWrapper
 from module.extractor import Extractor
-from src.utils import compare_rule_sets, extract_json
+from src.utils import compare_rule_sets
 
 def main():
     # model = GPTWrapper("deepseek-reasoner")
@@ -27,13 +27,13 @@ def main():
         try:
             rules = extractor.extract(task)
             d['model_rules'] = rules
-            valid = compare_rule_sets(d['rules'], rules)
+            valid = compare_rule_sets(rules, d['question'])
             d['valid'] = valid
             results.append(d)
             with open(output_path, "w") as f:
                 json.dump(results, f, ensure_ascii=False, indent=4)
         except Exception as e:
-            print(f"Error extracting rules for {d['id']}: {e}")
+            print(f"Error extracting rules for id {d['id']}: {e}")
             continue
             
 if __name__ == "__main__":
