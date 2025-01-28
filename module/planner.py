@@ -5,7 +5,7 @@ from model.model import Model
 from src.logger_config import logger, COLOR_CODES, RESET
 
 class Planner:
-    def __init__(self, model: Model, env):
+    def __init__(self, model: Model=None, env=None):
         self._name = 'Planner'
         self.sub_tasks = []
         self.model = model
@@ -20,8 +20,7 @@ class Planner:
         # matches = re.findall(json_regex, text, re.DOTALL)
         # print(matches)
         if matches and len(matches) > 0:
-            json_data = matches[0].replace('```json', '').replace('```', '').strip()
-            # print(json_data)
+            json_data = matches[0].replace('```json', '').replace('```', '').strip().replace('\'', '\"')
             try:
                 parsed_json = json.loads(json_data)
                 return parsed_json
@@ -29,10 +28,12 @@ class Planner:
                 raise ValueError(f"Error parsing JSON data: {e}")
         else:
             text = text.replace("'", '"')
-            # print(text)
-            parsed_json = json.loads(text)
+            try:
+                parsed_json = json.loads(text)
+            except json.JSONDecodeError as e:
+                raise ValueError(f"Error parsing JSON data: {e}")
             # print(parsed_json)
-            if isinstance(parsed_json, list):
+            if isinstance(parsed_json, list) or isinstance(parsed_json, dict):
                 return parsed_json
             else:
                 raise ValueError(f"No JSON data found in the string: \033[38;5;214m{text}\033[0m")
@@ -127,35 +128,7 @@ class ParallelPlanner(Planner):
         return sorted_tasks
     
 if __name__ == "__main__":
-    content = """
-[
-    {
-      "name": "Subtask1",
-      "source": ["N2", "N1"], "target": ["N4"],
-      "dependencies": [
-        {"name": "Subtask2", "source": ["N1"], "target": ["N2"], "dependencies": []}
-      ]
-    },
-    {
-      "name": "Subtask3",
-      "source": ["N3"],
-      "target": ["N5"],
-      "dependencies": []
-    },
-    {
-      "name": "Subtask4",
-      "source": ["N4", "N5"],
-      "target": ["N7"],
-      "dependencies": ["Subtask1", "Subtask3"]
-    },
-    {
-      "name": "Subtask5",
-      "source": ["N7"],
-      "target": ["N10"],
-      "dependencies": ["Subtask4"]
-    }
-]
-"""
+    content = ""
     planner = ParallelPlanner(None, None)
     print("ojbk")
     tasks = planner.extract_json(content)
