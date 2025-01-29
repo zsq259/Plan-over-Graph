@@ -9,8 +9,8 @@ Additionally, determine the initial_source (starting node) and target (final nod
 
 Input: A story describing a workflow process. Example phrases may include:  
 - "From [NodeA], proceed to [NodeB] in X days at a cost of Y units"  
-- "When both [NodeA] and [NodeB] are ready, start [NodeC]"  
-- Shortcuts like "directly from [NodeA] to [NodeC] in Z days"  
+- "When both [NodeA] and [NodeB] are ready, [NodeC] can be completed in X days at a cost of Y units"
+- Shortcuts like "directly from [NodeA] to [NodeC] in X days at a cost of Y units"  
 
 Output: A JSON object with:  
 1. "rules": A list of transition rules, each containing:  
