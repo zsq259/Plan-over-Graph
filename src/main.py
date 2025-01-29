@@ -68,7 +68,6 @@ def main():
     parser.add_argument("--output_file", type=str, help="The output file to write to.", default=None)
 
     args = parser.parse_args()
-    task = args.task
     model = args.model
     scheduler_type = args.scheduler
     
@@ -77,7 +76,7 @@ def main():
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
-    logger.info(f"Running task: {task}")
+    logger.info(f"Running task: {args.task}")
     logger.info(f"Using model: {model}")
     logger.info(f"Using scheduler: {scheduler_type}")
     
@@ -97,12 +96,12 @@ def main():
         
         partial_results, questions = preprocess_question(args)
         for question in questions:
-            if task == "abstask" or task == "specific_task":
+            if args.task == "abstask" or args.task == "specific_task":
                 env = TTEnv(question['question'])
                 runner = TTRunner(None, None)
                 node_type = SubTTNode    
             else:
-                raise ValueError(f"Unsupported task: {task}")
+                raise ValueError(f"Unsupported task: {args.task}")
             planner = ParallelPlanner(model, env)
             scheduler = ParallelScheduler(runner, env)
             extractor = Extractor(model)

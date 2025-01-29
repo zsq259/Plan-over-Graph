@@ -32,6 +32,7 @@ class ParallelPlanner(Planner):
             subtasks = []
             valid = True
             try:
+                prompt = prompt.replace("'", '"')
                 response = self.model.predict(prompt)
                 tasks = extract_json(response)
                 if isinstance(tasks, dict):
