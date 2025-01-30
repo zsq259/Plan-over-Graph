@@ -64,10 +64,17 @@ def main():
     parser.add_argument("--extractor", type=bool, help="Whether to extract rules.", default=False)
     parser.add_argument("--max_retry", type=int, help="The maximum number of retries.", default=3)
     parser.add_argument("--question", type=str, help="The single question to ask.", default=None)
+    parser.add_argument("--test_case", type=str, help="The test case to use.", default=None)
     parser.add_argument("--test_file", type=str, help="The test file to use.", default=None)
-    parser.add_argument("--output_file", type=str, help="The output file to write to.", default=None)
+    parser.add_argument("--output_dir", type=str, help="The output file to write to.", default=None)
 
     args = parser.parse_args()
+    args.output_file = args.output_dir + "/" if args.output_dir and not args.output_dir.endswith("/") else args.output_dir
+    args.output_file = args.output_file + args.test_case if args.output_dir else None
+    args.output_file = args.output_file + "-e" if args.extractor else args.output_file
+    args.output_file = args.output_file + "-output.json" if args.output_file else None
+    print(args.output_file)
+    
     model = args.model
     scheduler_type = args.scheduler
     
@@ -150,6 +157,8 @@ def main():
                     env.reset()
                     
             partial_results.append({'question': question, 'failed_plans': all_failed_plans, 'plan': plan, 'result': result})
+            if args.extractor:
+                partial_results[-1]['model_rules'] = task
             if args.output_file:
                 save_results(partial_results, args.output_file)
         if args.output_file:
