@@ -5,9 +5,9 @@ def get_model(model_name):
     if "llama" in model_name.lower():
         from model.llama_wrapper import LlamaWrapper
         return LlamaWrapper(model_name)
-    elif "qwen" in model.lower():
+    elif "qwen" in model_name.lower():
         from model.qwen_wrapper import QwenWrapper
-        model = QwenWrapper(model)
+        return QwenWrapper(model_name)
     else:
         from model.gpt_wrapper import GPTWrapper
         return GPTWrapper(name=model_name)
