@@ -87,15 +87,19 @@ def main():
     logger.info(f"Using model: {model}")
     logger.info(f"Using scheduler: {scheduler_type}")
     
+    multiprocessing.set_start_method('spawn')
+    
     if "llama" in model.lower():
         from model.llama_wrapper import LlamaWrapper
         model = LlamaWrapper(model)
+    elif "qwen" in model.lower():
+        from model.qwen_wrapper import QwenWrapper
+        model = QwenWrapper(model)
     else:
         from model.gpt_wrapper import GPTWrapper
         model = GPTWrapper(name=model)
     
-    multiprocessing.set_start_method('spawn')
-
+    
     try:
         def save_results(partial_results, output_file):
             with open(output_file, "w") as f:
@@ -137,7 +141,7 @@ def main():
                         
                     prompt = prompt.replace("\'", "\"")
                     
-                    print(prompt)
+                    # print(prompt)
                     subtasks, plan, valid, failed_plans = planner.plan(prompt, node_type, max_retry)
                     if valid:
                         result = scheduler.run(subtasks)
