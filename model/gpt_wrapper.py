@@ -19,7 +19,7 @@ class GPTWrapper(Model):
             self.openai_base_url = os.environ.get("OPENAI_BASE_URL")
             self.is_chat_model = True
         
-    def chat_create(self, client, prompt, stop=None, max_tokens = 1024):
+    def chat_create(self, client, prompt, stop=None, max_tokens=8192):
         response = client.chat.completions.create(
                     model=self.name,                    
                     messages=[
@@ -35,7 +35,7 @@ class GPTWrapper(Model):
                 )
         return response.choices[0].message.content
     
-    def create(self, client, prompt, stop=None, max_tokens = 1024):
+    def create(self, client, prompt, stop=None, max_tokens=8192):
         response = client.completions.create(
                     model=self.name,
                     prompt=prompt,
@@ -48,10 +48,10 @@ class GPTWrapper(Model):
                 )
         return response.choices[0].text
     
-    def predict(self, prompt, stop=None, max_tokens = 1024, retries=3, delay=2):
+    def predict(self, prompt, stop=None, max_tokens=8192, retries=3, delay=2):
         attempt = 0
         while attempt < retries:
-            try:                
+            try:
                 client = OpenAI(base_url=self.openai_base_url, api_key=self.openai_api_key)
                 if self.is_chat_model:
                     response = self.chat_create(client, prompt, stop=stop, max_tokens=max_tokens)
@@ -67,10 +67,10 @@ class GPTWrapper(Model):
                     time.sleep(delay)
                 else:
                     logger.error(f"All {retries} attempts failed.")
-                    exit(1)
+                    raise e
             except Exception as e:
                 logger.error(f"Unexpected error: {COLOR_CODES['RED']}{e}{RESET}")
-                exit(1)
+                raise e
         with open("2.txt", "a") as f:
             f.write("\n-------------------------------------\n")
             f.write(prompt)
