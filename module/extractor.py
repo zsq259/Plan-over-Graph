@@ -12,6 +12,7 @@ class Extractor:
                 prompt = instruction.format(example=example, task=task).replace("\'", "\"")
                 print(prompt)
                 response = self.model.predict(prompt)
+                print(response)
                 rules = extract_json(response)
                 return rules
             except ValueError as e:

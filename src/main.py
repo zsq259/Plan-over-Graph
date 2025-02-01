@@ -8,6 +8,7 @@ from module.scheduler import ParallelScheduler
 from module.planner import ParallelPlanner
 from module.extractor import Extractor
 from module.subtask import SubTTNode
+from src.utils import get_model
 from src.logger_config import logger, COLOR_CODES, RESET
 
 def preprocess_question(args):
@@ -61,7 +62,7 @@ def main():
     parser.add_argument('--template', type=str, required=True, help='The template to use.')
     parser.add_argument("--model", type=str, required=True, help="The model to use.")
     parser.add_argument("--scheduler", type=str, required=True, help="The scheduler to use.")
-    parser.add_argument("--extractor", type=bool, help="Whether to extract rules.", default=False)
+    parser.add_argument("--extractor", help="Whether to use the extractor and the model to extract rules.", default=False)
     parser.add_argument("--max_retry", type=int, help="The maximum number of retries.", default=3)
     parser.add_argument("--question", type=str, help="The single question to ask.", default=None)
     parser.add_argument("--test_case", type=str, help="The test case to use.", default=None)
@@ -86,18 +87,9 @@ def main():
     logger.info(f"Running task: {args.task}")
     logger.info(f"Using model: {model}")
     logger.info(f"Using scheduler: {scheduler_type}")
+    logger.info(f"Using extractor: {args.extractor}")
     
-    multiprocessing.set_start_method('spawn')
-    
-    if "llama" in model.lower():
-        from model.llama_wrapper import LlamaWrapper
-        model = LlamaWrapper(model)
-    elif "qwen" in model.lower():
-        from model.qwen_wrapper import QwenWrapper
-        model = QwenWrapper(model)
-    else:
-        from model.gpt_wrapper import GPTWrapper
-        model = GPTWrapper(name=model)
+    model = get_model(model)
     
     
     try:
@@ -115,7 +107,11 @@ def main():
                 raise ValueError(f"Unsupported task: {args.task}")
             planner = ParallelPlanner(model, env)
             scheduler = ParallelScheduler(runner, env)
-            extractor = Extractor(model)
+            extractor = None
+            if isinstance(args.extractor, str):
+                extractor = Extractor(get_model(args.extractor))
+            else:
+                extractor = Extractor(model)
             
             max_retry = args.max_retry
             retry_count = 0

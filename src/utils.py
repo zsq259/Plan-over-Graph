@@ -1,6 +1,17 @@
 import re
 import json
 
+def get_model(model_name):
+    if "llama" in model_name.lower():
+        from model.llama_wrapper import LlamaWrapper
+        return LlamaWrapper(model_name)
+    elif "qwen" in model.lower():
+        from model.qwen_wrapper import QwenWrapper
+        model = QwenWrapper(model)
+    else:
+        from model.gpt_wrapper import GPTWrapper
+        return GPTWrapper(name=model_name)
+
 def extract_json(text: str) -> dict:
     # json_regex = r'```json\s*\[\s*[\s\S]*?\s*\]\s*(?:```|\Z)'
     # json_regex = r'```json\s*[\{\[]\s*[\s\S]*?\s*[\}\]]\s*(?:```|\Z)'

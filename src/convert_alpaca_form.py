@@ -13,7 +13,12 @@ def convert_task_form(task, dpo):
         rejected = str(task['feasible'])
         new_task = {"instruction": ins, "input": input, "chosen": chosen, "rejected": rejected}
     else:
-        output = str(task['answer'])
+        # output = str(task['answer'])
+        if 'feasible' not in task:
+            print(task)
+        if not task['feasible'] or len(task['feasible']) == 0:
+            return None
+        output = str(task['feasible'])
         new_task = {"instruction": ins, "input": input, "output": output}
     return new_task
 
@@ -22,7 +27,8 @@ def convert_data(input_file, dpo):
     new_data = []
     for task in data:
         new_task = convert_task_form(task, dpo)
-        new_data.append(new_task)
+        if new_task:
+            new_data.append(new_task)
     return new_data
         
 def main():

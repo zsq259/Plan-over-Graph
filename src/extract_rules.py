@@ -6,11 +6,11 @@ from src.utils import compare_rule_sets
 
 def main():
     # model = GPTWrapper("deepseek-reasoner")
-    model = LlamaWrapper("/data/share/data/llama-factory/LLaMA-Factory/saves/llama3-8b/lora/merged_model/sft_abstask_12000")
+    model = LlamaWrapper("/data/share/data/llama-factory/LLaMA-Factory/saves/llama3-8b/lora/merged_model/sft_abstask-6000")
     extractor = Extractor(model)
 
     file_path = "data/dev/10-1-100-s_2.json"
-    output_path = "data/result/llama-31-8b-instruct-sft23/10-1-100-s_2.json"
+    output_path = "data/result/llama-31-8b-instruct-sft22/10-1-100-s_2.json"
     data = json.load(open(file_path, "r"))
 
     results = []
