@@ -18,3 +18,12 @@ data/dev/alpaca_form/abstask-t-dpo.json filter=lfs diff=lfs merge=lfs -text
 data/dev/train/30-3-1000.json filter=lfs diff=lfs merge=lfs -text
 data/dev/train/alpaca_form/abstask-t.json filter=lfs diff=lfs merge=lfs -text
 data/dev/train/alpaca_form/abstask-t_dpo.json filter=lfs diff=lfs merge=lfs -text
+data/dev/train/alpaca_form/abstask_dpo.json filter=lfs diff=lfs merge=lfs -text
+data/dev/train/alpaca_form/abstask_feasible.json filter=lfs diff=lfs merge=lfs -text
+data/dev/train/alpaca_form/abstask.json filter=lfs diff=lfs merge=lfs -text
+data/dev/train/alpaca_form/abstask-t_feasible.json filter=lfs diff=lfs merge=lfs -text
+data/dev/train/50-1-1000-t.json filter=lfs diff=lfs merge=lfs -text
+data/dev/train/10-1-1000-t.json filter=lfs diff=lfs merge=lfs -text
+data/dev/train/10-3-1000.json filter=lfs diff=lfs merge=lfs -text
+data/dev/train/30-1-1000-t.json filter=lfs diff=lfs merge=lfs -text
+data/dev/train/50-1-1000.json filter=lfs diff=lfs merge=lfs -text
