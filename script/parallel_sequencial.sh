@@ -1,0 +1,1 @@
+python src/analyse/parallel_sequencial.py --models claude-3-5-sonnet-20241022 gpt-4o Llama-3.1-8B-Instruct Llama-3.1-8B-Instruct-DPO Qwen2.5-7B-Instruct Qwen2.5-7B-Instruct-DPO 
