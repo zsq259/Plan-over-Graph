@@ -6,14 +6,14 @@ from model.model import Model
 from src.logger_config import logger, COLOR_CODES, RESET
 
 class LlamaWrapper(Model):
-    def __init__(self, model_id = "meta-llama/Llama-3.2-1B-Instruct"):
+    def __init__(self, model = "meta-llama/Llama-3.2-1B-Instruct"):
         super().__init__(name="LlamaWrapper")
-        self.model_id = model_id
+        self.model = model
 
-    def predict(self, prompt, max_new_tokens=8192, stop=None):        
+    def predict(self, prompt, max_new_tokens=32768, stop=None):        
         pipe = pipeline(
             "text-generation",
-            model=self.model_id,
+            model=self.model,
             torch_dtype=torch.bfloat16,
             device_map="auto",
         )
@@ -43,13 +43,17 @@ class LlamaWrapper(Model):
             f.write("\nend:-------------------------------------\n")
         # print(prompt)
         # print(response_text)
+        if "deepseek-r1" in self.model.lower():
+            import re
+            response_text = re.sub(r'<think>.*?<\/think>', '', response_text, flags=re.DOTALL)
+        print(response_text)
         return response_text
 
 def main():
-    llama_wrapper = LlamaWrapper()
-    prompt = "My name is Julien and I like to"
+    llama_wrapper = LlamaWrapper(model="/data/share/data/llama-factory/1/DeepSeek-R1-Distill-Llama-8B")
+    prompt = "What is the capital of France?"
     response = llama_wrapper.predict(prompt)
-    # print(response)
+    print(response)
 
 if __name__ == "__main__":
     main()
