@@ -6,7 +6,7 @@ from src.agent.model.model import Model
 from src.utils.logger_config import logger, COLOR_CODES, RESET
 
 class LlamaWrapper(Model):
-    def __init__(self, model = "meta-llama/Llama-3.2-1B-Instruct"):
+    def __init__(self, model = "meta-llama/Llama-3.1-8B-Instruct"):
         super().__init__(name="LlamaWrapper")
         self.model = model
 
