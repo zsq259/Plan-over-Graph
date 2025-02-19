@@ -47,29 +47,41 @@ def normalize_rule(rule):
         "cost": float(rule["cost"])
     }
 
+from collections import Counter
+
 def compare_rule_sets(extracted, existing):
     def validate_structure(obj):
         if not isinstance(obj, dict):
-            raise ValueError("输入必须是字典类型")
+            raise ValueError("input must be a dictionary")
         for key in ["initial_source", "target", "rules"]:
             if key not in obj:
-                raise KeyError(f"缺失必要字段: {key}")
+                raise KeyError(f"missing key: {key}")
         if not all(isinstance(r, dict) for r in obj["rules"]):
-            raise TypeError("rules 必须由字典组成")
+            raise TypeError("rules must be a list of dictionaries")
     
     validate_structure(extracted)
     validate_structure(existing)
 
-    if sorted(extracted["initial_source"]) != sorted(existing["initial_source"]):
-        return False
-    
-    if extracted["target"] != existing["target"]:
-        return False
-    
-    if len(extracted["rules"]) != len(existing["rules"]):
-        return False
-    
+    # calculate similarity
+    def list_similarity(a, b):
+        """calculate Jaccard similarity between two lists"""
+        counter_a = Counter(a)
+        counter_b = Counter(b)
+        common = counter_a & counter_b
+        sum_common = sum(common.values())
+        sum_total = sum((counter_a | counter_b).values())
+        return sum_common / sum_total if sum_total != 0 else 1.0
+
+    initial_source_sim = list_similarity(extracted["initial_source"], existing["initial_source"])
+
+    target_sim = 1.0 if extracted["target"] == existing["target"] else 0.0
+
     def create_rule_signature(rules):
+        for r in rules:
+            if r["time"] == None:
+                r["time"] = float("inf")
+            if r["cost"] == None:
+                r["cost"] = float("inf")
         return {
             (tuple(sorted(r["source"])), tuple(sorted(r["target"])), float(r["time"]), float(r["cost"]))
             for r in rules
@@ -77,5 +89,20 @@ def compare_rule_sets(extracted, existing):
     
     extracted_signatures = create_rule_signature(extracted["rules"])
     existing_signatures = create_rule_signature(existing["rules"])
-    
-    return extracted_signatures == existing_signatures
+
+    common_rules = extracted_signatures & existing_signatures
+    rules_common_count = len(common_rules)
+    rules_total = len(extracted_signatures) + len(existing_signatures)
+    rules_sim = (2 * rules_common_count) / rules_total if rules_total != 0 else 1.0
+
+    # overall similarity score (average of the three)
+    similarity_score = (initial_source_sim + target_sim + rules_sim) / 3
+
+    is_identical = (
+        sorted(extracted["initial_source"]) == sorted(existing["initial_source"]) 
+        and extracted["target"] == existing["target"] 
+        and len(extracted["rules"]) == len(existing["rules"]) 
+        and extracted_signatures == existing_signatures
+    )
+
+    return (is_identical, similarity_score)
