@@ -1,0 +1,5 @@
+# Plan-over-Graph: Towards Parallelable LLM Agent Schedule
+
+Code and data for the paper "Plan-over-Graph: Towards Parallelable LLM Agent Schedule".
+
+Large Language Models (LLMs) have demonstrated exceptional abilities in reasoning for task planning. However, challenges remain under-explored for parallel schedules. This paper introduces a novel paradigm, $\textit{plan-over-graph}$, in which the model first decomposes a real-life textual task into executable subtasks and constructs an abstract task graph. The model then understands this task graph as input and generates a plan for parallel execution. To enhance the planning capability of complex, scalable graphs, we design an automated and controllable pipeline to generate synthetic graphs and propose a two-stage training scheme. Experimental results show that our $\textit{plan-over-graph}$ method significantly improves task performance on both API-based LLMs and trainable open-sourced LLMs. By normalizing complex tasks as graphs, our method naturally supports parallel execution, demonstrating global efficiency.
