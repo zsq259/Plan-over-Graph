@@ -105,8 +105,6 @@ class ParallelPlanner(Planner):
 if __name__ == "__main__":
     content = ""
     planner = ParallelPlanner(None, None)
-    print("ojbk")
     tasks = extract_json(content)
-    print("ojbk")
     print(json.dumps(tasks, indent=4))
     
