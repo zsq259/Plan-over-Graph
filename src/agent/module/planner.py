@@ -45,7 +45,6 @@ class ParallelPlanner(Planner):
                 plans = response
                 failed_plans.append(plans)
                 if retry_count == 0:
-                    # prompt = "You have failed to decompose the task. Please try again." + prompt
                     prompt = "Failed to decompose the task. Please ensure the json format is correct and wrapped in triple backticks." + prompt
                 retry_count += 1
                 continue
