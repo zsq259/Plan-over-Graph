@@ -76,7 +76,7 @@ Task1:
             "source": ["N2"],
             "target": ["N5"],
             "time": 5,
-            cost": 1
+            "cost": 1
         }
     ],
     "initial_source": ["N1", "N6"],

@@ -30,7 +30,7 @@ You can run the testing script to evaluate the model on the test set.
 ```bash
 ./script/test.sh # script for testing abstract graph
 ./script/test_query.sh # script for testing textual query without extraction
-./script/test_extract.sh # script for testing textual query with extraction
+./script/test_query_extract.sh # script for testing textual query with extraction
 ```
 
 ### Citation

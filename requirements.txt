@@ -7,3 +7,9 @@ gym
 beautifulsoup4
 accelerate>=0.26.0
 retry
+cyaron
+pandas
+matplotlib
+numpy
+scipy
+tiktoken
