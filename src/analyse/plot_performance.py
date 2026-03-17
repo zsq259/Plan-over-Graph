@@ -79,23 +79,34 @@ def process_model_data(model, test_points):
     
     return success_rates, optimal_rates, time_ratios, cost_ratios
 
-def main():
+def setup_plt_style():
+    """Set plotting style for reuse by other functions."""
     plt.style.use('seaborn-v0_8-whitegrid')
     
     plt.rcParams.update({
-        'font.size': 10,
-        'axes.titlesize': 10,
-        'axes.labelsize': 10,
-        'xtick.labelsize': 6,
-        'ytick.labelsize': 6,
+        'font.size': 18,
+        'axes.titlesize': 18,
+        'axes.labelsize': 18,
+        'xtick.labelsize': 9,
+        'ytick.labelsize': 9,
         'axes.titleweight': 'bold'
     })
 
-    parser = argparse.ArgumentParser(description="Plot model performance vs. number of test points")
-    parser.add_argument("--models", nargs="+", required=True, help="List of model names to evaluate")
-    args = parser.parse_args()
-
-    test_points = [10, 20, 30, 40, 50]
+def create_performance_plot(models, test_points=None):
+    """
+    Create the performance comparison figure and return the plt object.
+    
+    Args:
+        models: List of model names to evaluate.
+        test_points: List of test points, default is [10, 20, 30, 40, 50].
+        
+    Returns:
+        tuple: (plt, fig) Matplotlib pyplot object and figure object.
+    """
+    setup_plt_style()
+    
+    if test_points is None:
+        test_points = [10, 20, 30, 40, 50]
 
     # Initialize data containers
     metrics = {
@@ -108,26 +119,23 @@ def main():
     model_names = {
         "gpt-4o": "GPT-4o",
         "Llama-3.1-8B-Instruct": "Llama",
-        "Llama-3.1-8B-Instruct-sft24": "Llama-Trained",
+        "Llama-3.1-8B-Instruct-DPO": "Llama-Trained",
         "claude-3-5-sonnet-20241022": "Claude",
     }
     
     # Process data for all models
-    for model in args.models:
+    for model in models:
         s, o, t, c = process_model_data(model, test_points)
-        metrics['success'][model_names[model]] = s
-        metrics['optimal'][model_names[model]] = o
-        metrics['time_ratio'][model_names[model]] = t
-        metrics['cost_ratio'][model_names[model]] = c
+        model_display = model_names.get(model, model)  # Use mapped name or original name
+        metrics['success'][model_display] = s
+        metrics['optimal'][model_display] = o
+        metrics['time_ratio'][model_display] = t
+        metrics['cost_ratio'][model_display] = c
 
     # Create figure with two subplots
-    fig = plt.figure(figsize=(8, 8))
+    fig = plt.figure(figsize=(28, 7.5))
 
-    gs = fig.add_gridspec(
-        nrows=2, ncols=1,
-        height_ratios=[1, 1],
-        hspace=0.13
-    )
+    gs = fig.add_gridspec(1, 2, width_ratios=[1, 1], wspace=0.15)
     ax_top = fig.add_subplot(gs[0])
     ax_bottom = fig.add_subplot(gs[1])
     
@@ -145,62 +153,65 @@ def main():
     }
 
     # Plot top axes (ratios)
-    for idx, model in enumerate(args.models):
+    for idx, model in enumerate(models):
+        model_display = model_names.get(model, model)
         color = colors[idx % len(colors)]
         
         # Plot time ratio
         ax_top.plot(
-            test_points, metrics['time_ratio'][model_names[model]],
+            test_points, metrics['time_ratio'][model_display],
             color=color,
             linestyle=style_config['top']['time_ratio']['ls'],
             marker=style_config['top']['time_ratio']['marker'],
             linewidth=1,
             markersize=6,
-            label=f'{model_names[model]} Time or Success'
+            label=f'{model_display} Time or Success'
         )
         
         # Plot cost ratio
         ax_top.plot(
-            test_points, metrics['cost_ratio'][model_names[model]],
+            test_points, metrics['cost_ratio'][model_display],
             color=color,
             linestyle=style_config['top']['cost_ratio']['ls'],
             marker=style_config['top']['cost_ratio']['marker'],
             linewidth=1,
             markersize=6,
-            label=f'{model_names[model]} Cost or Optimal'
+            label=f'{model_display} Cost or Optimal'
         )
 
     # Configure top axes
     ax_top.set_title('Time & Cost Ratios', pad=8, weight='bold')
+    ax_top.set_xlabel('Number of Test Points')
     ax_top.set_ylabel('Ratio')
     ax_top.set_ylim(0, 5.5)
     ax_top.grid(True, linestyle='--', alpha=0.7)
     ax_top.axhline(4, color='gray', linestyle=':', alpha=0.7)  # Threshold line
 
     # Plot bottom axes (success rates)
-    for idx, model in enumerate(args.models):
+    for idx, model in enumerate(models):
+        model_display = model_names.get(model, model)
         color = colors[idx % len(colors)]
         
         # Plot success rate
         ax_bottom.plot(
-            test_points, metrics['success'][model_names[model]],
+            test_points, metrics['success'][model_display],
             color=color,
             linestyle=style_config['bottom']['success']['ls'],
             marker=style_config['bottom']['success']['marker'],
             linewidth=1,
             markersize=6,
-            label=f'{model_names[model]} Success'
+            label=f'{model_display} Success'
         )
         
         # Plot optimal rate
         ax_bottom.plot(
-            test_points, metrics['optimal'][model_names[model]],
+            test_points, metrics['optimal'][model_display],
             color=color,
             linestyle=style_config['bottom']['optimal']['ls'],
             marker=style_config['bottom']['optimal']['marker'],
             linewidth=1,
             markersize=6,
-            label=f'{model_names[model]} Optimal'
+            label=f'{model_display} Optimal'
         )
 
     # Configure bottom axes
@@ -217,22 +228,39 @@ def main():
     
     top_legend = ax_top.legend(
         loc='upper center',
-        bbox_to_anchor=(0.5, 1.42), 
-        ncol=2,
-        fontsize=10,
+        bbox_to_anchor=(1.05, 1.25), 
+        ncol=4,
+        # fontsize=10,
         frameon=True,
-        # title='Ratio Metrics:'
     )
     top_legend.get_title().set_position((-40, -15))
+    
+    return plt, fig
 
-    # Save output
-    output_dir = "data/result/figures"
+def save_plot(plt, fig, output_dir="data/result/figures", filename_base="node_results_line"):
+    """Save plots to the specified location."""
     os.makedirs(output_dir, exist_ok=True)
-    output_file = os.path.join(output_dir, "node_results_line.png")
+    
+    # Save PNG format
+    output_file = os.path.join(output_dir, f"{filename_base}.png")
     plt.savefig(output_file, bbox_inches='tight', dpi=300)
-    output_file = os.path.join(output_dir, "node_results_line.pdf")
+    print(f"Plot saved to: {output_file}")
+    
+    # Save PDF format
+    output_file = os.path.join(output_dir, f"{filename_base}.pdf")
     plt.savefig(output_file, bbox_inches='tight')
     print(f"Plot saved to: {output_file}")
+
+def main():
+    parser = argparse.ArgumentParser(description="Plot model performance vs. number of test points")
+    parser.add_argument("--models", nargs="+", required=True, help="List of model names to evaluate")
+    args = parser.parse_args()
+
+    # Create plot
+    plt_obj, fig = create_performance_plot(args.models)
+    
+    # Save plot
+    save_plot(plt_obj, fig)
 
 if __name__ == "__main__":
     main()

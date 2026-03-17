@@ -45,6 +45,8 @@ def main():
                       help="list of model names")
     parser.add_argument("--file_args", type=str, nargs='+', required=True,
                       help="list of file arguments in the format: prefix:segment_size")
+    parser.add_argument("--show_status", action="store_true", 
+                      help="show status bar charts in second row")
     args = parser.parse_args()
 
     file_params = []
@@ -107,8 +109,12 @@ def main():
         'axes.titleweight': 'bold'
     })
 
-    fig, axs = plt.subplots(2, num_columns,
-                          figsize=(7*num_columns, 10),
+    # Determine the number of subplot rows based on arguments
+    num_rows = 2 if args.show_status else 1
+    fig_height = 10 if args.show_status else 5
+
+    fig, axs = plt.subplots(num_rows, num_columns,
+                          figsize=(7*num_columns, fig_height),
                           squeeze=False,
                           gridspec_kw={'hspace': 0.2, 'wspace': 0.1})
 
@@ -129,31 +135,38 @@ def main():
         ax1.grid(True, alpha=0.3)
         ax1.legend().set_visible(False)
 
-        ax2 = axs[1][idx]
-        status_cols = [col for col in colors if col in result["status_data"].columns]
-
-        result["status_data"].plot(x="Edge Segment", y=status_cols,
-                                kind="bar", stacked=True,
-                                ax=ax2, color=[colors[col] for col in status_cols],
-                                width=0.8)
-
-        ax2.set_xlabel("Edge Count")
-        ax2.get_legend().remove()
-        ax2.grid(True, axis='y', alpha=0.3)
-
         if idx == 0:
             ax1.set_ylabel("Ratio")
-            ax2.set_ylabel("Count")
+
+        # Only draw the second row when show_status is True
+        if args.show_status:
+            ax2 = axs[1][idx]
+            status_cols = [col for col in colors if col in result["status_data"].columns]
+
+            result["status_data"].plot(x="Edge Segment", y=status_cols,
+                                    kind="bar", stacked=True,
+                                    ax=ax2, color=[colors[col] for col in status_cols],
+                                    width=0.8)
+
+            ax2.set_xlabel("Edge Count")
+            ax2.get_legend().remove()
+            ax2.grid(True, axis='y', alpha=0.3)
+            
+            if idx == 0:
+                ax2.set_ylabel("Count")
 
     handles, labels = axs[0][0].get_legend_handles_labels()
     fig.legend(handles, ["Time Ratio", "Cost Ratio"], loc='upper left',
              bbox_to_anchor=(0.122, 0.88), ncol=1)
     
-    status_handles = [plt.Rectangle((0,0),1,1, color=colors[k]) 
-                    for k in colors if k in status_cols]
-    fig.legend(status_handles, colors.keys(),
-             loc='lower left', bbox_to_anchor=(0.122, 0.32),
-             ncol=1)
+    # Add the status legend only when requested by arguments
+    if args.show_status:
+        status_cols = [col for col in colors if col in analysis_results[0]["status_data"].columns]
+        status_handles = [plt.Rectangle((0,0),1,1, color=colors[k]) 
+                        for k in colors if k in status_cols]
+        fig.legend(status_handles, [k for k in colors if k in status_cols],
+                 loc='lower left', bbox_to_anchor=(0.122, 0.32),
+                 ncol=1)
 
     combined_output_dir = "data/result/figures/"
     os.makedirs(combined_output_dir, exist_ok=True)

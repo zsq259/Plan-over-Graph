@@ -52,51 +52,49 @@ def compare_rule_sets(extracted, existing):
                 raise KeyError(f"missing key: {key}")
         if not all(isinstance(r, dict) for r in obj["rules"]):
             raise TypeError("rules must be a list of dictionaries")
-    
+
     validate_structure(extracted)
     validate_structure(existing)
 
-    # calculate similarity
-    def list_similarity(a, b):
-        """calculate Jaccard similarity between two lists"""
-        counter_a = Counter(a)
-        counter_b = Counter(b)
-        common = counter_a & counter_b
-        sum_common = sum(common.values())
-        sum_total = sum((counter_a | counter_b).values())
-        return sum_common / sum_total if sum_total != 0 else 1.0
+    # Initial condition F1
+    ext_src = Counter(extracted["initial_source"])
+    exist_src = Counter(existing["initial_source"])
+    tp_src = sum((ext_src & exist_src).values())
+    fp_src = sum((ext_src - exist_src).values())
+    fn_src = sum((exist_src - ext_src).values())
 
-    initial_source_sim = list_similarity(extracted["initial_source"], existing["initial_source"])
+    precision_src = tp_src / (tp_src + fp_src) if (tp_src + fp_src) > 0 else 1.0
+    recall_src    = tp_src / (tp_src + fn_src) if (tp_src + fn_src) > 0 else 1.0
+    f1_src        = (2 * precision_src * recall_src / (precision_src + recall_src)
+                     if (precision_src + recall_src) > 0 else 0.0)
 
-    target_sim = 1.0 if extracted["target"] == existing["target"] else 0.0
+    # Target accuracy
+    accuracy_tgt = 1.0 if extracted["target"] == existing["target"] else 0.0
 
-    def create_rule_signature(rules):
+    # Rule signature generation
+    def create_rule_signatures(rules):
+        sigs = []
         for r in rules:
-            if r["time"] == None:
-                r["time"] = float("inf")
-            if r["cost"] == None:
-                r["cost"] = float("inf")
-        return {
-            (tuple(sorted(r["source"])), tuple(sorted(r["target"])), float(r["time"]), float(r["cost"]))
-            for r in rules
-        }
-    
-    extracted_signatures = create_rule_signature(extracted["rules"])
-    existing_signatures = create_rule_signature(existing["rules"])
+            t = float("inf") if r.get("time") is None else float(r["time"])
+            c = float("inf") if r.get("cost") is None else float(r["cost"])
+            src_tup = tuple(sorted(r["source"]))
+            tgt_tup = tuple(sorted(r["target"]))
+            sigs.append((src_tup, tgt_tup, t, c))
+        return set(sigs)
 
-    common_rules = extracted_signatures & existing_signatures
-    rules_common_count = len(common_rules)
-    rules_total = len(extracted_signatures) + len(existing_signatures)
-    rules_sim = (2 * rules_common_count) / rules_total if rules_total != 0 else 1.0
+    ext_rules = create_rule_signatures(extracted["rules"])
+    exist_rules = create_rule_signatures(existing["rules"])
+    tp_rule = len(ext_rules & exist_rules)
+    fp_rule = len(ext_rules - exist_rules)
+    fn_rule = len(exist_rules - ext_rules)
 
-    # overall similarity score (average of the three)
-    similarity_score = (initial_source_sim + target_sim + rules_sim) / 3
+    precision_rule = tp_rule / (tp_rule + fp_rule) if (tp_rule + fp_rule) > 0 else 1.0
+    recall_rule    = tp_rule / (tp_rule + fn_rule) if (tp_rule + fn_rule) > 0 else 1.0
+    f1_rule        = (2 * precision_rule * recall_rule / (precision_rule + recall_rule)
+                      if (precision_rule + recall_rule) > 0 else 0.0)
 
-    is_identical = (
-        sorted(extracted["initial_source"]) == sorted(existing["initial_source"]) 
-        and extracted["target"] == existing["target"] 
-        and len(extracted["rules"]) == len(existing["rules"]) 
-        and extracted_signatures == existing_signatures
-    )
+    # Overall similarity and exact-match check
+    similarity_score = (f1_src + accuracy_tgt + f1_rule) / 3
+    is_identical = (f1_src == 1.0 and accuracy_tgt == 1.0 and f1_rule == 1.0)
 
-    return (is_identical, similarity_score)
+    return is_identical, similarity_score
