@@ -30,14 +30,14 @@ def convert_data(input_file, dpo):
         if new_task:
             new_data.append(new_task)
     return new_data
-        
+
 def main():
     parser = argparse.ArgumentParser(description="Convert data to ALPaCA format")
     parser.add_argument("--file_list", type=str, nargs='+', help="json file list")
     parser.add_argument("--output_name", type=str)
     parser.add_argument("--dpo", help="whether to convert to DPO format", type=bool, default=False)
     args = parser.parse_args()
-    
+
     # file_list = [
     #     "30-3-100"
     #     "10-1-1000-t",

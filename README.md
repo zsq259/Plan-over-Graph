@@ -24,7 +24,7 @@ wget https://huggingface.co/datasets/hastin/plan-over-graph/resolve/main/data.zi
 unzip data.zip && rm data.zip
 cd ..
 ```
-> We provide our results in `result/` folder for your reference.
+> We provide our results in `data/result/` folder for your reference.
 4. Run the testing script:
 You can run the testing script to evaluate the model on the test set.
 ```bash
