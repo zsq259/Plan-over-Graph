@@ -17,7 +17,7 @@ def analyze_ratios(ratios):
 def analyze_file(file_path):
     if not os.path.exists(file_path):
         print(f"file not found: {file_path}")
-        return None, None
+        return None, None, None
 
     with open(file_path, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -26,10 +26,15 @@ def analyze_file(file_path):
     failed_results = []
     time_ratios = []
     cost_ratios = []
+    # 只包含成功案例的 ratio
+    time_ratios_success = []
+    cost_ratios_success = []
 
     feasible_count = 0
     optimal_count = 0
     
+    FAIL_PENALTY = 4.0
+
     for item in data:
         task_id = item["question"]["id"]
         answer_time = item["question"]["min_time"]
@@ -46,6 +51,8 @@ def analyze_file(file_path):
             cost_ratio = result_cost / min_cost
             time_ratios.append(time_ratio)
             cost_ratios.append(cost_ratio)
+            time_ratios_success.append(time_ratio)
+            cost_ratios_success.append(cost_ratio)
             results.append({
                 "Category": os.path.basename(file_path).replace("-output.json", ""),
                 "Node Count": nodes,
@@ -58,14 +65,14 @@ def analyze_file(file_path):
             else:
                 feasible_count += 1
         else:
-            time_ratios.append(4.0)
-            cost_ratios.append(4.0)
+            time_ratios.append(FAIL_PENALTY)
+            cost_ratios.append(FAIL_PENALTY)
             results.append({
                 "Category": os.path.basename(file_path).replace("-output.json", ""),
                 "Node Count": nodes,
                 "Edge Count": edges,
-                "Time Ratio": 4.0,
-                "Cost Ratio": 4.0
+                "Time Ratio": FAIL_PENALTY,
+                "Cost Ratio": FAIL_PENALTY
             })
 
             failed_results.append({
@@ -76,6 +83,8 @@ def analyze_file(file_path):
     in_all_results = []
     time_stats = analyze_ratios(time_ratios)
     cost_stats = analyze_ratios(cost_ratios)
+    time_stats_success = analyze_ratios(time_ratios_success)
+    cost_stats_success = analyze_ratios(cost_ratios_success)
     total_count = feasible_count + optimal_count + len(failed_results)
     if total_count > 0:
         success_rate = (feasible_count + optimal_count) / total_count
@@ -101,6 +110,8 @@ def analyze_file(file_path):
             "Min Cost Ratio": cost_stats["min_ratio"],
             "Max Cost Ratio": cost_stats["max_ratio"],
             "Avg Cost Ratio": cost_stats["avg_ratio"]
+            ,"Avg Success Time Ratio": time_stats_success["avg_ratio"] if time_stats_success else None
+            ,"Avg Success Cost Ratio": cost_stats_success["avg_ratio"] if cost_stats_success else None
         })
     else:
         in_all_results.append({
@@ -115,6 +126,8 @@ def analyze_file(file_path):
             "Min Cost Ratio": None,
             "Max Cost Ratio": None,
             "Avg Cost Ratio": None
+            ,"Avg Success Time Ratio": None
+            ,"Avg Success Cost Ratio": None
         })
     return results, failed_results, in_all_results[0]
 
@@ -169,10 +182,11 @@ def generate_combined_table_image(model_name, results, output_image_path):
     df = pd.DataFrame(results)
     
     if not df.empty:
-        summary = {"Category": "Overall"}
+        summary: dict[str, object] = {"Category": "Overall"}
         
         avg_columns = ["Success Rate", "Failure Rate", "Feasible Accuracy", "Optimal Accuracy",
-                      "Avg Time Ratio", "Avg Cost Ratio"]
+                      "Avg Time Ratio", "Avg Cost Ratio",
+                      "Avg Success Time Ratio", "Avg Success Cost Ratio"]
         
         minmax_columns = ["Min Time Ratio", "Max Time Ratio", "Min Cost Ratio", "Max Cost Ratio"]
         
@@ -195,7 +209,8 @@ def generate_combined_table_image(model_name, results, output_image_path):
     
     combined_df = combined_df.round(3)
     
-    fig, ax = plt.subplots(figsize=(12, (len(results)+1)*0.5 + 1))
+    fig_width = max(12, len(combined_df.columns) * 1.5)
+    fig, ax = plt.subplots(figsize=(fig_width, (len(results)+1)*0.5 + 1))
     ax.set_title(f"{model_name} Analysis Results", fontsize=16)
     ax.axis('off')
     
@@ -212,6 +227,8 @@ def generate_combined_table_image(model_name, results, output_image_path):
     
     table.auto_set_font_size(False)
     table.set_fontsize(12)
+    for col_index in range(len(combined_df.columns)):
+        table.auto_set_column_width(col=col_index)
     table.scale(1.2, 1.2)
     
     plt.tight_layout()
@@ -272,6 +289,8 @@ def main():
     table = ax.table(cellText=df.values, colLabels=df.columns, cellLoc='center', loc='center')
     table.auto_set_font_size(False)
     table.set_fontsize(10)
+    for col_index in range(len(df.columns)):
+        table.auto_set_column_width(col=col_index)
     table.scale(1.2, 1.2)
     visualize_data(df, output_dir)
     visualize_failed_data(failed_df, output_dir)

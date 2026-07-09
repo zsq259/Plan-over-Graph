@@ -153,6 +153,7 @@ def main():
     parser.add_argument("--nodes", type=int, nargs=2, help="Number of nodes in the graph", default=(50, 50))
     parser.add_argument("--edge_config", type=int, help="Edge configuration", default=1)
     parser.add_argument("--graph_type", type=str, help="Type of graph to generate", default="tree")
+    parser.add_argument("--cost_range", type=int, nargs=2, help="Cost range", default=(1, 1))
     args = parser.parse_args()
     config = args.config
     nodes = args.nodes
@@ -183,7 +184,12 @@ def main():
             m = random.randint(n * (n - 1) // 3, n * (n - 1) // 2)
         elif edge_config == 3:
             m = random.randint(n, n * (n - 1) // 2)
-        abstract_workflow = generate_abstract_workflow(args.graph_type, n, m)
+        abstract_workflow = generate_abstract_workflow(
+            args.graph_type,
+            n,
+            m,
+            cost_range=tuple(args.cost_range),
+        )
         min_time, min_cost, path_count, plan, feasible, feasible_time = min_time_cost_to_target(abstract_workflow)
         if path_count <= 1 or len(feasible) == 0:
             continue

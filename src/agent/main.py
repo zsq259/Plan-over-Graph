@@ -39,6 +39,7 @@ def main():
     parser.add_argument("--model", type=str, required=True, help="The model to use.")
     parser.add_argument("--scheduler", type=str, required=True, help="The scheduler to use.")
     parser.add_argument("--extractor", type=bool or str, help="Whether to use the extractor and the model to extract rules.", default=False)
+    parser.add_argument("--validation_iterations", type=int, help="Number of validation refinement iterations (0 to disable).", default=0)
     parser.add_argument("--max_retry", type=int, help="The maximum number of retries.", default=3)
     parser.add_argument("--test_case", type=str, help="The test case to use.", default=None)
     parser.add_argument("--output_dir", type=str, help="The output file to write to.", default=None)
@@ -76,13 +77,15 @@ def main():
             plan = None
             all_failed_plans = []
             extractor = None
+            extraction_iterations = 0
+            
             if isinstance(args.extractor, str):
                 if args.extractor == args.model:
-                    extractor = Extractor(model)
+                    extractor = Extractor(model, validation_iterations=args.validation_iterations)
                 else:
-                    extractor = Extractor(get_model(args.extractor))
+                    extractor = Extractor(get_model(args.extractor), validation_iterations=args.validation_iterations)
             else:
-                extractor = Extractor(model)       
+                extractor = Extractor(model, validation_iterations=args.validation_iterations)       
             
             while retry_count < args.max_retry:
                 try:
@@ -97,6 +100,7 @@ def main():
                         task = question['story']
                         if args.extractor:
                             task = extractor.extract(task, args.max_retry)
+                            extraction_iterations = extractor.iteration_count
                         prompt = instruction.format(example=example, task=task)
                     else:
                         raise ValueError(f"Unsupported task: {args.task}")
@@ -134,6 +138,9 @@ def main():
             partial_results.append({'question': question, 'failed_plans': all_failed_plans, 'plan': plan, 'result': result})
             if args.extractor:
                 partial_results[-1]['model_rules'] = task
+                if args.validation_iterations > 0:
+                    partial_results[-1]['extraction_iterations'] = extraction_iterations
+                    partial_results[-1]['extraction_history'] = extractor.extraction_history
             if args.output_file:
                 save_results(partial_results, args.output_file)
         if not args.output_file:
